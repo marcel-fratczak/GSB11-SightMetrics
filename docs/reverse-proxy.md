@@ -82,13 +82,19 @@ REVERSE_PROXY_SSL=*
 Die tatsächliche Gateway-Adresse ermitteln:
 
 ```bash
-docker network inspect t3ud-gsb11_gsb --format '{{(index .IPAM.Config 0).Gateway}}'
+docker network inspect gsb11-sightmetrics_gsb --format '{{(index .IPAM.Config 0).Gateway}}'
 ```
 
 `REVERSE_PROXY_IP` ist der Punkt, an dem die meisten Setups scheitern: TYPO3
 wertet die weitergereichten `X-Forwarded-`-Header **nur** aus, wenn die
 Absenderadresse zu diesem Wert passt. Stimmt er nicht, entstehen `http://`-Links
 in einer `https://`-Seite und im Backend Redirect-Schleifen.
+
+Derselbe Wert steuert, welche Besucher-IP im Access-Log für SightMetrics
+landet: Nur für Requests von diesen Adressen übernimmt nginx den letzten
+Eintrag aus `X-Forwarded-For`. Fehlt er, zählt SightMetrics alle Besucher unter
+der Adresse des Proxys – Besuche verschmelzen. `*` wird dafür bewusst ignoriert,
+weil dann jeder Besucher seine IP per Header fälschen könnte.
 
 ### Caddy
 
@@ -222,6 +228,53 @@ mit höherer Priorität:
 
 ---
 
+## Fall 4 – NetBird Reverse Proxy
+
+Der [NetBird Reverse Proxy](https://docs.netbird.io/manage/reverse-proxy) läuft
+auf dem öffentlich erreichbaren NetBird-Server, holt das Zertifikat und reicht
+die Anfragen durch den WireGuard-Tunnel an den Rechner mit dem Stack weiter.
+Voraussetzung: Auf diesem Rechner läuft der NetBird-Client, er ist also selbst
+Peer mit einer `100.x`-Adresse.
+
+**1. `.env` anpassen**
+
+```ini
+BIND_IP=100.64.0.7          # NetBird-Adresse dieses Rechners
+GSB_SCHEME=https
+FRONTEND_DOMAIN=gsb11.example.org
+BACKEND_DOMAIN=gsb11.example.org
+TRUSTED_HOSTS_PATTERN='gsb11\.example\.org'
+REVERSE_PROXY_IP=100.64.0.1 # NetBird-Adresse, von der der Proxy kommt
+REVERSE_PROXY_SSL=*
+```
+
+Die Adresse des Proxys steht nach dem ersten Aufruf der Seite in der ersten
+Spalte des stdout-Logs – dort protokolliert nginx die TCP-Gegenstelle:
+
+```bash
+docker compose logs --tail=5 web
+```
+
+Danach `docker compose up -d`, damit `web` und `php` den Wert übernehmen.
+
+**2. Dienst in NetBird anlegen**
+
+Im Dashboard unter **Reverse Proxy › Services › Add Service**:
+
+| Feld | Wert |
+|------|------|
+| Service mode | `HTTP` |
+| Subdomain / Base domain | die gewünschte Adresse |
+| Target | Typ `Peer`, dieser Rechner, Protocol `HTTP`, Port `8080` |
+| Settings › Pass Host Header | **an** – sonst passt der Host nicht zu `TRUSTED_HOSTS_PATTERN` (HTTP 500) |
+| Authentication | für eine öffentliche Seite alle Verfahren aus; das Dashboard warnt dann, dass der Dienst öffentlich ist |
+
+Der Proxy setzt `X-Forwarded-For`, `X-Forwarded-Proto` und `X-Forwarded-Host`
+selbst und überschreibt dabei, was ein Besucher mitschickt. Deshalb ist die IP
+in `X-Forwarded-For` verlässlich, sobald `REVERSE_PROXY_IP` stimmt.
+
+---
+
 ## Checkliste
 
 | Prüfung | Kommando |
@@ -231,6 +284,7 @@ mit höherer Priorität:
 | Proxy reicht korrekt durch | `curl -I https://<domain>/` |
 | TYPO3 erkennt HTTPS | Im Quelltext der Seite dürfen keine `http://<domain>`-Links stehen |
 | Backend erreichbar | `https://<domain>/typo3` ohne Redirect-Schleife |
+| SightMetrics sieht Besucher-IPs | `docker compose exec web sh -c 'tail -3 /var/log/nginx/sightmetrics/access-*.log'` – die erste Spalte darf nicht die Proxy-Adresse sein |
 
 Häufigste Ursachen, wenn es klemmt:
 

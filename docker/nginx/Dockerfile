@@ -6,3 +6,7 @@ FROM nginx:stable-alpine
 RUN apk upgrade --no-cache
 
 COPY default.conf /etc/nginx/conf.d/default.conf
+
+# SightMetrics: Proxy-Adressen und Log-Verzeichnis beim Start vorbereiten
+# SightMetrics: prepare proxy addresses and log directory at startup
+COPY --chmod=0755 30-sightmetrics.sh /docker-entrypoint.d/30-sightmetrics.sh

@@ -105,6 +105,16 @@ jobs:
           for p in / /programm /impressionen; do
             curl -s -o /dev/null -A "$ua" "http://localhost:8080$p"
           done
+          # Ohne REVERSE_PROXY_IP darf ein mitgeschickter X-Forwarded-For nicht
+          # als Besucher-IP im Log landen.
+          # Without REVERSE_PROXY_IP a client-sent X-Forwarded-For must not end up
+          # as the visitor IP in the log.
+          curl -s -o /dev/null -A "$ua" -H 'X-Forwarded-For: 203.0.113.99' http://localhost:8080/
+          docker compose exec -T web sh -c 'cat /var/log/nginx/sightmetrics/access-*.log' > sightmetrics-access.log
+          if grep -q '^203\.0\.113\.99 ' sightmetrics-access.log; then
+            echo "::error::Gefälschter X-Forwarded-For im SightMetrics-Access-Log"
+            exit 1
+          fi
           ./scripts/sightmetrics-import.sh --heute
           # Liest über die Verbindung 'cube' als report_ro und schlägt bei leerem Cube fehl.
           # Reads via the 'cube' connection as report_ro, fails on an empty cube.
@@ -116,7 +126,7 @@ jobs:
           test "$pv" -ge 3
           # Das Backend darf nicht mitgezählt werden (nginx-map auf /typo3).
           # Backend requests must not be counted (nginx map on /typo3).
-          if docker compose exec -T web grep -q ' "GET /typo3' /var/log/nginx/sightmetrics/access.log; then
+          if grep -q ' "GET /typo3' sightmetrics-access.log; then
             echo "::error::Backend-Aufrufe im SightMetrics-Access-Log"
             exit 1
           fi

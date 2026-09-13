@@ -118,9 +118,17 @@ SightMetrics besteht aus zwei Teilen, die sich nur die Datenbank teilen:
 | TYPO3-Extension `sight_metrics` | im `php`-Container, per Composer eingebunden | Backend-Modul **Web > SightMetrics**, liest ausschließlich (`report_ro`, nur `SELECT`) |
 
 nginx schreibt dafür ein zweites Access-Log im Combined-Format in das Volume
-`sightmetrics-logs`. Backend-Aufrufe unter `/typo3`, der Healthcheck und
-statische Assets bleiben draußen – ausgewertet werden die Seitenaufrufe des
-Frontends.
+`sightmetrics-logs`, eine Datei pro Kalendertag (`access-JJJJ-MM-TT.log`).
+Backend-Aufrufe unter `/typo3`, der Healthcheck und statische Assets bleiben
+draußen – ausgewertet werden die Seitenaufrufe des Frontends. Hinter einem
+Reverse Proxy übernimmt nginx die Besucher-IP aus `X-Forwarded-For`, aber nur
+von den Adressen in `REVERSE_PROXY_IP` (siehe
+[`docs/reverse-proxy.md`](docs/reverse-proxy.md)).
+
+**Datenschutz:** Die Tagesdateien enthalten vollständige IP-Adressen, die
+Cube-DB nicht. Nach jedem erfolgreichen Import löscht das Skript Tagesdateien,
+die älter als `SM_LOG_RETENTION_DAYS` (Standard 7) sind. Die passende Frist
+gehört mit der oder dem Datenschutzbeauftragten abgestimmt.
 
 Zugriffe auswerten:
 
@@ -373,10 +381,12 @@ und der Report meldet Funde, die es real längst nicht mehr gibt.
   `./scripts/sightmetrics-import.sh --heute` verwenden.
 - **Aufrufe per `curl` zählen nicht.** Die Ingestion filtert Bots und Werkzeuge
   anhand des User-Agents; `curl`, `wget` und Monitoring-Dienste stehen darauf.
-- **Das Access-Log wächst.** Für die Notebook-Demo ohne Belang. Wer den Stack
-  dauerhaft betreibt, rotiert `access.log` im Volume `sightmetrics-logs`; die
-  Ingestion erkennt die Rotation am Inode (siehe
-  [Runbook, Abschnitt 13](sightmetrics/docs/ingestion-runbook.md#13-log-rotation)).
+- **Alle Besuche kommen von derselben IP.** Hinter einem Reverse Proxy passt
+  `REVERSE_PROXY_IP` nicht zur Adresse, von der der Proxy tatsächlich kommt.
+  Die richtige steht in `docker compose logs web` in der ersten Spalte.
+- **Tagesdateien werden nur beim Import gelöscht.** Läuft der Cron-Job nicht,
+  bleiben die Rohdaten liegen. Die Löschfrist setzt einen regelmäßigen Import
+  voraus.
 - **GSB-Vorgaben.** Die Distribution setzt `allowedAudio/VideoDomains` auf
   `*.bund.de` und brandet das Backend mit ITZBund-Logos. Beides ist über
   `ALLOWED_MEDIA_DOMAINS`, `BACKEND_LOGIN_FOOTNOTE` und

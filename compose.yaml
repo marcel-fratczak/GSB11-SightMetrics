@@ -53,6 +53,14 @@ services:
     # Privilegien-Eskalation (setuid) im Container.
     # Hardening: immutable root FS, writable paths as tmpfs, no privilege
     # escalation (setuid) inside the container.
+    environment:
+      # Tagesdateien des SightMetrics-Logs in derselben Zeitzone wie die Auswertung
+      # Day files of the SightMetrics log in the same time zone as the analysis
+      TZ: "${SM_TZ:-Europe/Berlin}"
+      # Nur von diesen Adressen wird X-Forwarded-For als Besucher-IP ins
+      # SightMetrics-Log übernommen (docker/nginx/30-sightmetrics.sh)
+      # Only from these addresses X-Forwarded-For counts as the visitor IP
+      REVERSE_PROXY_IP: "${REVERSE_PROXY_IP:-}"
     read_only: true
     tmpfs:
       - /var/cache/nginx
@@ -162,6 +170,13 @@ services:
       # ignored. See docs/reverse-proxy.md.
       TYPO3__SYS__reverseProxyIP: "${REVERSE_PROXY_IP:-}"
       TYPO3__SYS__reverseProxySSL: "${REVERSE_PROXY_SSL:-}"
+      # Besucher-IP aus dem letzten X-Forwarded-For-Eintrag (vom Proxy gesetzt).
+      # Wirkt nur für Requests von REVERSE_PROXY_IP. Ohne das sähe TYPO3 – auch
+      # die IP-basierte Login-Sperre – alle Besucher unter der Proxy-Adresse.
+      # Visitor IP from the last X-Forwarded-For entry; only applies to requests
+      # from REVERSE_PROXY_IP. Otherwise TYPO3 – including its IP-based login
+      # rate limiter – would see every visitor as the proxy.
+      TYPO3__SYS__reverseProxyHeaderMultiValue: last
 
       # ---- E-Mail-Versand / mail delivery ----
       # Ohne SMTP bleibt transport=sendmail – im Image gibt es kein sendmail,
@@ -223,12 +238,15 @@ services:
       context: ./sightmetrics/ingestion
       pull: true
     profiles: [sightmetrics]
+    # Importiert alle Tagesdateien des nginx-Logs (docker/sightmetrics/import.sh)
+    # Imports every day file of the nginx log (docker/sightmetrics/import.sh)
+    command: ["/etc/sightmetrics/import.sh"]
     depends_on:
       db:
         condition: service_healthy
     environment:
       CUBE_DSN: "host=db port=3306 user=cube_rw password=${CUBE_RW_PASSWORD:?Set CUBE_RW_PASSWORD in .env} database=analytics"
-      SITES_CONF: /etc/sightmetrics/sites.conf
+      SM_SITE_NAME: "${SM_SITE_NAME:-GSB11}"
       SM_TZ: "${SM_TZ:-Europe/Berlin}"
       # Ohne eigene GeoIP-Daten bleibt das Land unbekannt ('??'), siehe
       # docker/sightmetrics/geo/README.md.
@@ -238,7 +256,7 @@ services:
     volumes:
       - sightmetrics-logs:/logs:ro
       - sightmetrics-state:/state
-      - ./docker/sightmetrics/sites.conf:/etc/sightmetrics/sites.conf:ro
+      - ./docker/sightmetrics/import.sh:/etc/sightmetrics/import.sh:ro
       - ./docker/sightmetrics/geo:/geo:ro
     # Image läuft als UID 10001; nur /state (Volume) und /tmp sind beschreibbar.
     # The image runs as UID 10001; only /state (volume) and /tmp are writable.

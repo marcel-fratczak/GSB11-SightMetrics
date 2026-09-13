@@ -77,11 +77,19 @@ die Zugriffsauswertung SightMetrics. Hervorgegangen aus T3UD-GSB11
   `report_ro` (nur SELECT, Extension). Angelegt in `setup.sh` Schritt 8 über
   den `db`-Container als root, nicht per initdb – das greift bei einem schon
   bestehenden Volume nicht. Die Tabellen legt erst der erste Import an.
-- **Log:** nginx schreibt zusätzlich `combined` nach
-  `/var/log/nginx/sightmetrics/access.log` (Volume `sightmetrics-logs`),
-  `/typo3` per `map` ausgenommen.
-- **Import:** `scripts/sightmetrics-import.sh` (`--heute` für die Vorführung).
-  Leert danach den TYPO3-Cache als `www-data`.
+- **Log:** nginx schreibt zusätzlich eine Tagesdatei
+  `/var/log/nginx/sightmetrics/access-JJJJ-MM-TT.log` (Volume
+  `sightmetrics-logs`, Zeitzone `TZ` = `SM_TZ`), `/typo3` per `map`
+  ausgenommen. Besucher-IP per `geo`/`map` aus `X-Forwarded-For`, nur von
+  Adressen aus `REVERSE_PROXY_IP`; die Liste schreibt
+  `docker/nginx/30-sightmetrics.sh` beim Start nach `/run/sightmetrics/`.
+- **Import:** `scripts/sightmetrics-import.sh` (`--heute` für die Vorführung)
+  startet `docker/sightmetrics/import.sh` im Container, das aus den
+  Tagesdateien eine temporäre `sites.conf` baut und `run_all.sh` aufruft.
+  Danach Löschfrist (`SM_LOG_RETENTION_DAYS`, im web-Container) und
+  TYPO3-Cache leeren als `www-data`.
+- **Produktivbetrieb** hinter dem NetBird Reverse Proxy: `docs/reverse-proxy.md`,
+  Fall 4. Konkrete Domains gehören nicht ins Repo (öffentlich).
 
 ## Inhaltliche Leitplanken
 
@@ -138,6 +146,19 @@ Das Repository ist öffentlich und bezieht sich auf eine reale Veranstaltung:
   den User-Agent. Tests brauchen einen Browser-UA.
 - **Ohne GeoIP-Datei bricht die Ingestion ab.** Der Platzhalter
   `docker/sightmetrics/geo/country-ipv4-num.csv` muss bleiben.
+- **Kein nginx-realip-Modul für die Besucher-IP.** Es schreibt `REMOTE_ADDR`
+  um; TYPO3 erkennt den Proxy dann nicht mehr über `reverseProxyIP`, und
+  `reverseProxySSL` greift nicht (http-Links, Redirect-Schleifen). Die IP wird
+  nur fürs SightMetrics-Log per `geo`/`map` bestimmt.
+- **Log-Rotation per Umbenennen verliert Daten.** Die Ingestion erkennt sie am
+  Inode und liest die neue Datei ab Byte 0; die zurückgestellten Zeilen des
+  laufenden Tags in der alten Datei gehen verloren. Deshalb Tagesdateien.
+- **Variable im `access_log`-Pfad:** nginx prüft dann das `root`-Verzeichnis
+  und schreibt ohne existierendes `root` still nichts. Der Worker (`nginx`)
+  legt die Dateien an – das Verzeichnis muss ihm gehören.
+- **TYPO3 wertet `X-Forwarded-For` nur mit `reverseProxyHeaderMultiValue`
+  aus** (Standard `none`). Ohne `last` sieht auch die IP-basierte
+  Login-Sperre alle Besucher unter der Proxy-Adresse.
 
 ## Repository
 
