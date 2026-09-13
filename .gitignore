@@ -5,6 +5,11 @@
 # Lokale Konfiguration mit Passwörtern / local configuration containing secrets
 .env
 
+# Eigene GeoIP-Daten für SightMetrics (Lizenz, Größe) – nur der Platzhalter ist versioniert
+# Own GeoIP data for SightMetrics (licence, size) – only the placeholder is versioned
+/docker/sightmetrics/geo/*.csv
+!/docker/sightmetrics/geo/country-ipv4-num.csv
+
 # Werkzeug-Konfiguration des Entwicklungsrechners
 # Local tooling configuration
 /.claude/

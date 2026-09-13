@@ -22,7 +22,8 @@ RUN set -eux; \
 FROM debian:bookworm-slim
 
 # default-mysql-client provides mysql + mysqldump (for backup_cube.sh / rotate_cube_secret.sh).
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# apt-get upgrade: pull Debian security fixes the base image tag doesn't carry yet.
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
       bash python3 ca-certificates time gettext-base default-mysql-client \
  && rm -rf /var/lib/apt/lists/*
 

@@ -263,6 +263,8 @@ if [ "$REUSE_ENV" != true ]; then
     DB_USER=gsb11
     DB_PASSWORD="$(gen_pw)"
     DB_ROOT_PASSWORD="$(gen_pw)"
+    CUBE_RW_PASSWORD="$(gen_pw)"
+    CUBE_RO_PASSWORD="$(gen_pw)"
 
     # ---- Zusammenfassung --------------------------------------------------
     section "Zusammenfassung"
@@ -317,6 +319,10 @@ TYPO3_ADMIN_USER=$TYPO3_ADMIN_USER
 TYPO3_ADMIN_PASSWORD='$TYPO3_ADMIN_PASSWORD'
 TYPO3_ADMIN_EMAIL=$TYPO3_ADMIN_EMAIL
 
+# --- SightMetrics (Cube-DB: cube_rw schreibt, report_ro liest) ---
+CUBE_RW_PASSWORD='$CUBE_RW_PASSWORD'
+CUBE_RO_PASSWORD='$CUBE_RO_PASSWORD'
+
 # --- E-Mail / mail (für die lokale Demo nicht nötig / not needed locally) ---
 MAIL_TRANSPORT=sendmail
 MAIL_SMTP_SERVER=
@@ -333,6 +339,19 @@ fi
 
 set -a; . ./.env; set +a
 : "${WITH_DEMO:=true}"
+
+# Eine .env aus der Zeit vor SightMetrics hat noch keine Cube-Passwörter.
+# An .env anhängen statt neu schreiben – alle übrigen Werte bleiben unberührt.
+# A .env from before SightMetrics lacks the cube passwords. Append instead of
+# rewriting so every other value stays untouched.
+for var in CUBE_RW_PASSWORD CUBE_RO_PASSWORD; do
+    if [ -z "${!var:-}" ]; then
+        printf -v "$var" '%s' "$(gen_pw)"
+        printf "%s='%s'\n" "$var" "${!var}" >> .env
+        export "${var?}"
+        ok "$var in .env ergänzt"
+    fi
+done
 # Option schlägt den Wert aus .env / the option overrides the value from .env
 [ -n "$OPT_DEMO" ] && WITH_DEMO="$OPT_DEMO"
 
@@ -354,25 +373,60 @@ db_sql() { $C exec -T -e MYSQL_PWD="$DB_PASSWORD" php \
 
 section "Installation"
 
-info "[1/9] Container bauen und starten ..."
+info "[1/11] Container bauen und starten ..."
 mkdir -p app
 $C up -d --build --wait db
 $C up -d --build php web
 
-info "[2/9] GSB11 per Composer installieren (dauert einige Minuten) ..."
+info "[2/11] Cube-DB für SightMetrics anlegen ..."
+# Eigene Datenbank neben gsb11 mit zwei Benutzern: cube_rw für die Ingestion,
+# report_ro (nur SELECT) für das Backend-Modul. Muss vor 'typo3 setup' laufen:
+# TYPO3 verbindet sich dort mit allen Verbindungen, auch mit 'cube'.
+# Wiederholbar – ALTER USER gleicht die Passwörter an .env an. Host '%' ist
+# vertretbar, weil der DB-Port nicht veröffentlicht ist: Nur Container im Netz
+# 'gsb' erreichen die DB.
+# Separate database next to gsb11 with two users: cube_rw for the ingestion,
+# report_ro (SELECT only) for the backend module. Must run before 'typo3 setup',
+# which connects to every connection including 'cube'. Re-runnable – ALTER USER
+# syncs the passwords with .env. Host '%' is acceptable because the DB port is
+# not published: only containers on the 'gsb' network reach the database.
+$C exec -T -e MYSQL_PWD="$DB_ROOT_PASSWORD" db \
+    mariadb --default-character-set=utf8mb4 -uroot <<SQL
+CREATE DATABASE IF NOT EXISTS analytics CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS 'cube_rw'@'%' IDENTIFIED BY '$CUBE_RW_PASSWORD';
+ALTER USER 'cube_rw'@'%' IDENTIFIED BY '$CUBE_RW_PASSWORD';
+GRANT ALL PRIVILEGES ON analytics.* TO 'cube_rw'@'%';
+CREATE USER IF NOT EXISTS 'report_ro'@'%' IDENTIFIED BY '$CUBE_RO_PASSWORD';
+ALTER USER 'report_ro'@'%' IDENTIFIED BY '$CUBE_RO_PASSWORD';
+GRANT SELECT ON analytics.* TO 'report_ro'@'%';
+SQL
+
+info "[3/11] GSB11 per Composer installieren (dauert einige Minuten) ..."
 if in_php test -f composer.json; then
     hint "app/ enthält bereits ein Projekt – übersprungen."
 else
     in_php composer create-project --no-interaction --remove-vcs itzbund/gsb-sitepackage .
 fi
 
-info "[3/9] Basis-URL der Site anpassen ..."
+info "[4/11] SightMetrics-Extension einbinden ..."
+# Path-Repository auf den Mount aus compose.yaml. Composer legt in vendor/ nur
+# einen Symlink an – Änderungen unter sightmetrics/extension/ wirken sofort.
+# Path repository pointing at the mount from compose.yaml. Composer only
+# symlinks it into vendor/, so changes under sightmetrics/extension/ apply live.
+if in_php composer show sightmetrics/sight-metrics >/dev/null 2>&1; then
+    hint "bereits eingebunden – übersprungen."
+else
+    in_php composer config repositories.sightmetrics path /packages/sight_metrics
+    in_php composer require --no-interaction 'sightmetrics/sight-metrics:@dev'
+fi
+
+info "[5/11] Basis-URL der Site anpassen ..."
 in_php sh -c "sed -i -E \
     -e 's#https?://%env\(FRONTEND_DOMAIN\)%#%env(GSB_SCHEME)%://%env(FRONTEND_DOMAIN)%#g' \
     -e 's#https?://%env\(BACKEND_DOMAIN\)%#%env(GSB_SCHEME)%://%env(BACKEND_DOMAIN)%#g' \
     config/sites/gsb/config.yaml" || true
 
-info "[4/9] TYPO3 einrichten ..."
+info "[6/11] TYPO3 einrichten ..."
 in_php vendor/bin/typo3 setup --force --no-interaction \
     --driver=mysqli --host=db --port=3306 \
     --dbname="$DB_NAME" --username="$DB_USER" --password="$DB_PASSWORD" \
@@ -382,23 +436,23 @@ in_php vendor/bin/typo3 setup --force --no-interaction \
     --admin-email="${TYPO3_ADMIN_EMAIL:-}" \
     --server-type=apache
 
-info "[5/9] GSB11-Grundinhalte importieren ..."
+info "[7/11] GSB11-Grundinhalte importieren ..."
 db_sql "< .ddev/initial-setup/mysql-db.sql"
 in_php vendor/bin/typo3 database:updateschema
 
-info "[6/9] Extensions einrichten ..."
+info "[8/11] Extensions einrichten ..."
 in_php vendor/bin/typo3 extension:setup
 
-info "[7/9] Platzhalterbild kopieren ..."
+info "[9/11] Platzhalterbild kopieren ..."
 in_php sh -c 'mkdir -p .build/public/fileadmin/user_upload \
     && chmod -R 2775 .build/public/fileadmin \
     && cp Resources/Public/Images/placeholder_image.jpg \
           .build/public/fileadmin/user_upload/placeholder_image.jpg' || true
 
-info "[8/9] Statisches TypoScript aktivieren ..."
+info "[10/11] Statisches TypoScript aktivieren ..."
 db_sql "-e \"UPDATE sys_template SET include_static_file='EXT:gsb_sitepackage/Configuration/TypoScript/' WHERE pid=1 AND deleted=0;\"" || true
 
-info "[9/9] Caches leeren und Dateirechte setzen ..."
+info "[11/11] Caches leeren und Dateirechte setzen ..."
 in_php vendor/bin/typo3 cache:flush
 # Setup lief als root; php-fpm bedient Requests als www-data und muss var/,
 # config/system und fileadmin schreiben können (sonst HTTP 500 auf Linux).
@@ -423,6 +477,10 @@ info "Frontend : $GSB_SCHEME://$FRONTEND_DOMAIN/"
 info "Backend  : $GSB_SCHEME://$FRONTEND_DOMAIN/typo3"
 info "Login    : ${TYPO3_ADMIN_USER:-admin}"
 hint "Das Passwort steht in .env (TYPO3_ADMIN_PASSWORD)."
+
+printf '\n'
+info "SightMetrics: Zugriffe auswerten mit ./scripts/sightmetrics-import.sh --heute"
+hint "Das Dashboard steht danach im Backend unter Web > SightMetrics."
 
 if [ "$WITH_DEMO" != true ]; then
     printf '\n'

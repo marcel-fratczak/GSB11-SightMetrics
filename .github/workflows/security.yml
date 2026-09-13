@@ -32,6 +32,8 @@ jobs:
             context: docker/php
           - name: nginx
             context: docker/nginx
+          - name: sightmetrics
+            context: sightmetrics/ingestion
     steps:
       - uses: actions/checkout@v7
 
@@ -218,6 +220,7 @@ jobs:
         run: |
           docker build -t t3ud-gsb11-php:sbom docker/php
           docker build -t t3ud-gsb11-nginx:sbom docker/nginx
+          docker build -t t3ud-gsb11-sightmetrics:sbom sightmetrics/ingestion
 
       - name: Generate SBOM (php)
         uses: aquasecurity/trivy-action@v0.36.0
@@ -236,6 +239,16 @@ jobs:
           scan-type: image
           format: cyclonedx
           output: sbom/nginx.cdx.json
+        env:
+          TRIVY_SKIP_VERSION_CHECK: "true"
+
+      - name: Generate SBOM (sightmetrics)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: t3ud-gsb11-sightmetrics:sbom
+          scan-type: image
+          format: cyclonedx
+          output: sbom/sightmetrics.cdx.json
         env:
           TRIVY_SKIP_VERSION_CHECK: "true"
 
@@ -261,6 +274,7 @@ jobs:
         run: |
           python3 scripts/normalize-sbom.py sbom/php.cdx.json   t3ud-gsb11-php
           python3 scripts/normalize-sbom.py sbom/nginx.cdx.json t3ud-gsb11-nginx
+          python3 scripts/normalize-sbom.py sbom/sightmetrics.cdx.json t3ud-gsb11-sightmetrics
           python3 scripts/normalize-sbom.py sbom/db.cdx.json    t3ud-gsb11-db
 
       - name: Upload SBOM artifact

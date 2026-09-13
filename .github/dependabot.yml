@@ -20,10 +20,12 @@ updates:
       - dependencies
       - github-actions
 
-  # Container-Base-Images: nginx (Dockerfile) und mariadb (compose.yaml)
+  # Container-Base-Images: nginx (Dockerfile), SightMetrics-Ingestion
+  # (Dockerfile) und mariadb (compose.yaml)
   - package-ecosystem: docker
     directories:
       - /docker/nginx
+      - /sightmetrics/ingestion
       - /
     schedule:
       interval: weekly

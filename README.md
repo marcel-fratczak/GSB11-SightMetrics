@@ -1,8 +1,15 @@
-# T3UD-GSB11
+# GSB11-SightMetrics
 
 Der **Government Site Builder 11** – das TYPO3-13-basierte CMS der
 Bundesverwaltung – als Docker-Stack auf dem eigenen Notebook. Drei Befehle,
 kein DDEV, kein Reverse Proxy, keine Cloud.
+
+Dazu kommt **[SightMetrics](https://github.com/TheMightyNighty/SightMetrics)**:
+eine datenschutzfreundliche Zugriffsauswertung, die die Webserver-Logs des
+Stacks mit DuckDB zu Tagesaggregaten verdichtet und als Dashboard im
+TYPO3-Backend anzeigt – ohne JavaScript-Tracker, ohne Cookies. Das Repository
+vereint [T3UD-GSB11](https://github.com/marcel-fratczak/t3ud-gsb11-docker) und
+SightMetrics (per `git subtree` unter [`sightmetrics/`](sightmetrics/)).
 
 Entstanden als Live-Demo für einen Vortrag auf den
 [TYPO3 University Days](https://t3th.org/). Basis ist die offizielle
@@ -22,11 +29,11 @@ Arbeitsspeicher, etwa 5 GB Plattenplatz und eine Internetverbindung (Composer
 lädt die Distribution zur Installationszeit).
 
 ```bash
-git clone https://github.com/marcel-fratczak/t3ud-gsb11-docker.git
+git clone https://github.com/marcel-fratczak/GSB11-SightMetrics.git
 ```
 
 ```bash
-cd t3ud-gsb11-docker
+cd GSB11-SightMetrics
 ```
 
 ```bash
@@ -48,7 +55,8 @@ Minuten** – der Löwenanteil davon ist `composer create-project`.
 
 Alles Weitere ist für eine Notebook-Installation eindeutig und wird deshalb
 nicht abgefragt: Adresse `localhost`, Bindung an `127.0.0.1`, Datenbankname
-`gsb11`, zufällige Datenbank-Passwörter. Sämtliche Werte landen in `.env`
+`gsb11`, zufällige Datenbank-Passwörter. SightMetrics wird immer mitinstalliert:
+die Extension, die Cube-Datenbank `analytics` und ihre beiden Benutzer. Sämtliche Werte landen in `.env`
 (Rechte `600`, nicht versioniert) und lassen sich dort nachträglich ändern.
 
 ### Danach
@@ -100,21 +108,78 @@ lassen: [`demo/README.md`](demo/README.md).
 
 ---
 
+## Zugriffsauswertung mit SightMetrics
+
+SightMetrics besteht aus zwei Teilen, die sich nur die Datenbank teilen:
+
+| Teil | Ort im Stack | Aufgabe |
+|------|--------------|---------|
+| Ingestion (DuckDB) | Einmal-Container `sightmetrics` | liest das Access-Log von nginx, bildet Besuche und schreibt Tagesaggregate in die Cube-DB – als einziger schreibend (`cube_rw`) |
+| TYPO3-Extension `sight_metrics` | im `php`-Container, per Composer eingebunden | Backend-Modul **Web > SightMetrics**, liest ausschließlich (`report_ro`, nur `SELECT`) |
+
+nginx schreibt dafür ein zweites Access-Log im Combined-Format in das Volume
+`sightmetrics-logs`. Backend-Aufrufe unter `/typo3`, der Healthcheck und
+statische Assets bleiben draußen – ausgewertet werden die Seitenaufrufe des
+Frontends.
+
+Zugriffe auswerten:
+
+```bash
+./scripts/sightmetrics-import.sh --heute
+```
+
+`--heute` liest das komplette Log neu ein und nimmt den laufenden Tag mit –
+der Weg für die Vorführung: Seite im Browser aufrufen, Import starten,
+Dashboard neu laden. Ohne Option läuft der Import inkrementell und übernimmt
+nur **abgeschlossene** Tage; so ist er für einen täglichen Cron-Job gedacht:
+
+```
+15 0 * * * cd /pfad/zu/GSB11-SightMetrics && ./scripts/sightmetrics-import.sh
+```
+
+Beide Varianten sind wiederholbar – ein Tag wird in der Cube-DB ersetzt, nie
+doppelt gezählt.
+
+**Länder:** Mitgeliefert ist nur ein GeoIP-Platzhalter, Länder bleiben
+unbekannt. Auf dem Notebook ändern echte Daten daran nichts, weil alle
+Zugriffe über Dockers Port-Weiterleitung von einer internen Adresse kommen.
+Hinter einem Reverse Proxy lässt sich ein GeoIP-Datensatz nachrüsten:
+[`docker/sightmetrics/geo/README.md`](docker/sightmetrics/geo/README.md).
+
+**SightMetrics aktualisieren** (Änderungen des Kollegen übernehmen):
+
+```bash
+git subtree pull --prefix=sightmetrics git@github.com:TheMightyNighty/SightMetrics.git master
+```
+
+Die Extension ist live eingehängt; nach einem Update genügen
+`docker compose exec -u www-data php vendor/bin/typo3 extension:setup` und ein
+`docker compose build sightmetrics` für die Ingestion. Ausführliche
+Dokumentation liegt im Subtree: [Extension-Handbuch](sightmetrics/docs/extension-handbuch.md),
+[Ingestion-Runbook](sightmetrics/docs/ingestion-runbook.md).
+
+---
+
 ## Architektur
 
 | Service | Image | Aufgabe |
 |---------|-------|---------|
 | `web` | eigenes Image (`nginx:stable-alpine` + `apk upgrade`) | Auslieferung des Docroot `.build/public`, FastCGI-Proxy |
 | `php` | eigenes Image (`php:8.3-fpm` + GSB-Erweiterungen und Werkzeuge) | PHP-Ausführung |
-| `db` | `mariadb:10.11` | Datenbank |
+| `db` | `mariadb:10.11` | Datenbanken `gsb11` und `analytics` (Cube-DB) |
+| `sightmetrics` | eigenes Image (`debian:bookworm-slim` + DuckDB, UID 10001) | Einmal-Container für den Log-Import, Profil `sightmetrics` |
 
 Der GSB11 liegt per Bind-Mount in `./app` – wie beim offiziellen DDEV-Workflow,
-nur ohne DDEV. Die Datenbank liegt im Volume `db-data`.
+nur ohne DDEV. Die Datenbank liegt im Volume `db-data`, das Access-Log für
+SightMetrics im Volume `sightmetrics-logs`, die Import-Offsets in
+`sightmetrics-state`.
 
 ```
 Browser ──▶ 127.0.0.1:8080 ──▶ web (nginx) ──FastCGI──▶ php ──▶ db
-                                    │                    │
-                                    └── ./app (ro) ──────┘
+                                    │                    │      ▲
+                                    └── ./app (ro) ──────┘      │ analytics
+                                    │                           │ (cube_rw)
+                                    └─ access.log ──▶ sightmetrics
 ```
 
 ---
@@ -212,7 +277,7 @@ zusätzlich bei jedem Push und Pull Request:
 
 | Prüfung | Werkzeug | Verhalten |
 |---------|----------|-----------|
-| CVEs in den eigenen Images (`php`, `nginx`) | Trivy | Build schlägt fehl bei **behebbaren** MEDIUM/HIGH/CRITICAL |
+| CVEs in den eigenen Images (`php`, `nginx`, `sightmetrics`) | Trivy | Build schlägt fehl bei **behebbaren** MEDIUM/HIGH/CRITICAL |
 | CVEs im `mariadb`-Image | Trivy | Warn-Annotation statt hartem Gate – das Image kommt unverändert von upstream |
 | Fehlkonfigurationen in Dockerfiles und Compose | Trivy | Reporting; bewusste Ausnahmen mit Begründung in [`.trivyignore`](.trivyignore) |
 | Versehentlich eingecheckte Zugangsdaten | Trivy | Build schlägt fehl |
@@ -221,7 +286,7 @@ zusätzlich bei jedem Push und Pull Request:
 Die Ergebnisse liegen als Artifact an jedem Lauf und – weil das Repository
 öffentlich ist – zusätzlich als SARIF im Security-Tab.
 
-**SBOM:** Für alle drei Images wird eine CycloneDX-SBOM erzeugt und nach
+**SBOM:** Für alle vier Images wird eine CycloneDX-SBOM erzeugt und nach
 [`sbom/`](sbom/) zurückgeschrieben. Sie ist normalisiert
 ([`scripts/normalize-sbom.py`](scripts/normalize-sbom.py)): Zeitstempel,
 Seriennummer, Image-Digest und Architektur-Qualifier sind entfernt, die
@@ -238,12 +303,18 @@ MEDIUM/HIGH/CRITICAL):
 |------|----------|
 | `docker/php` (Debian 12, PHP 8.3) | 0 behebbare Funde |
 | `docker/nginx` (Alpine 3.24.1) | 0 behebbare Funde |
+| `sightmetrics/ingestion` (Debian 12, DuckDB 1.5.4) | 0 behebbare Funde (geprüft am 13.09.2026, siehe unten) |
 | `mariadb:10.11` | 4 MEDIUM (Ubuntu-Pakete) + 37 in `usr/local/bin/gosu` |
 | Konfiguration (Dockerfiles, Compose) | 0 nach dokumentierten Ausnahmen |
 | Secret-Scan über das Repository | 0 |
 
-Die eigenen Images sind sauber. Die MariaDB-Funde kommen unverändert aus dem
-Upstream-Image und lassen sich hier nicht beheben:
+Die eigenen Images sind sauber. Für das SightMetrics-Image gilt das erst mit
+einem zusätzlichen `apt-get upgrade` im Dockerfile: Das unveränderte Image
+brachte am 13.09.2026 vier behebbare `pcre2`-CVEs (2× HIGH, 2× MEDIUM) aus
+`debian:bookworm-slim` mit.
+
+Die MariaDB-Funde kommen unverändert aus dem Upstream-Image und lassen sich
+hier nicht beheben:
 
 - Die 4 MEDIUM betreffen `libsystemd0`/`libudev1` und werden mit dem nächsten
   Upstream-Rebuild verschwinden. `docker compose pull` holt ihn ab.
@@ -297,6 +368,15 @@ und der Report meldet Funde, die es real längst nicht mehr gibt.
 - **Der erste Build hängt an `pecl install`.** Kommt vor, wenn die Leitung
   zwischendurch abreißt. `./scripts/setup.sh` erneut starten – fertige Layer
   sind gecacht, der Lauf setzt dort auf.
+- **SightMetrics zeigt die Zugriffe von heute nicht.** Der Standard-Import
+  übernimmt nur abgeschlossene Tage. Für sofortige Zahlen
+  `./scripts/sightmetrics-import.sh --heute` verwenden.
+- **Aufrufe per `curl` zählen nicht.** Die Ingestion filtert Bots und Werkzeuge
+  anhand des User-Agents; `curl`, `wget` und Monitoring-Dienste stehen darauf.
+- **Das Access-Log wächst.** Für die Notebook-Demo ohne Belang. Wer den Stack
+  dauerhaft betreibt, rotiert `access.log` im Volume `sightmetrics-logs`; die
+  Ingestion erkennt die Rotation am Inode (siehe
+  [Runbook, Abschnitt 13](sightmetrics/docs/ingestion-runbook.md#13-log-rotation)).
 - **GSB-Vorgaben.** Die Distribution setzt `allowedAudio/VideoDomains` auf
   `*.bund.de` und brandet das Backend mit ITZBund-Logos. Beides ist über
   `ALLOWED_MEDIA_DOMAINS`, `BACKEND_LOGIN_FOOTNOTE` und
@@ -309,6 +389,12 @@ und der Report meldet Funde, die es real längst nicht mehr gibt.
 GSB 11 und Sitepackage: [GPL-3.0-or-later](https://spdx.org/licenses/GPL-3.0-or-later.html).
 Die Container-Konfiguration und der Democontent dieses Repositorys ebenfalls
 GPL-3.0-or-later, siehe [`LICENSE`](LICENSE).
+
+SightMetrics unter [`sightmetrics/`](sightmetrics/) stammt von Robert
+Schleiermacher. Die TYPO3-Extension steht unter
+[GPL-2.0-or-later](sightmetrics/extension/sight_metrics/LICENSE); das
+SightMetrics-Repository selbst enthält keine übergreifende Lizenzdatei für die
+übrigen Teile (Ingestion, Dokumentation).
 
 Dieses Repository ist ein privates Demonstrationsprojekt. Es ist weder ein
 offizielles Angebot des ITZBund noch der TYPO3 University Days.
@@ -338,6 +424,14 @@ By default the stack binds to `127.0.0.1` and is reachable from the laptop
 only. See [`docs/reverse-proxy.md`](docs/reverse-proxy.md) before exposing it —
 Docker's iptables rules bypass host firewalls, so `BIND_IP` is the actual
 boundary.
+
+The stack also ships **SightMetrics** (included as a `git subtree` under
+`sightmetrics/`), privacy-friendly web analytics without a JavaScript tracker:
+nginx writes a second access log, a one-shot DuckDB ingestion container
+aggregates it into the cube database `analytics`, and the TYPO3 extension
+`sight_metrics` shows the dashboard under **Web > SightMetrics**, reading with a
+SELECT-only user. Run `./scripts/sightmetrics-import.sh --heute` to include
+today's page views, or without options from cron for completed days.
 
 Weekly Trivy scans (images, configuration, secrets), weekly Dependabot updates
 and a normalised CycloneDX SBOM per image run in GitHub Actions. Prompts and

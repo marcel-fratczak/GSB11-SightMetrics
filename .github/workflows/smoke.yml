@@ -94,6 +94,33 @@ jobs:
           echo "Democontent-Elemente: $count"
           test "$count" = "6"
 
+      - name: Verify SightMetrics pipeline (access log -> cube DB -> extension)
+        run: |
+          set -e
+          # Browser-UA: curl steht auf der Bot-Liste der Ingestion und würde
+          # nicht gezählt. Die Aufrufe oben zählen deshalb bewusst nicht mit.
+          # Browser UA: curl is on the ingestion's bot list and would not count,
+          # which is why the requests above don't count either.
+          ua='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
+          for p in / /programm /impressionen; do
+            curl -s -o /dev/null -A "$ua" "http://localhost:8080$p"
+          done
+          ./scripts/sightmetrics-import.sh --heute
+          # Liest über die Verbindung 'cube' als report_ro und schlägt bei leerem Cube fehl.
+          # Reads via the 'cube' connection as report_ro, fails on an empty cube.
+          docker compose exec -T -u www-data php vendor/bin/typo3 sightmetrics:smoke
+          pv=$(docker compose exec -T -e MYSQL_PWD="$(grep '^CUBE_RO_PASSWORD=' .env | cut -d"'" -f2)" db \
+            mariadb -N -B -u report_ro analytics \
+            -e "SELECT COALESCE(SUM(pageviews),0) FROM daily WHERE site_id=1;")
+          echo "SightMetrics-Seitenaufrufe: $pv"
+          test "$pv" -ge 3
+          # Das Backend darf nicht mitgezählt werden (nginx-map auf /typo3).
+          # Backend requests must not be counted (nginx map on /typo3).
+          if docker compose exec -T web grep -q ' "GET /typo3' /var/log/nginx/sightmetrics/access.log; then
+            echo "::error::Backend-Aufrufe im SightMetrics-Access-Log"
+            exit 1
+          fi
+
       - name: Dump container logs on failure
         if: failure()
         run: docker compose logs --tail=200

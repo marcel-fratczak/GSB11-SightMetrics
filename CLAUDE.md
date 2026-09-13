@@ -1,7 +1,9 @@
-# T3UD-GSB11 – Projektkontext
+# GSB11-SightMetrics – Projektkontext
 
 Government Site Builder 11 (TYPO3 13.4 LTS) als lokaler Docker-Stack, gebaut
-als Live-Demo für einen Vortrag auf den TYPO3 University Days.
+als Live-Demo für einen Vortrag auf den TYPO3 University Days – erweitert um
+die Zugriffsauswertung SightMetrics. Hervorgegangen aus T3UD-GSB11
+(Historie vollständig übernommen).
 
 ## Stack
 
@@ -9,7 +11,10 @@ als Live-Demo für einen Vortrag auf den TYPO3 University Days.
   `composer create-project` zur Installationszeit nach `./app` geholt.
   `./app` ist nicht versioniert.
 - **Container:** `web` (nginx:stable-alpine), `php` (php:8.3-fpm-bookworm),
-  `db` (mariadb:10.11). Compose-Projektname `t3ud-gsb11`.
+  `db` (mariadb:10.11), `sightmetrics` (Einmal-Container, Profil
+  `sightmetrics`). Compose-Projektname `gsb11-sightmetrics` – bewusst nicht
+  `t3ud-gsb11`, sonst teilt sich der Stack Volumes mit einer
+  T3UD-GSB11-Installation auf demselben Rechner.
 - **Docroot:** `app/.build/public` – Composer-Mode, nicht `public/`.
 - **Skripte:** Bash, kompatibel zu macOS-Bash 3.2 (kein `mapfile`, keine
   assoziativen Arrays).
@@ -48,6 +53,35 @@ als Live-Demo für einen Vortrag auf den TYPO3 University Days.
 - HTML wird per `sed`-Escaping (Backslash zuerst, dann Hochkomma) in ein
   SQL-String-Literal geschrieben. Wer Inhalte ergänzt: beides bleibt maskiert,
   Backticks und `$` sind unkritisch, weil kein Shell-Parser darüber läuft.
+
+## SightMetrics
+
+- **Herkunft:** `git subtree` von
+  `git@github.com:TheMightyNighty/SightMetrics.git` (Branch `master`) unter
+  `sightmetrics/`, ohne `--squash`. Änderungen am Code des Kollegen möglichst
+  upstream einbringen statt im Subtree – sonst gibt es beim
+  `git subtree pull` Konflikte. Die Workflows unter `sightmetrics/.github/`
+  laufen hier nicht.
+- **Lokale Abweichung vom Upstream:** `sightmetrics/ingestion/Dockerfile` hat
+  zusätzlich `apt-get upgrade -y`. Ohne das fällt das Image durch das
+  Trivy-Gate (am 2026-09-13: 4 behebbare `pcre2`-CVEs aus `debian:bookworm-slim`).
+  Beim Subtree-Pull erhalten, bis es upstream übernommen ist.
+- **Extension:** `sightmetrics/extension/sight_metrics` ist in `web` und `php`
+  unter `/packages/sight_metrics` eingehängt (gleicher Pfad in beiden, weil
+  die `_assets`-Symlinks über `vendor/` dorthin zeigen). `setup.sh` bindet sie
+  als Composer-Path-Repository ein; `app/composer.json` wird dabei verändert.
+- **Verbindung `cube`** kommt aus `TYPO3__DB__Connections__cube__*` in
+  `compose.yaml`. Der GSB11 mappt alle `TYPO3__`-Variablen über
+  `helhum/config-loader` – kein `additional.php` nötig.
+- **Cube-DB** `analytics` im selben MariaDB; `cube_rw` (Ingestion) und
+  `report_ro` (nur SELECT, Extension). Angelegt in `setup.sh` Schritt 8 über
+  den `db`-Container als root, nicht per initdb – das greift bei einem schon
+  bestehenden Volume nicht. Die Tabellen legt erst der erste Import an.
+- **Log:** nginx schreibt zusätzlich `combined` nach
+  `/var/log/nginx/sightmetrics/access.log` (Volume `sightmetrics-logs`),
+  `/typo3` per `map` ausgenommen.
+- **Import:** `scripts/sightmetrics-import.sh` (`--heute` für die Vorführung).
+  Leert danach den TYPO3-Cache als `www-data`.
 
 ## Inhaltliche Leitplanken
 
@@ -95,10 +129,22 @@ Das Repository ist öffentlich und bezieht sich auf eine reale Veranstaltung:
   veröffentlichten Ports greift keine Host-Firewall – `BIND_IP` ist die Grenze.
 - `head` gehört bei der Passworterzeugung an den **Anfang** der Pipe. Am Ende
   beendet es `tr` per SIGPIPE, und unter `set -o pipefail` bricht das den Lauf ab.
+- **SightMetrics ersetzt pro Lauf jeden enthaltenen Tag komplett.** Ein
+  inkrementeller Lauf mit einem angebrochenen Tag würde dessen frühe Stunden
+  beim nächsten Lauf verlieren; deshalb hält der Standard-Import den laufenden
+  Tag zurück. `--heute` verwirft die Offsets vor **und** nach dem Lauf – fehlt
+  das zweite Löschen, zerstört der nächste Cron-Lauf den heutigen Tag.
+- **`curl` zählt in SightMetrics nicht:** Die eingebaute Bot-Heuristik filtert
+  den User-Agent. Tests brauchen einen Browser-UA.
+- **Ohne GeoIP-Datei bricht die Ingestion ab.** Der Platzhalter
+  `docker/sightmetrics/geo/country-ipv4-num.csv` muss bleiben.
 
 ## Repository
 
-- Remote: `git@github.com:marcel-fratczak/t3ud-gsb11-docker.git` (SSH, public)
+- Remote `origin`: `git@github.com:marcel-fratczak/GSB11-SightMetrics.git`
+  (SSH, public). Push über den Account `blutfisch` (Collaborator).
+- Remote `sightmetrics`: `git@github.com:TheMightyNighty/SightMetrics.git`
+  (nur für `git subtree pull`)
 - Branch: `main`
 - Commit-Identität vor dem ersten Commit prüfen:
   `git log -1 --format='%an <%ae>'`
