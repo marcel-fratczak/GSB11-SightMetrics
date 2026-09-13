@@ -1,0 +1,15 @@
+# Offset state of the ingestion (required, see runbook §8/§9).
+# IMPORTANT: use block storage (RWO), NOT NFS – load_cube.sh/run_all.sh
+# guard themselves via flock, and flock is unreliable on NFS.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sightmetrics-state
+  labels:
+    app.kubernetes.io/name: sightmetrics-ingestion
+spec:
+  accessModes: ["ReadWriteOnce"]
+  # storageClassName: <block-storage-class>   # set cluster-specifically
+  resources:
+    requests:
+      storage: 1Gi

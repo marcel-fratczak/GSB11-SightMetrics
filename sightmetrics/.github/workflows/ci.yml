@@ -1,0 +1,191 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  # ---- Job 1: Lint + Unit Tests (kein Docker nötig) -------------------------
+  lint-and-unit:
+    name: "Lint + Unit (PHP ${{ matrix.php }})"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: PHP ${{ matrix.php }} einrichten
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+
+      - name: Composer-Cache-Key
+        id: cache-key
+        run: echo "key=${{ hashFiles('extension/sight_metrics/composer.json') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Composer-Cache laden
+        uses: actions/cache@v4
+        with:
+          path: extension/sight_metrics/vendor
+          key: composer-${{ matrix.php }}-${{ steps.cache-key.outputs.key }}
+          restore-keys: composer-${{ matrix.php }}-
+
+      - name: composer install
+        working-directory: extension/sight_metrics
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: PHPStan
+        working-directory: extension/sight_metrics
+        run: vendor/bin/phpstan analyse -c phpstan.ci.neon --no-progress
+
+      - name: php-cs-fixer (dry-run)
+        working-directory: extension/sight_metrics
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff --config=.php-cs-fixer.dist.php
+
+      - name: PHPUnit (Unit Tests)
+        working-directory: extension/sight_metrics
+        run: vendor/bin/phpunit -c phpunit.xml.dist
+
+      # JS: Typpruefung (tsc --checkJs) + jsdom-Smoke-Tests der ES-Module.
+      # Nur einmal je Matrix noetig -> auf PHP 8.3 begrenzt.
+      - name: npm ci + typecheck + JS-Tests
+        if: matrix.php == '8.3'
+        working-directory: extension/sight_metrics
+        run: |
+          npm ci --no-audit --no-fund
+          npm run typecheck
+          npm test
+
+  # ---- Job 2: DuckDB Pipeline-Test (selbst-contained) -----------------------
+  pipeline:
+    name: "Pipeline (DuckDB)"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DuckDB v1.5.4 herunterladen
+        run: |
+          mkdir -p ingestion/bin
+          curl -fsSL -o /tmp/duckdb.zip \
+            https://github.com/duckdb/duckdb/releases/download/v1.5.4/duckdb_cli-linux-amd64.zip
+          unzip -o /tmp/duckdb.zip duckdb -d ingestion/bin/
+          chmod +x ingestion/bin/duckdb
+
+      - name: Pipeline-Test (SQL-Kennzahlen + Envsubst + Purge + Log-Format + Backup/Notify/Sharding/Rotation/Lock)
+        run: bash ingestion/tests/run.sh
+
+  # ---- Job 3: Functional Tests (TYPO3 + SQLite, kein Docker nötig) ----------
+  functional:
+    name: "Functional (PHP ${{ matrix.php }}, TYPO3 ${{ matrix.typo3 }})"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+        typo3: ['^13.4', '^14.0']
+        # TYPO3 v14 setzt PHP >= 8.3 voraus -> ungültige Kombi ausschließen.
+        exclude:
+          - php: '8.2'
+            typo3: '^14.0'
+        # testing-framework ist je TYPO3-Hauptversion unterschiedlich: 8.x→v13, 9.x→v14.
+        include:
+          - typo3: '^13.4'
+            tf: '^8.0'
+          - typo3: '^14.0'
+            tf: '^9.0'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: PHP ${{ matrix.php }} einrichten
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          extensions: pdo_sqlite
+          coverage: none
+
+      # Kein vendor-Cache: die TYPO3-Version variiert pro Matrix-Eintrag.
+      - name: TYPO3-Version festlegen (${{ matrix.typo3 }})
+        working-directory: extension/sight_metrics
+        run: |
+          composer require --no-update \
+            typo3/cms-core:"${{ matrix.typo3 }}" \
+            typo3/cms-backend:"${{ matrix.typo3 }}"
+          composer require --no-update --dev \
+            typo3/testing-framework:"${{ matrix.tf }}"
+
+      - name: composer update
+        working-directory: extension/sight_metrics
+        run: composer update --no-interaction --no-progress --prefer-dist --with-all-dependencies
+
+      - name: PHPUnit (Functional Tests)
+        working-directory: extension/sight_metrics
+        run: vendor/bin/phpunit -c phpunit.functional.xml.dist
+
+  # ---- Job 4: E2E (Demo-Stack + Puppeteer, echtes TYPO3-Backend) -------------
+  e2e:
+    name: "E2E (TYPO3-Backend, Puppeteer)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DuckDB CLI laden (ingestion/bin/duckdb)
+        working-directory: ingestion
+        run: |
+          mkdir -p bin
+          curl -fsSL -o /tmp/duckdb.zip \
+            https://github.com/duckdb/duckdb/releases/download/v1.5.4/duckdb_cli-linux-amd64.zip
+          unzip -o /tmp/duckdb.zip duckdb -d bin/
+          chmod +x bin/duckdb
+
+      - name: Beispiel-Log + synthetische Geo-CSV erzeugen
+        run: |
+          mkdir -p logs ingestion/geo
+          python3 ingestion/generate_logs.py --clean -n 1000 --days 14 -o logs/example_1k.log
+          python3 ingestion/generate_demo_geo.py -o ingestion/geo/country-ipv4-num.csv
+
+      # entrypoint.sh installiert TYPO3 im web-Container selbst beim Start
+      # (siehe demo/entrypoint.sh) - kein separates Setup-Skript noetig.
+      - name: Demo-Stack starten (db + web)
+        working-directory: demo
+        run: docker compose up -d db web
+
+      - name: Beispieldaten importieren (2 Sites fuer den Multi-Site-Check)
+        working-directory: ingestion
+        env:
+          CUBE_DSN: "host=127.0.0.1 port=3307 user=cube_rw password=cube_rw database=analytics"
+          SM_COMPLETE_DAYS: "0"   # Backfill: Beispiel-Log komplett importieren
+        run: |
+          python3 generate_logs.py --clean -n 800 --days 14 -o ../logs/site2.log
+          ./load_cube.sh ../logs/example_1k.log "Bürgeramt Mitte" 1
+          ./load_cube.sh ../logs/site2.log "Schulamt Beispielkreis" 2
+
+      - name: Auf TYPO3-Backend warten
+        run: |
+          for i in $(seq 1 60); do
+            curl -fsS -o /dev/null http://localhost:8091/typo3/ && exit 0
+            sleep 2
+          done
+          echo "TYPO3-Backend nicht erreichbar"; docker logs sightmetrics-web | tail -50; exit 1
+
+      - name: Smoke (TYPO3 CLI, read-only Cube)
+        run: docker exec sightmetrics-web php vendor/bin/typo3 sightmetrics:smoke
+
+      # Contract-Test (docs/SCHEMA.md): Ingestion schreibt -> CubeRepository liest.
+      - name: Contract (Ingestion <-> Extension)
+        run: bash tests/contract/run.sh
+
+      - name: E2E (Puppeteer)
+        env:
+          CHROME_BIN: /usr/bin/google-chrome   # auf ubuntu-latest vorinstalliert
+        run: bash e2e/run.sh

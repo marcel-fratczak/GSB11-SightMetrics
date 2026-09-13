@@ -1,0 +1,11 @@
+# SightMetrics – site configuration
+# Format: site_id<TAB>logfile<TAB>site_name
+# Blank lines and lines starting with # are ignored.
+# Copy this file to sites.conf and adjust it.
+#
+# CUBE_DSN must be set as an env var or CUBE_DSN_FILE (not here).
+# STATE_DIR  optional (default: ../state/).
+
+1	/logs/site1/access.log	Musterbehörde Musterstadt
+2	/logs/site2/access.log	Schulamt Beispielkreis
+3	/logs/site3/access.log	Stadtwerke Demostadt

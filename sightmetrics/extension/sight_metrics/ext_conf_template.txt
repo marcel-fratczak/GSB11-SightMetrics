@@ -1,0 +1,14 @@
+# cat=errorpage//10; type=string; label=Error page title (database unreachable). Empty = built-in default.
+errorTitle =
+
+# cat=errorpage//20; type=text; label=Error page text. Empty = built-in default.
+errorMessage =
+
+# cat=errorpage//30; type=boolean; label=Show technical error message (admins only)
+showTechnical = 0
+
+# cat=performance//10; type=int+; label=Time window in days: only this window is loaded from the cube DB (limits transfer volume independent of retention). 0 = unlimited.
+windowDays = 92
+
+# cat=performance//20; type=int+; label=Cache TTL in seconds for cube DB reads (TYPO3 caching framework, cache "sight_metrics"). Safe to set high: cache keys include the date window, and the window shifts with each nightly import, so fresh data gets fresh keys automatically. 0 = no caching.
+cacheLifetime = 21600

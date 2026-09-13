@@ -1,0 +1,11 @@
+-- ===========================================================================
+-- SightMetrics / section 11: DuckDB computes, MariaDB serves. MULTI-SITE.
+-- Compute part of the log path: analysis logic in transform.sql (sink-neutral),
+-- creates the TEMP tables daily_rows / cube_rows.
+-- The MariaDB sink lives in sink_mysql.sql and is appended by load_cube.sh via
+-- `cat cube_to_mysql.sql sink_mysql.sql | envsubst` (shared with
+-- the Matomo path in matomo_to_cube.sql).
+-- Requirement: schema 'm' via ATTACH ... (TYPE mysql) (load_cube.sh).
+-- Parameters (SET VARIABLE): logpath, geopath, site_name, tagessalt, site_id
+-- ===========================================================================
+.read 'transform.sql'

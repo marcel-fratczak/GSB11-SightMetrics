@@ -1,0 +1,43 @@
+# ---- Secrets (niemals committen) --------------------------------------------
+demo/.env
+.env
+
+# ---- Große Datendateien (nicht ins Repo) ------------------------------------
+logs/
+ingestion/bin/
+ingestion/geo/
+
+# ---- Demo: generierte / installierte Verzeichnisse -------------------------
+demo/app/vendor/
+demo/app/var/
+demo/app/public/
+demo/app/packages/
+# TYPO3 erzeugt settings.php beim Erstinstall (enthält DB-Hash/Passwörter)
+demo/app/config/system/settings.php
+# TYPO3 --create-site erzeugt die Site-Konfiguration beim Erstinstall
+demo/app/config/sites/
+# Symlinks, die TYPO3 erzeugt (außerhalb config/)
+demo/app/sites/
+demo/app/system/
+
+# ---- Extension: standalone composer install (CI) ----------------------------
+extension/sight_metrics/vendor/
+
+# ---- E2E / Node ---------------------------------------------------------------
+e2e/node_modules/
+e2e/package-lock.json
+
+# ---- Extension: JS-Smoke-Test-Tooling (node_modules, package-lock.json bleibt versioniert) --
+extension/sight_metrics/node_modules/
+
+# ---- Offset-State (laufzeitgeneriert) ----------------------------------------
+state/
+
+# ---- Tools-Caches -------------------------------------------------------------
+.php-cs-fixer.cache
+.phpunit.result.cache
+/tmp/phpunit-*.phar
+ingestion/bots/
+ingestion/ua/
+/.claude/
+__pycache__

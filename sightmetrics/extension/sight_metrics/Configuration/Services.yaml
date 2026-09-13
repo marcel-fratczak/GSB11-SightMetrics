@@ -1,0 +1,18 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  SightMetrics\:
+    resource: '../Classes/*'
+
+  # Controller-Ziele des Backend-Moduls bzw. der Ajax-Route muessen aus dem Container holbar sein
+  SightMetrics\Controller\DashboardController:
+    public: true
+
+  SightMetrics\Controller\TopNAjaxController:
+    public: true
+
+  SightMetrics\Controller\TreeAjaxController:
+    public: true
