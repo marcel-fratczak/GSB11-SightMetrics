@@ -219,32 +219,6 @@ docker compose exec php vendor/bin/typo3 cache:flush
 
 ---
 
-## Vor dem Vortrag
-
-Die Installation braucht das Netz. Auf einer Konferenz ist das die
-unzuverlässigste Komponente im Aufbau – deshalb einmal vorher durchspielen und
-den Stack anschließend einfach stehen lassen:
-
-```bash
-./scripts/setup.sh --demo --port 8080 --admin-password 'Mein-Passwort-2026.'
-```
-
-Mit allen drei Optionen läuft das Skript ohne eine einzige Rückfrage durch.
-Danach genügt am Veranstaltungsort:
-
-```bash
-docker compose up -d
-```
-
-Das startet in Sekunden und braucht **kein** Internet mehr – Images, Datenbank
-und `./app` liegen dann bereits lokal. Wer die Erstinstallation trotzdem live
-zeigen will, sollte vorher `docker compose build` ausführen: Dann ist wenigstens
-der Image-Build erledigt und nur noch Composer auf das Netz angewiesen.
-
-`./scripts/setup.sh --help` zeigt alle Optionen.
-
----
-
 ## Die Seite nach außen veröffentlichen
 
 Standardmäßig hängt der Port an `127.0.0.1` – die Seite ist ausschließlich vom
