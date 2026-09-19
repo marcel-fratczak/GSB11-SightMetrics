@@ -2329,7 +2329,7 @@
       "version": "1.9.4-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/liblzma5@5.4.1-1%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/liblzma5@5.4.1-1%2Bdeb12u2?distro=debian-12.15",
       "licenses": [
         {
           "license": {
@@ -2408,12 +2408,12 @@
         }
       ],
       "name": "liblzma5",
-      "purl": "pkg:deb/debian/liblzma5@5.4.1-1%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/liblzma5@5.4.1-1%2Bdeb12u2?distro=debian-12.15",
       "supplier": {
         "name": "Sebastian Andrzej Siewior <sebastian@breakpoint.cc>"
       },
       "type": "library",
-      "version": "5.4.1-1+deb12u1"
+      "version": "5.4.1-1+deb12u2"
     },
     {
       "bom-ref": "pkg:deb/debian/libmariadb3@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
