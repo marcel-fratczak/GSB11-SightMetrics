@@ -3443,7 +3443,7 @@
       "version": "1.14.10-1~deb12u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libde265-0@1.0.11-1%2Bdeb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libde265-0@1.0.11-1%2Bdeb12u3?distro=debian-12.15",
       "licenses": [
         {
           "license": {
@@ -3482,12 +3482,12 @@
         }
       ],
       "name": "libde265-0",
-      "purl": "pkg:deb/debian/libde265-0@1.0.11-1%2Bdeb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libde265-0@1.0.11-1%2Bdeb12u3?distro=debian-12.15",
       "supplier": {
         "name": "Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>"
       },
       "type": "library",
-      "version": "1.0.11-1+deb12u2"
+      "version": "1.0.11-1+deb12u3"
     },
     {
       "bom-ref": "pkg:deb/debian/libdebconfclient0@0.270?distro=debian-12.15",
