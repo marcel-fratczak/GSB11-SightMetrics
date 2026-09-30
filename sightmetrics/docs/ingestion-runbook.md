@@ -1,3 +1,5 @@
+> 🇩🇪 [Deutsche Fassung](ingestion-runbook.de.md)
+
 # SightMetrics – Ingestion Runbook (Package A)
 
 Operations documentation for the **DuckDB-based log import** (`ingestion/`).
@@ -54,7 +56,7 @@ ingestion/
 ├── generate_logs.py            Test-log generator (session-based, public IPs)
 │
 ├── bin/
-│   └── duckdb                  DuckDB CLI binary (v1.5.4, x86_64 Linux)
+│   └── duckdb                  DuckDB CLI binary (v1.5.6, x86_64 Linux)
 │
 ├── geo_sources/
 │   ├── native.sql               Geo join: own schema (start,end,cc)
@@ -385,8 +387,8 @@ After setting the new password, the script verifies the login (`SELECT
 quarterly).
 
 **Reporting user (`report_ro`):** rotated separately; afterwards adjust the
-TYPO3 connection in `config/system/additional.php` (see extension handbook
-§4). A read-only user without write access is also suitable as backup
+TYPO3 connection in `config/system/additional.php` (see
+`extension/sight_metrics/Documentation/Installation`). A read-only user without write access is also suitable as backup
 credentials (`BACKUP_DSN`).
 
 ---
@@ -595,8 +597,8 @@ monthly), not as part of the nightly import.
 ### TYPO3 side: cleaning up the `cache_sight_metrics` table
 
 Besides the cube DB, there's a second growing dataset — on the **TYPO3
-DB** (not the cube DB): the extension caches its read queries short-lived
-(60s TTL) in the `cache_sight_metrics` table. TYPO3's database cache
+DB** (not the cube DB): the extension caches its read queries
+(`cacheLifetime`, default 21600s) in the `cache_sight_metrics` table. TYPO3's database cache
 backend does **not** delete expired entries on its own; without cleanup,
 the table grows unbounded in operation (the cache keys are
 high-cardinality: every combination of time range, dimension, and
@@ -611,8 +613,8 @@ mysql -h <typo3-db-host> -u <user> -p <typo3-db> \
   -e "DELETE FROM cache_sight_metrics WHERE expires < UNIX_TIMESTAMP();"
 ```
 
-Details and background: extension handbook, section "Known limitations:
-scaling & caching".
+Details and background: `extension/sight_metrics/Documentation/KnownProblems`, section
+"Scaling and caching".
 
 ### Backup as a rollback point (before purging)
 
@@ -747,7 +749,7 @@ distinguished by `site_id`.
 `sites.conf` lists all sites; `run_all.sh` imports them (sequentially or
 with `PARALLEL`). Each site has its own `state/<hash>.offset` file. In
 TYPO3, `sightmetrics_site_id` in the respective site config maps the
-TYPO3 site to the cube `site_id` (see extension handbook §5); the GUI
+TYPO3 site to the cube `site_id` (see `extension/sight_metrics/Documentation/Configuration`); the GUI
 shows the site selector accordingly.
 
 > Tenant/DB isolation via separate databases is **not needed** for this
@@ -813,24 +815,73 @@ single import.
 
 ## 16. Privacy & BSI notes
 
+Both log importers — `load_cube.sh` (access log) and `fetch_loki_logs.sh`
+(Loki) — run `anonymize.sql` immediately after the parser and before every
+other step. IP truncation and query-string removal therefore happen *before*
+the geo lookup, the visitor key and the cube; no later stage ever sees a full
+IP address. The referrer keeps its query string one step longer, because the
+`keyword` dimension is derived from it, and is pruned in `transform.sql`
+before the cube rows are built. This is not optional and has no off switch.
+
 ### IP addresses
 
-- Raw IP addresses are **not stored in the cube DB**.
-- For GeoIP and unique-visitor counting, a **daily-salted hash** is
-  computed: `MD5(ip + daily_salt)` — resistant to reversal and consistent
-  within a single day.
+- IP addresses are **truncated at import time**, in `anonymize.sql`:
+  - IPv4 → last octet zeroed (`203.0.113.77` → `203.0.113.0`)
+  - IPv6 → `/48` prefix (`2001:db8:1234:5678::1` → `2001:db8:1234::`)
+  - IPv4-mapped IPv6 (`::ffff:a.b.c.d`, logged by dual-stack sockets) keeps
+    its prefix and is masked like IPv4. Such addresses resolve via the IPv6
+    geo file only, so without `SM_GEO6_PATH` they stay `??`.
+  - An IPv4 address with a `:port` suffix (proxy/load-balancer formats) is
+    masked and loses the port. Anything that is not a recognisable IP address
+    — a hostname, an `X-Forwarded-For` chain — **fails closed** to `-`; it is
+    never passed through unmasked (and then has no country).
+- Raw IP addresses are **not stored in the cube DB**. They exist only in the
+  `raw_lines` temp table (the log text itself) for the lifetime of the DuckDB
+  process and are never written to the sink.
+- For GeoIP and unique-visitor counting, a **daily-salted hash** is computed
+  over the *truncated* IP: `MD5(ip + ua + daily_salt)` — resistant to reversal
+  and consistent within a single day.
 - `daily_salt` is re-randomized every day (DuckDB, at import time).
-- For stricter requirements: truncate the IP before import (zero out the
-  last octet).
+- Effects to expect: `uniques` can drop marginally, because visitors sharing
+  a /24 (resp. /48) *and* the exact same user agent now collapse into one
+  visitor key. Geo stays at country level, but is no longer exact for
+  providers whose ranges are finer than /24 (resp. start inside a /48):
+  the truncated address can fall into the preceding range, which yields `??`
+  or, more rarely, a neighbouring country.
+- Pageviews can shift slightly for sites using cache-busting query strings:
+  `/style.css?v=3` used to pass the asset filter and count as a pageview,
+  whereas `/style.css` is now correctly filtered out. Re-importing historical
+  days rewrites their stored figures accordingly.
 
 ### PII in URLs and referrers
 
-- URLs are stored unmodified. Filter out or mask query parameters
-  containing PII (tokens, names, emails) before import:
+- **URL query strings are removed** at import time: everything from the first
+  `?` or `#` is dropped, since query parameters routinely carry personal data
+  (tokens, mail addresses, search input, form values). `/suche?q=maier` is
+  stored as `/suche`.
+- `SM_URL_KEEP_PARAMS` (comma-separated) keeps named parameters despite the
+  filter. This exists for TYPO3 installations **without slug URLs**, where the
+  page identity lives in the query string — without it, every page would
+  collapse into a single `/index.php` row:
   ```bash
-  # Example: remove the 'token' and 'email' query parameters
-  sed -E 's/[?&](token|email)=[^& "]*/\1=REMOVED/g' access.log | ./load_cube.sh - "Site" 1
+  SM_URL_KEEP_PARAMS="id,L,type" ./load_cube.sh access.log "Site" 1
   ```
+  Only ever name parameters that provably carry no personal data. Anything not
+  named is dropped. Default is empty — nothing is kept.
+- The **referrer loses its query string too**, but one step later than the
+  URL: `transform.sql` first derives the referrer host (for `referrer_type` /
+  `referrer_name`) and the `keyword` from `?q=`, and only then prunes the
+  referrer for the `referrer_url` dimension. `https://example.org/reset?token=…`
+  is stored as `https://example.org/reset`. Scheme, host and path remain — the
+  referring *page* stays identifiable, which is the point of that dimension,
+  while a same-site referrer can no longer reintroduce the parameters that
+  `anonymize.sql` removes from `url`.
+- The `keyword` dimension is therefore unaffected by the pruning. In practice
+  it is sparsely filled regardless: the major search engines stopped sending
+  the search term in the referrer years ago.
+- The Matomo legacy import (`matomo_import.sh`) is **not** covered by
+  `anonymize.sql` — it consumes pre-aggregated Reporting API data. Configure
+  anonymization in Matomo itself before exporting.
 
 ### Transmitting logs
 
@@ -924,7 +975,7 @@ as they exist; until then, the extension automatically uses its previous
 |---|---|---|
 | `ingestion/migrations/v1_to_v2.sql` | **Yes**, for existing v1 data | Breaking change (schema v2): CHR(31) keys → `parent` column. Without this migration, extension 2.x refuses to serve with an error. Alternative: re-import all logs. |
 | `ingestion/migrations/v2_add_indexes.sql` | No (the sink creates the indexes automatically) | Only to run the first index creation (online DDL) on very large cubes at a controlled time outside the nightly import window. |
-| `ingestion/migrations/v2_add_topn.sql` | No (the sink creates the table automatically) | Only to create the table/index ahead of time before the next import runs — purely cosmetic, no correctness risk if skipped (see `docs/topn-precompute-spec.md`). |
+| `ingestion/migrations/v2_add_topn.sql` | No (the sink creates the table automatically) | Only to create the table/index ahead of time before the next import runs — purely cosmetic, no correctness risk if skipped (see `docs/SCHEMA.md`). |
 
 **Rule of thumb:** except for `v1_to_v2.sql`, the migration scripts here
 are optional and idempotent — when in doubt, just wait for the next
@@ -990,7 +1041,7 @@ exactly what the backup is for.
 | `SM_TABLE_CUBE` | `cube` | cube table name (for non-default table names) |
 | `SM_TABLE_DAILY` | `daily` | daily table name |
 | `SM_TABLE_META` | `meta` | meta table name |
-| `SM_TABLE_TOPN` | `topn` | Top-N precompute table name (§17a, `docs/topn-precompute-spec.md`) |
+| `SM_TABLE_TOPN` | `topn` | Top-N precompute table name (§17a, `docs/SCHEMA.md`) |
 | `RETENTION_MONTHS` | `12` | retention period for purge (positive integer) |
 | `PURGE_DRY_RUN` | *(unset)* | set: only count, don't delete |
 | `PARALLEL` | `1` | parallel import jobs (`xargs -P` in `run_all.sh`) |

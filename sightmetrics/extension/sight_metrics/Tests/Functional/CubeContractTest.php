@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the TYPO3 CMS extension "sight_metrics".
+ *
+ * SPDX-FileCopyrightText: 2026 Robert Schleiermacher
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 declare(strict_types=1);
 
 namespace SightMetrics\Tests\Functional;
@@ -118,7 +125,7 @@ final class CubeContractTest extends FunctionalTestCase
     }
 
     /**
-     * Top-N precompute (docs/topn-precompute-spec.md): the fixture is a single
+     * Top-N precompute (docs/SCHEMA.md, table topn): the fixture is a single
      * day (2026-01-10), so [meta.von, meta.bis] IS the 'all' window exactly --
      * the precomputed `topn` table must return the identical rows as a live
      * query for the same [from,to], for both a root dim and a drill-down child.

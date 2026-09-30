@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * This file is part of the TYPO3 CMS extension "sight_metrics".
+ *
+ * SPDX-FileCopyrightText: 2026 Robert Schleiermacher
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 declare(strict_types=1);
 
 namespace SightMetrics\Support;
 
 /**
- * Dimensions whose bar lists are limited server-side to Top-N (ROADMAP.md
- * "Top-N + lazy loading"). Two categories:
+ * Dimensions whose bar lists are limited server-side to Top-N (with lazy
+ * loading). Two categories:
  *
  * - ROOT_METRIC_BY_DIM: top-level dims, preloaded in the initial payload (see
  *   DashboardController). Some have a drill-down child (CHILD_OF_ROOT), whose rows
@@ -20,8 +27,6 @@ namespace SightMetrics\Support;
  */
 final class TopNDims
 {
-    private function __construct() {}
-
     /** Root dim => metric ('pv' or 'v'). */
     public const ROOT_METRIC_BY_DIM = [
         'keyword' => 'v',
@@ -67,6 +72,7 @@ final class TopNDims
      * Top-N dims is no longer fully present in the initial payload.
      */
     public const TREE_DIM = 'url';
+    private function __construct() {}
 
     public static function defaultLimitFor(string $rootDim): int
     {
