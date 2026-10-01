@@ -3,7 +3,7 @@
   "bomFormat": "CycloneDX",
   "components": [
     {
-      "bom-ref": "pkg:deb/debian/adduser@3.134?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/apt@3.0.3?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -12,29 +12,7 @@
         },
         {
           "license": {
-            "id": "GPL-2.0-only"
-          }
-        }
-      ],
-      "name": "adduser",
-      "purl": "pkg:deb/debian/adduser@3.134?distro=debian-12.15",
-      "supplier": {
-        "name": "Debian Adduser Developers <adduser@packages.debian.org>"
-      },
-      "type": "library",
-      "version": "3.134"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/apt@2.6.1?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-only"
+            "id": "curl"
           }
         },
         {
@@ -46,35 +24,50 @@
           "license": {
             "id": "MIT"
           }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
         }
       ],
       "name": "apt",
-      "purl": "pkg:deb/debian/apt@2.6.1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/apt@3.0.3?distro=debian-13.7",
       "supplier": {
         "name": "APT Development Team <deity@lists.debian.org>"
       },
       "type": "library",
-      "version": "2.6.1"
+      "version": "3.0.3"
     },
     {
-      "bom-ref": "pkg:deb/debian/base-files@12.4%2Bdeb12u15?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/base-files@13.8%2Bdeb13u7?distro=debian-13.7",
       "licenses": [
         {
           "license": {
             "id": "GPL-2.0-or-later"
           }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "name": "verbatim"
+          }
         }
       ],
       "name": "base-files",
-      "purl": "pkg:deb/debian/base-files@12.4%2Bdeb12u15?distro=debian-12.15",
+      "purl": "pkg:deb/debian/base-files@13.8%2Bdeb13u7?distro=debian-13.7",
       "supplier": {
         "name": "Santiago Vila <sanvila@debian.org>"
       },
       "type": "library",
-      "version": "12.4+deb12u15"
+      "version": "13.8+deb13u7"
     },
     {
-      "bom-ref": "pkg:deb/debian/base-passwd@3.6.1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/base-passwd@3.6.7?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -88,15 +81,15 @@
         }
       ],
       "name": "base-passwd",
-      "purl": "pkg:deb/debian/base-passwd@3.6.1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/base-passwd@3.6.7?distro=debian-13.7",
       "supplier": {
-        "name": "Colin Watson <cjwatson@debian.org>"
+        "name": "Shadow package maintainers <pkg-shadow-devel@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "3.6.1"
+      "version": "3.6.7"
     },
     {
-      "bom-ref": "pkg:deb/debian/bash@5.2.15-2%2Bb13?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/bash@5.2.37-2%2Bb10?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -155,15 +148,15 @@
         }
       ],
       "name": "bash",
-      "purl": "pkg:deb/debian/bash@5.2.15-2%2Bb13?distro=debian-12.15",
+      "purl": "pkg:deb/debian/bash@5.2.37-2%2Bb10?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "5.2.15-2+b13"
+      "version": "5.2.37-2+b10"
     },
     {
-      "bom-ref": "pkg:deb/debian/bsdutils@2.38.1-5%2Bdeb12u3?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/bsdutils@2.41.5-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -178,6 +171,11 @@
         {
           "license": {
             "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
@@ -197,6 +195,11 @@
         },
         {
           "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
             "id": "BSD-3-Clause"
           }
         },
@@ -212,7 +215,7 @@
         },
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "id": "BSD-2-Clause"
           }
         },
         {
@@ -242,15 +245,15 @@
         }
       ],
       "name": "bsdutils",
-      "purl": "pkg:deb/debian/bsdutils@2.38.1-5%2Bdeb12u3?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/bsdutils@2.41.5-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "supplier": {
-        "name": "util-linux packagers <util-linux@packages.debian.org>"
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
       },
       "type": "library",
-      "version": "1:2.38.1-5+deb12u3"
+      "version": "1:2.41.5-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/ca-certificates@20250419~deb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/ca-certificates@20250419?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -269,15 +272,15 @@
         }
       ],
       "name": "ca-certificates",
-      "purl": "pkg:deb/debian/ca-certificates@20250419~deb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/ca-certificates@20250419?distro=debian-13.7",
       "supplier": {
         "name": "Julien Cristau <jcristau@debian.org>"
       },
       "type": "library",
-      "version": "20250419~deb12u1"
+      "version": "20250419"
     },
     {
-      "bom-ref": "pkg:deb/debian/coreutils@9.1-1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/coreutils@9.7-3?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -316,15 +319,82 @@
         }
       ],
       "name": "coreutils",
-      "purl": "pkg:deb/debian/coreutils@9.1-1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/coreutils@9.7-3?distro=debian-13.7",
       "supplier": {
         "name": "Michael Stone <mstone@debian.org>"
       },
       "type": "library",
-      "version": "9.1-1"
+      "version": "9.7-3"
     },
     {
-      "bom-ref": "pkg:deb/debian/dash@0.5.12-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/curl@8.14.1-2%2Bdeb13u5?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "curl"
+          }
+        },
+        {
+          "license": {
+            "id": "OLDAP-2.8"
+          }
+        },
+        {
+          "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH Autoconf-data-exception"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-3.0-or-later WITH Autoconf-data-exception"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH Libtool-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-4-Clause-UC"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFULLR"
+          }
+        },
+        {
+          "license": {
+            "id": "X11"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "name": "curl",
+      "purl": "pkg:deb/debian/curl@8.14.1-2%2Bdeb13u5?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian Curl Maintainers <team+curl@tracker.debian.org>"
+      },
+      "type": "library",
+      "version": "8.14.1-2+deb13u5"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/dash@0.5.12-12?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -348,15 +418,15 @@
         }
       ],
       "name": "dash",
-      "purl": "pkg:deb/debian/dash@0.5.12-2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/dash@0.5.12-12?distro=debian-13.7",
       "supplier": {
         "name": "Andrej Shadura <andrewsh@debian.org>"
       },
       "type": "library",
-      "version": "0.5.12-2"
+      "version": "0.5.12-12"
     },
     {
-      "bom-ref": "pkg:deb/debian/debconf@1.5.82?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/debconf@1.5.91?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -365,15 +435,15 @@
         }
       ],
       "name": "debconf",
-      "purl": "pkg:deb/debian/debconf@1.5.82?distro=debian-12.15",
+      "purl": "pkg:deb/debian/debconf@1.5.91?distro=debian-13.7",
       "supplier": {
         "name": "Debconf Developers <debconf-devel@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "1.5.82"
+      "version": "1.5.91"
     },
     {
-      "bom-ref": "pkg:deb/debian/debian-archive-keyring@2023.3%2Bdeb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/debian-archive-keyring@2025.1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -382,15 +452,15 @@
         }
       ],
       "name": "debian-archive-keyring",
-      "purl": "pkg:deb/debian/debian-archive-keyring@2023.3%2Bdeb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/debian-archive-keyring@2025.1?distro=debian-13.7",
       "supplier": {
         "name": "Debian Release Team <packages@release.debian.org>"
       },
       "type": "library",
-      "version": "2023.3+deb12u2"
+      "version": "2025.1"
     },
     {
-      "bom-ref": "pkg:deb/debian/debianutils@5.7-0.5~deb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/debianutils@5.23.2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -414,15 +484,15 @@
         }
       ],
       "name": "debianutils",
-      "purl": "pkg:deb/debian/debianutils@5.7-0.5~deb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/debianutils@5.23.2?distro=debian-13.7",
       "supplier": {
-        "name": "Clint Adams <clint@debian.org>"
+        "name": "Ileana Dumitrescu <ileanadumitrescu95@gmail.com>"
       },
       "type": "library",
-      "version": "5.7-0.5~deb12u1"
+      "version": "5.23.2"
     },
     {
-      "bom-ref": "pkg:deb/debian/default-mysql-client@1.1.0?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/default-mysql-client@1.1.1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -436,15 +506,15 @@
         }
       ],
       "name": "default-mysql-client",
-      "purl": "pkg:deb/debian/default-mysql-client@1.1.0?distro=debian-12.15",
+      "purl": "pkg:deb/debian/default-mysql-client@1.1.1?distro=debian-13.7",
       "supplier": {
         "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "1.1.0"
+      "version": "1.1.1"
     },
     {
-      "bom-ref": "pkg:deb/debian/diffutils@3.8-4?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/diffutils@3.10-4?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -538,109 +608,42 @@
         }
       ],
       "name": "diffutils",
-      "purl": "pkg:deb/debian/diffutils@3.8-4?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/diffutils@3.10-4?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Santiago Vila <sanvila@debian.org>"
       },
       "type": "library",
-      "version": "1:3.8-4"
+      "version": "1:3.10-4"
     },
     {
-      "bom-ref": "pkg:deb/debian/dpkg@1.21.23?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/dpkg@1.22.22?distro=debian-13.7",
       "licenses": [
         {
           "license": {
             "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-2-Clause"
           }
         },
         {
           "license": {
             "name": "public-domain-s-s-d"
           }
-        }
-      ],
-      "name": "dpkg",
-      "purl": "pkg:deb/debian/dpkg@1.21.23?distro=debian-12.15",
-      "supplier": {
-        "name": "Dpkg Developers <debian-dpkg@lists.debian.org>"
-      },
-      "type": "library",
-      "version": "1.21.23"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/e2fsprogs@1.47.0-2%2Bb2?distro=debian-12.15",
-      "licenses": [
+        },
         {
           "license": {
             "id": "GPL-2.0-only"
           }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        },
-        {
-          "license": {
-            "id": "ISC"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "MIT-US-export"
-          }
-        },
-        {
-          "license": {
-            "id": "Kazlib"
-          }
-        },
-        {
-          "license": {
-            "id": "Latex2e"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2.0-or-later WITH Texinfo-exception"
-          }
         }
       ],
-      "name": "e2fsprogs",
-      "purl": "pkg:deb/debian/e2fsprogs@1.47.0-2%2Bb2?distro=debian-12.15",
+      "name": "dpkg",
+      "purl": "pkg:deb/debian/dpkg@1.22.22?distro=debian-13.7",
       "supplier": {
-        "name": "Theodore Y. Ts'o <tytso@mit.edu>"
+        "name": "Dpkg Developers <debian-dpkg@lists.debian.org>"
       },
       "type": "library",
-      "version": "1.47.0-2+b2"
+      "version": "1.22.22"
     },
     {
-      "bom-ref": "pkg:deb/debian/findutils@4.9.0-4?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/findutils@4.10.0-3?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -659,17 +662,17 @@
         },
         {
           "license": {
+            "name": "GPL-2.0-or-later WITH Autoconf-data-exception"
+          }
+        },
+        {
+          "license": {
             "name": "GPL-3.0-or-later WITH Autoconf-data-exception"
           }
         },
         {
           "license": {
             "id": "FSFULLR"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2.0-or-later WITH Autoconf-data-exception"
           }
         },
         {
@@ -689,12 +692,12 @@
         },
         {
           "license": {
-            "name": "GPL-2.0-or-later WITH automake-exception"
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "GPL-2.0-or-later WITH automake-exception"
           }
         },
         {
@@ -709,7 +712,7 @@
         },
         {
           "license": {
-            "name": "BSD-3-clause-and-or-GPL-3+"
+            "id": "BSD-3-Clause"
           }
         },
         {
@@ -724,12 +727,7 @@
         },
         {
           "license": {
-            "name": "ISC-and-or-LGPL-2.1+"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
+            "id": "ISC"
           }
         },
         {
@@ -749,11 +747,6 @@
         },
         {
           "license": {
-            "id": "ISC"
-          }
-        },
-        {
-          "license": {
             "id": "LGPL-2.0-only"
           }
         },
@@ -764,15 +757,15 @@
         }
       ],
       "name": "findutils",
-      "purl": "pkg:deb/debian/findutils@4.9.0-4?distro=debian-12.15",
+      "purl": "pkg:deb/debian/findutils@4.10.0-3?distro=debian-13.7",
       "supplier": {
         "name": "Andreas Metzler <ametzler@debian.org>"
       },
       "type": "library",
-      "version": "4.9.0-4"
+      "version": "4.10.0-3"
     },
     {
-      "bom-ref": "pkg:deb/debian/gcc-12-base@12.2.0-14%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/gcc-14-base@14.2.0-19?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -791,11 +784,6 @@
         },
         {
           "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
             "id": "Artistic-2.0"
           }
         },
@@ -805,52 +793,20 @@
           }
         }
       ],
-      "name": "gcc-12-base",
-      "purl": "pkg:deb/debian/gcc-12-base@12.2.0-14%2Bdeb12u1?distro=debian-12.15",
+      "name": "gcc-14-base",
+      "purl": "pkg:deb/debian/gcc-14-base@14.2.0-19?distro=debian-13.7",
       "supplier": {
         "name": "Debian GCC Maintainers <debian-gcc@lists.debian.org>"
       },
       "type": "library",
-      "version": "12.2.0-14+deb12u1"
+      "version": "14.2.0-19"
     },
     {
-      "bom-ref": "pkg:deb/debian/gettext-base@0.21-12?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GFDL-1.3-or-later"
-          }
-        }
-      ],
-      "name": "gettext-base",
-      "purl": "pkg:deb/debian/gettext-base@0.21-12?distro=debian-12.15",
-      "supplier": {
-        "name": "Santiago Vila <sanvila@debian.org>"
-      },
-      "type": "library",
-      "version": "0.21-12"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/gpgv@2.2.40-1.1%2Bdeb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/gettext-base@0.23.1-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
             "id": "GPL-3.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "permissive"
           }
         },
         {
@@ -860,32 +816,17 @@
         },
         {
           "license": {
-            "id": "MIT"
+            "name": "FDL-1.2+"
           }
         },
         {
           "license": {
-            "id": "BSD-3-Clause"
+            "id": "GPL-2.0-or-later"
           }
         },
         {
           "license": {
-            "id": "LGPL-3.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "RFC-Reference"
-          }
-        },
-        {
-          "license": {
-            "name": "TinySCHEME"
-          }
-        },
-        {
-          "license": {
-            "id": "CC0-1.0"
+            "id": "GPL-2.0-only"
           }
         },
         {
@@ -895,25 +836,25 @@
         },
         {
           "license": {
-            "id": "LGPL-3.0-only"
+            "id": "LGPL-2.1-only"
           }
         },
         {
           "license": {
-            "id": "LGPL-2.1-only"
+            "id": "GFDL-1.2-only"
           }
         }
       ],
-      "name": "gpgv",
-      "purl": "pkg:deb/debian/gpgv@2.2.40-1.1%2Bdeb12u2?distro=debian-12.15",
+      "name": "gettext-base",
+      "purl": "pkg:deb/debian/gettext-base@0.23.1-2?distro=debian-13.7",
       "supplier": {
-        "name": "Debian GnuPG Maintainers <pkg-gnupg-maint@lists.alioth.debian.org>"
+        "name": "Santiago Vila <sanvila@debian.org>"
       },
       "type": "library",
-      "version": "2.2.40-1.1+deb12u2"
+      "version": "0.23.1-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/grep@3.8-5?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/grep@3.11-4?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -927,15 +868,15 @@
         }
       ],
       "name": "grep",
-      "purl": "pkg:deb/debian/grep@3.8-5?distro=debian-12.15",
+      "purl": "pkg:deb/debian/grep@3.11-4?distro=debian-13.7",
       "supplier": {
         "name": "Anibal Monsalve Salazar <anibal@debian.org>"
       },
       "type": "library",
-      "version": "3.8-5"
+      "version": "3.11-4"
     },
     {
-      "bom-ref": "pkg:deb/debian/gzip@1.12-1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/gzip@1.13-1%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -964,15 +905,15 @@
         }
       ],
       "name": "gzip",
-      "purl": "pkg:deb/debian/gzip@1.12-1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/gzip@1.13-1%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Milan Kupcevic <milan@debian.org>"
       },
       "type": "library",
-      "version": "1.12-1"
+      "version": "1.13-1+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/hostname@3.23%2Bnmu1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/hostname@3.25?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -981,15 +922,15 @@
         }
       ],
       "name": "hostname",
-      "purl": "pkg:deb/debian/hostname@3.23%2Bnmu1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/hostname@3.25?distro=debian-13.7",
       "supplier": {
         "name": "Michael Meskes <meskes@debian.org>"
       },
       "type": "library",
-      "version": "3.23+nmu1"
+      "version": "3.25"
     },
     {
-      "bom-ref": "pkg:deb/debian/init-system-helpers@1.65.2%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/init-system-helpers@1.69~deb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1008,15 +949,47 @@
         }
       ],
       "name": "init-system-helpers",
-      "purl": "pkg:deb/debian/init-system-helpers@1.65.2%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/init-system-helpers@1.69~deb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Debian systemd Maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "1.65.2+deb12u1"
+      "version": "1.69~deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libacl1@2.3.1-3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/jq@1.7.1-6%2Bdeb13u4?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "id": "CC-BY-3.0"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "name": "jq",
+      "purl": "pkg:deb/debian/jq@1.7.1-6%2Bdeb13u4?distro=debian-13.7",
+      "supplier": {
+        "name": "ChangZhuo Chen (陳昌倬) <czchen@debian.org>"
+      },
+      "type": "library",
+      "version": "1.7.1-6+deb13u4"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libacl1@2.3.2-2%2Bb1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1040,15 +1013,15 @@
         }
       ],
       "name": "libacl1",
-      "purl": "pkg:deb/debian/libacl1@2.3.1-3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libacl1@2.3.2-2%2Bb1?distro=debian-13.7",
       "supplier": {
         "name": "Guillem Jover <guillem@debian.org>"
       },
       "type": "library",
-      "version": "2.3.1-3"
+      "version": "2.3.2-2+b1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libapt-pkg6.0@2.6.1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libapt-pkg7.0@3.0.3?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1057,7 +1030,7 @@
         },
         {
           "license": {
-            "id": "GPL-2.0-only"
+            "id": "curl"
           }
         },
         {
@@ -1069,18 +1042,23 @@
           "license": {
             "id": "MIT"
           }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
         }
       ],
-      "name": "libapt-pkg6.0",
-      "purl": "pkg:deb/debian/libapt-pkg6.0@2.6.1?distro=debian-12.15",
+      "name": "libapt-pkg7.0",
+      "purl": "pkg:deb/debian/libapt-pkg7.0@3.0.3?distro=debian-13.7",
       "supplier": {
         "name": "APT Development Team <deity@lists.debian.org>"
       },
       "type": "library",
-      "version": "2.6.1"
+      "version": "3.0.3"
     },
     {
-      "bom-ref": "pkg:deb/debian/libattr1@2.5.1-4?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/libattr1@2.5.2-3?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -1104,15 +1082,15 @@
         }
       ],
       "name": "libattr1",
-      "purl": "pkg:deb/debian/libattr1@2.5.1-4?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/libattr1@2.5.2-3?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Guillem Jover <guillem@debian.org>"
       },
       "type": "library",
-      "version": "1:2.5.1-4"
+      "version": "1:2.5.2-3"
     },
     {
-      "bom-ref": "pkg:deb/debian/libaudit-common@3.0.9-1?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/libaudit-common@4.0.2-2%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -1131,15 +1109,15 @@
         }
       ],
       "name": "libaudit-common",
-      "purl": "pkg:deb/debian/libaudit-common@3.0.9-1?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/libaudit-common@4.0.2-2%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Laurent Bigonville <bigon@debian.org>"
       },
       "type": "library",
-      "version": "1:3.0.9-1"
+      "version": "1:4.0.2-2+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libaudit1@3.0.9-1?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/libaudit1@4.0.2-2%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -1158,15 +1136,15 @@
         }
       ],
       "name": "libaudit1",
-      "purl": "pkg:deb/debian/libaudit1@3.0.9-1?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/libaudit1@4.0.2-2%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Laurent Bigonville <bigon@debian.org>"
       },
       "type": "library",
-      "version": "1:3.0.9-1"
+      "version": "1:4.0.2-2+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libblkid1@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libblkid1@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1181,6 +1159,11 @@
         {
           "license": {
             "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
@@ -1200,6 +1183,11 @@
         },
         {
           "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
             "id": "BSD-3-Clause"
           }
         },
@@ -1215,7 +1203,7 @@
         },
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "id": "BSD-2-Clause"
           }
         },
         {
@@ -1245,24 +1233,36 @@
         }
       ],
       "name": "libblkid1",
-      "purl": "pkg:deb/debian/libblkid1@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libblkid1@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
-        "name": "util-linux packagers <util-linux@packages.debian.org>"
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
       },
       "type": "library",
-      "version": "2.38.1-5+deb12u3"
+      "version": "2.41.5-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libbsd0@0.11.7-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libbrotli1@1.1.0-2%2Bb7?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "libbrotli1",
+      "purl": "pkg:deb/debian/libbrotli1@1.1.0-2%2Bb7?distro=debian-13.7",
+      "supplier": {
+        "name": "Tomasz Buchert <tomasz@debian.org>"
+      },
+      "type": "library",
+      "version": "1.1.0-2+b7"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libbsd0@0.12.2-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
             "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "name": "BSD-4-clause-Niels-Provos"
           }
         },
         {
@@ -1287,7 +1287,7 @@
         },
         {
           "license": {
-            "id": "libutil-David-Nugent"
+            "name": "BSD-5-clause-Peter-Wemm"
           }
         },
         {
@@ -1332,15 +1332,15 @@
         }
       ],
       "name": "libbsd0",
-      "purl": "pkg:deb/debian/libbsd0@0.11.7-2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libbsd0@0.12.2-2?distro=debian-13.7",
       "supplier": {
         "name": "Guillem Jover <guillem@debian.org>"
       },
       "type": "library",
-      "version": "0.11.7-2"
+      "version": "0.12.2-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libbz2-1.0@1.0.8-5%2Bb1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libbz2-1.0@1.0.8-6?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1354,16 +1354,166 @@
         }
       ],
       "name": "libbz2-1.0",
-      "purl": "pkg:deb/debian/libbz2-1.0@1.0.8-5%2Bb1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libbz2-1.0@1.0.8-6?distro=debian-13.7",
       "supplier": {
         "name": "Anibal Monsalve Salazar <anibal@debian.org>"
       },
       "type": "library",
-      "version": "1.0.8-5+b1"
+      "version": "1.0.8-6"
     },
     {
-      "bom-ref": "pkg:deb/debian/libc-bin@2.36-9%2Bdeb12u14?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libc-bin@2.41-12%2Bdeb13u4?distro=debian-13.7",
       "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "LGPL-2.1-or-later WITH link-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH link-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFAP"
+          }
+        },
+        {
+          "license": {
+            "name": "Carnegie"
+          }
+        },
+        {
+          "license": {
+            "name": "Inner-Net"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT-like-Lord"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-like-Spencer"
+          }
+        },
+        {
+          "license": {
+            "name": "PCRE"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-Carnegie"
+          }
+        },
+        {
+          "license": {
+            "id": "Unicode-DFS-2016"
+          }
+        },
+        {
+          "license": {
+            "id": "BSL-1.0"
+          }
+        },
+        {
+          "license": {
+            "id": "SunPro"
+          }
+        },
+        {
+          "license": {
+            "name": "CORE-MATH"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-Berkeley"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-WIDE"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-Oracle"
+          }
+        },
+        {
+          "license": {
+            "name": "DEC"
+          }
+        },
+        {
+          "license": {
+            "name": "IBM"
+          }
+        },
+        {
+          "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
+            "name": "Univ-Coimbra"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
+          }
+        },
         {
           "license": {
             "id": "LGPL-2.1-only"
@@ -1371,21 +1521,171 @@
         },
         {
           "license": {
-            "id": "GPL-2.0-only"
+            "id": "LGPL-3.0-only"
           }
         }
       ],
       "name": "libc-bin",
-      "purl": "pkg:deb/debian/libc-bin@2.36-9%2Bdeb12u14?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libc-bin@2.41-12%2Bdeb13u4?distro=debian-13.7",
       "supplier": {
         "name": "GNU Libc Maintainers <debian-glibc@lists.debian.org>"
       },
       "type": "library",
-      "version": "2.36-9+deb12u14"
+      "version": "2.41-12+deb13u4"
     },
     {
-      "bom-ref": "pkg:deb/debian/libc6@2.36-9%2Bdeb12u14?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libc6@2.41-12%2Bdeb13u4?distro=debian-13.7",
       "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "LGPL-2.1-or-later WITH link-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH link-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFAP"
+          }
+        },
+        {
+          "license": {
+            "name": "Carnegie"
+          }
+        },
+        {
+          "license": {
+            "name": "Inner-Net"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT-like-Lord"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-like-Spencer"
+          }
+        },
+        {
+          "license": {
+            "name": "PCRE"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-Carnegie"
+          }
+        },
+        {
+          "license": {
+            "id": "Unicode-DFS-2016"
+          }
+        },
+        {
+          "license": {
+            "id": "BSL-1.0"
+          }
+        },
+        {
+          "license": {
+            "id": "SunPro"
+          }
+        },
+        {
+          "license": {
+            "name": "CORE-MATH"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-Berkeley"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-WIDE"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-Oracle"
+          }
+        },
+        {
+          "license": {
+            "name": "DEC"
+          }
+        },
+        {
+          "license": {
+            "name": "IBM"
+          }
+        },
+        {
+          "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
+            "name": "Univ-Coimbra"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
+          }
+        },
         {
           "license": {
             "id": "LGPL-2.1-only"
@@ -1393,20 +1693,20 @@
         },
         {
           "license": {
-            "id": "GPL-2.0-only"
+            "id": "LGPL-3.0-only"
           }
         }
       ],
       "name": "libc6",
-      "purl": "pkg:deb/debian/libc6@2.36-9%2Bdeb12u14?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libc6@2.41-12%2Bdeb13u4?distro=debian-13.7",
       "supplier": {
         "name": "GNU Libc Maintainers <debian-glibc@lists.debian.org>"
       },
       "type": "library",
-      "version": "2.36-9+deb12u14"
+      "version": "2.41-12+deb13u4"
     },
     {
-      "bom-ref": "pkg:deb/debian/libcap-ng0@0.8.3-1%2Bb3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libcap-ng0@0.8.5-4%2Bb1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1435,15 +1735,15 @@
         }
       ],
       "name": "libcap-ng0",
-      "purl": "pkg:deb/debian/libcap-ng0@0.8.3-1%2Bb3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libcap-ng0@0.8.5-4%2Bb1?distro=debian-13.7",
       "supplier": {
         "name": "Håvard F. Aasen <havard.f.aasen@pfft.no>"
       },
       "type": "library",
-      "version": "0.8.3-1+b3"
+      "version": "0.8.5-4+b1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libcap2@2.66-4%2Bdeb12u3%2Bb1?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/libcap2@2.75-10%2Bdeb13u1%2Bb3?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -1462,15 +1762,15 @@
         }
       ],
       "name": "libcap2",
-      "purl": "pkg:deb/debian/libcap2@2.66-4%2Bdeb12u3%2Bb1?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/libcap2@2.75-10%2Bdeb13u1%2Bb3?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Christian Kastner <ckk@debian.org>"
       },
       "type": "library",
-      "version": "1:2.66-4+deb12u3+b1"
+      "version": "1:2.75-10+deb13u1+b3"
     },
     {
-      "bom-ref": "pkg:deb/debian/libcom-err2@1.47.0-2%2Bb2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libcom-err2@1.47.2-3%2Bb12?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1479,12 +1779,37 @@
         },
         {
           "license": {
-            "id": "LGPL-2.0-only"
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "0BSD"
+          }
+        },
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-Clause-Variant"
           }
         },
         {
           "license": {
             "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-4-Clause-CMU"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
           }
         },
         {
@@ -1495,11 +1820,6 @@
         {
           "license": {
             "id": "ISC"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
           }
         },
         {
@@ -1524,15 +1844,15 @@
         }
       ],
       "name": "libcom-err2",
-      "purl": "pkg:deb/debian/libcom-err2@1.47.0-2%2Bb2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libcom-err2@1.47.2-3%2Bb12?distro=debian-13.7",
       "supplier": {
         "name": "Theodore Y. Ts'o <tytso@mit.edu>"
       },
       "type": "library",
-      "version": "1.47.0-2+b2"
+      "version": "1.47.2-3+b12"
     },
     {
-      "bom-ref": "pkg:deb/debian/libconfig-inifiles-perl@3.000003-2%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libconfig-inifiles-perl@3.000003-3%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1566,25 +1886,92 @@
         }
       ],
       "name": "libconfig-inifiles-perl",
-      "purl": "pkg:deb/debian/libconfig-inifiles-perl@3.000003-2%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libconfig-inifiles-perl@3.000003-3%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Debian Perl Group <pkg-perl-maintainers@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "3.000003-2+deb12u1"
+      "version": "3.000003-3+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libcrypt1@4.4.33-2?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/libcrypt1@4.4.38-1?distro=debian-13.7&epoch=1",
       "name": "libcrypt1",
-      "purl": "pkg:deb/debian/libcrypt1@4.4.33-2?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/libcrypt1@4.4.38-1?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Marco d'Itri <md@linux.it>"
       },
       "type": "library",
-      "version": "1:4.4.33-2"
+      "version": "1:4.4.38-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libdb5.3@5.3.28%2Bdfsg2-1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libcurl4t64@8.14.1-2%2Bdeb13u5?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "curl"
+          }
+        },
+        {
+          "license": {
+            "id": "OLDAP-2.8"
+          }
+        },
+        {
+          "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH Autoconf-data-exception"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-3.0-or-later WITH Autoconf-data-exception"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH Libtool-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-4-Clause-UC"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFULLR"
+          }
+        },
+        {
+          "license": {
+            "id": "X11"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "name": "libcurl4t64",
+      "purl": "pkg:deb/debian/libcurl4t64@8.14.1-2%2Bdeb13u5?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian Curl Maintainers <team+curl@tracker.debian.org>"
+      },
+      "type": "library",
+      "version": "8.14.1-2+deb13u5"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libdb5.3t64@5.3.28%2Bdfsg2-9?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1642,16 +2029,16 @@
           }
         }
       ],
-      "name": "libdb5.3",
-      "purl": "pkg:deb/debian/libdb5.3@5.3.28%2Bdfsg2-1?distro=debian-12.15",
+      "name": "libdb5.3t64",
+      "purl": "pkg:deb/debian/libdb5.3t64@5.3.28%2Bdfsg2-9?distro=debian-13.7",
       "supplier": {
-        "name": "Bastian Germann <bage@debian.org>"
+        "name": "Debian QA Group <packages@qa.debian.org>"
       },
       "type": "library",
-      "version": "5.3.28+dfsg2-1"
+      "version": "5.3.28+dfsg2-9"
     },
     {
-      "bom-ref": "pkg:deb/debian/libdebconfclient0@0.270?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libdebconfclient0@0.280?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1670,15 +2057,15 @@
         }
       ],
       "name": "libdebconfclient0",
-      "purl": "pkg:deb/debian/libdebconfclient0@0.270?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libdebconfclient0@0.280?distro=debian-13.7",
       "supplier": {
         "name": "Debian Install System Team <debian-boot@lists.debian.org>"
       },
       "type": "library",
-      "version": "0.270"
+      "version": "0.280"
     },
     {
-      "bom-ref": "pkg:deb/debian/libedit2@3.1-20221030-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libedit2@3.1-20250104-1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1687,15 +2074,15 @@
         }
       ],
       "name": "libedit2",
-      "purl": "pkg:deb/debian/libedit2@3.1-20221030-2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libedit2@3.1-20250104-1?distro=debian-13.7",
       "supplier": {
         "name": "LLVM Packaging Team <pkg-llvm-team@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "3.1-20221030-2"
+      "version": "3.1-20250104-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libexpat1@2.5.0-1%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libexpat1@2.8.3-1~deb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1704,77 +2091,15 @@
         }
       ],
       "name": "libexpat1",
-      "purl": "pkg:deb/debian/libexpat1@2.5.0-1%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libexpat1@2.8.3-1~deb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Laszlo Boszormenyi (GCS) <gcs@debian.org>"
       },
       "type": "library",
-      "version": "2.5.0-1+deb12u3"
+      "version": "2.8.3-1~deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libext2fs2@1.47.0-2%2Bb2?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        },
-        {
-          "license": {
-            "id": "ISC"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "MIT-US-export"
-          }
-        },
-        {
-          "license": {
-            "id": "Kazlib"
-          }
-        },
-        {
-          "license": {
-            "id": "Latex2e"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2.0-or-later WITH Texinfo-exception"
-          }
-        }
-      ],
-      "name": "libext2fs2",
-      "purl": "pkg:deb/debian/libext2fs2@1.47.0-2%2Bb2?distro=debian-12.15",
-      "supplier": {
-        "name": "Theodore Y. Ts'o <tytso@mit.edu>"
-      },
-      "type": "library",
-      "version": "1.47.0-2+b2"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/libffi8@3.4.4-1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libffi8@3.4.8-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1813,47 +2138,25 @@
         }
       ],
       "name": "libffi8",
-      "purl": "pkg:deb/debian/libffi8@3.4.4-1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libffi8@3.4.8-2?distro=debian-13.7",
       "supplier": {
         "name": "Debian GCC Maintainers <debian-gcc@lists.debian.org>"
       },
       "type": "library",
-      "version": "3.4.4-1"
+      "version": "3.4.8-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libgcc-s1@12.2.0-14%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libgcc-s1@14.2.0-19?distro=debian-13.7",
       "name": "libgcc-s1",
-      "purl": "pkg:deb/debian/libgcc-s1@12.2.0-14%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libgcc-s1@14.2.0-19?distro=debian-13.7",
       "supplier": {
         "name": "Debian GCC Maintainers <debian-gcc@lists.debian.org>"
       },
       "type": "library",
-      "version": "12.2.0-14+deb12u1"
+      "version": "14.2.0-19"
     },
     {
-      "bom-ref": "pkg:deb/debian/libgcrypt20@1.10.1-3%2Bdeb12u1?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "LGPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        }
-      ],
-      "name": "libgcrypt20",
-      "purl": "pkg:deb/debian/libgcrypt20@1.10.1-3%2Bdeb12u1?distro=debian-12.15",
-      "supplier": {
-        "name": "Debian GnuTLS Maintainers <pkg-gnutls-maint@lists.alioth.debian.org>"
-      },
-      "type": "library",
-      "version": "1.10.1-3+deb12u1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/libgdbm-compat4@1.23-3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libgdbm-compat4t64@1.24-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1881,16 +2184,16 @@
           }
         }
       ],
-      "name": "libgdbm-compat4",
-      "purl": "pkg:deb/debian/libgdbm-compat4@1.23-3?distro=debian-12.15",
+      "name": "libgdbm-compat4t64",
+      "purl": "pkg:deb/debian/libgdbm-compat4t64@1.24-2?distro=debian-13.7",
       "supplier": {
         "name": "Nicolas Mora <babelouest@debian.org>"
       },
       "type": "library",
-      "version": "1.23-3"
+      "version": "1.24-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libgdbm6@1.23-3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libgdbm6t64@1.24-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1918,16 +2221,16 @@
           }
         }
       ],
-      "name": "libgdbm6",
-      "purl": "pkg:deb/debian/libgdbm6@1.23-3?distro=debian-12.15",
+      "name": "libgdbm6t64",
+      "purl": "pkg:deb/debian/libgdbm6t64@1.24-2?distro=debian-13.7",
       "supplier": {
         "name": "Nicolas Mora <babelouest@debian.org>"
       },
       "type": "library",
-      "version": "1.23-3"
+      "version": "1.24-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libgmp10@6.2.1%2Bdfsg1-1.1?distro=debian-12.15&epoch=2",
+      "bom-ref": "pkg:deb/debian/libgmp10@6.3.0%2Bdfsg-3?distro=debian-13.7&epoch=2",
       "licenses": [
         {
           "license": {
@@ -1966,15 +2269,15 @@
         }
       ],
       "name": "libgmp10",
-      "purl": "pkg:deb/debian/libgmp10@6.2.1%2Bdfsg1-1.1?distro=debian-12.15&epoch=2",
+      "purl": "pkg:deb/debian/libgmp10@6.3.0%2Bdfsg-3?distro=debian-13.7&epoch=2",
       "supplier": {
-        "name": "Debian Science Team <debian-science-maintainers@lists.alioth.debian.org>"
+        "name": "Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "2:6.2.1+dfsg1-1.1"
+      "version": "2:6.3.0+dfsg-3"
     },
     {
-      "bom-ref": "pkg:deb/debian/libgnutls30@3.7.9-2%2Bdeb12u7?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libgnutls30t64@3.8.9-3%2Bdeb13u4?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2040,60 +2343,23 @@
           "license": {
             "id": "BSD-3-Clause"
           }
+        },
+        {
+          "license": {
+            "id": "FSFAP"
+          }
         }
       ],
-      "name": "libgnutls30",
-      "purl": "pkg:deb/debian/libgnutls30@3.7.9-2%2Bdeb12u7?distro=debian-12.15",
+      "name": "libgnutls30t64",
+      "purl": "pkg:deb/debian/libgnutls30t64@3.8.9-3%2Bdeb13u4?distro=debian-13.7",
       "supplier": {
         "name": "Debian GnuTLS Maintainers <pkg-gnutls-maint@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "3.7.9-2+deb12u7"
+      "version": "3.8.9-3+deb13u4"
     },
     {
-      "bom-ref": "pkg:deb/debian/libgpg-error0@1.46-1?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "LGPL-2.1-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "name": "g10-permissive"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-3.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-only"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-3.0-only"
-          }
-        }
-      ],
-      "name": "libgpg-error0",
-      "purl": "pkg:deb/debian/libgpg-error0@1.46-1?distro=debian-12.15",
-      "supplier": {
-        "name": "Debian GnuPG Maintainers <pkg-gnupg-maint@lists.alioth.debian.org>"
-      },
-      "type": "library",
-      "version": "1.46-1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/libgssapi-krb5-2@1.20.1-2%2Bdeb12u5?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libgssapi-krb5-2@1.21.3-5%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2102,15 +2368,15 @@
         }
       ],
       "name": "libgssapi-krb5-2",
-      "purl": "pkg:deb/debian/libgssapi-krb5-2@1.20.1-2%2Bdeb12u5?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libgssapi-krb5-2@1.21.3-5%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Sam Hartman <hartmans@debian.org>"
       },
       "type": "library",
-      "version": "1.20.1-2+deb12u5"
+      "version": "1.21.3-5+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libhogweed6@3.8.1-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libhogweed6t64@3.10.1-1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2139,11 +2405,6 @@
         },
         {
           "license": {
-            "id": "GPL-3.0-or-later"
-          }
-        },
-        {
-          "license": {
             "name": "GPL-3.0-only WITH autoconf-exception+"
           }
         },
@@ -2163,16 +2424,16 @@
           }
         }
       ],
-      "name": "libhogweed6",
-      "purl": "pkg:deb/debian/libhogweed6@3.8.1-2?distro=debian-12.15",
+      "name": "libhogweed6t64",
+      "purl": "pkg:deb/debian/libhogweed6t64@3.10.1-1?distro=debian-13.7",
       "supplier": {
         "name": "Magnus Holmgren <holmgren@debian.org>"
       },
       "type": "library",
-      "version": "3.8.1-2"
+      "version": "3.10.1-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libidn2-0@2.3.3-1%2Bb1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libidn2-0@2.3.8-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2187,6 +2448,11 @@
         {
           "license": {
             "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "MIT"
           }
         },
         {
@@ -2211,15 +2477,47 @@
         }
       ],
       "name": "libidn2-0",
-      "purl": "pkg:deb/debian/libidn2-0@2.3.3-1%2Bb1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libidn2-0@2.3.8-2?distro=debian-13.7",
       "supplier": {
         "name": "Debian Libidn team <help-libidn@gnu.org>"
       },
       "type": "library",
-      "version": "2.3.3-1+b1"
+      "version": "2.3.8-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libk5crypto3@1.20.1-2%2Bdeb12u5?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libjq1@1.7.1-6%2Bdeb13u4?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "id": "CC-BY-3.0"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "name": "libjq1",
+      "purl": "pkg:deb/debian/libjq1@1.7.1-6%2Bdeb13u4?distro=debian-13.7",
+      "supplier": {
+        "name": "ChangZhuo Chen (陳昌倬) <czchen@debian.org>"
+      },
+      "type": "library",
+      "version": "1.7.1-6+deb13u4"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libk5crypto3@1.21.3-5%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2228,15 +2526,15 @@
         }
       ],
       "name": "libk5crypto3",
-      "purl": "pkg:deb/debian/libk5crypto3@1.20.1-2%2Bdeb12u5?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libk5crypto3@1.21.3-5%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Sam Hartman <hartmans@debian.org>"
       },
       "type": "library",
-      "version": "1.20.1-2+deb12u5"
+      "version": "1.21.3-5+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libkeyutils1@1.6.3-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libkeyutils1@1.6.3-6?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2260,15 +2558,15 @@
         }
       ],
       "name": "libkeyutils1",
-      "purl": "pkg:deb/debian/libkeyutils1@1.6.3-2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libkeyutils1@1.6.3-6?distro=debian-13.7",
       "supplier": {
         "name": "Christian Kastner <ckk@debian.org>"
       },
       "type": "library",
-      "version": "1.6.3-2"
+      "version": "1.6.3-6"
     },
     {
-      "bom-ref": "pkg:deb/debian/libkrb5-3@1.20.1-2%2Bdeb12u5?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libkrb5-3@1.21.3-5%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2277,15 +2575,15 @@
         }
       ],
       "name": "libkrb5-3",
-      "purl": "pkg:deb/debian/libkrb5-3@1.20.1-2%2Bdeb12u5?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libkrb5-3@1.21.3-5%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Sam Hartman <hartmans@debian.org>"
       },
       "type": "library",
-      "version": "1.20.1-2+deb12u5"
+      "version": "1.21.3-5+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libkrb5support0@1.20.1-2%2Bdeb12u5?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libkrb5support0@1.21.3-5%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2294,21 +2592,16 @@
         }
       ],
       "name": "libkrb5support0",
-      "purl": "pkg:deb/debian/libkrb5support0@1.20.1-2%2Bdeb12u5?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libkrb5support0@1.21.3-5%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Sam Hartman <hartmans@debian.org>"
       },
       "type": "library",
-      "version": "1.20.1-2+deb12u5"
+      "version": "1.21.3-5+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/liblz4-1@1.9.4-1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/liblastlog2-2@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
-        {
-          "license": {
-            "id": "BSD-2-Clause"
-          }
-        },
         {
           "license": {
             "id": "GPL-2.0-or-later"
@@ -2318,32 +2611,10 @@
           "license": {
             "id": "GPL-2.0-only"
           }
-        }
-      ],
-      "name": "liblz4-1",
-      "purl": "pkg:deb/debian/liblz4-1@1.9.4-1?distro=debian-12.15",
-      "supplier": {
-        "name": "Nobuhiro Iwamatsu <iwamatsu@debian.org>"
-      },
-      "type": "library",
-      "version": "1.9.4-1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/liblzma5@5.4.1-1%2Bdeb12u2?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "name": "PD"
-          }
         },
         {
           "license": {
-            "name": "probably-PD"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
+            "id": "GPL-3.0-or-later"
           }
         },
         {
@@ -2353,32 +2624,52 @@
         },
         {
           "license": {
-            "name": "permissive-fsf"
+            "name": "public-domain"
           }
         },
         {
           "license": {
-            "name": "Autoconf"
+            "id": "BSD-4-Clause"
           }
         },
         {
           "license": {
-            "name": "permissive-nowarranty"
+            "id": "MIT"
           }
         },
         {
           "license": {
-            "id": "GPL-2.0-only"
+            "id": "ISC"
           }
         },
         {
           "license": {
-            "name": "none"
+            "id": "BSD-3-Clause"
           }
         },
         {
           "license": {
-            "name": "config-h"
+            "name": "BSLA"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-only"
           }
         },
         {
@@ -2393,6 +2684,227 @@
         },
         {
           "license": {
+            "id": "LGPL-3.0-only"
+          }
+        }
+      ],
+      "name": "liblastlog2-2",
+      "purl": "pkg:deb/debian/liblastlog2-2@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
+      "supplier": {
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
+      },
+      "type": "library",
+      "version": "2.41.5-0+deb13u1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libldap2@2.6.10%2Bdfsg-1?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "name": "OpenLDAP-2.8"
+          }
+        },
+        {
+          "license": {
+            "name": "FSF-unlimited"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-only WITH autoconf-exception+"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-3.0-only WITH autoconf-exception+"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH Libtool-exception"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-3.0-or-later WITH Libtool-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "UMich"
+          }
+        },
+        {
+          "license": {
+            "name": "F5"
+          }
+        },
+        {
+          "license": {
+            "name": "JCG"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT-XC"
+          }
+        },
+        {
+          "license": {
+            "name": "NeoSoft-permissive"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "Beerware"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-4-clause-California"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-variant"
+          }
+        },
+        {
+          "license": {
+            "name": "Expat-ISC"
+          }
+        },
+        {
+          "license": {
+            "name": "Expat-UNM"
+          }
+        },
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-California"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-only"
+          }
+        }
+      ],
+      "name": "libldap2",
+      "purl": "pkg:deb/debian/libldap2@2.6.10%2Bdfsg-1?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian OpenLDAP Maintainers <pkg-openldap-devel@lists.alioth.debian.org>"
+      },
+      "type": "library",
+      "version": "2.6.10+dfsg-1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/liblz4-1@1.10.0-4?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "name": "liblz4-1",
+      "purl": "pkg:deb/debian/liblz4-1@1.10.0-4?distro=debian-13.7",
+      "supplier": {
+        "name": "Nobuhiro Iwamatsu <iwamatsu@debian.org>"
+      },
+      "type": "library",
+      "version": "1.10.0-4"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/liblzma5@5.8.1-1%2Bdeb13u1?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "0BSD"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFULLR"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-3.0-or-later WITH Autoconf-exception-macro"
+          }
+        },
+        {
+          "license": {
+            "name": "none"
+          }
+        },
+        {
+          "license": {
+            "name": "PD"
+          }
+        },
+        {
+          "license": {
+            "name": "permissive-nowarranty"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFUL"
+          }
+        },
+        {
+          "license": {
             "name": "noderivs"
           }
         },
@@ -2403,20 +2915,30 @@
         },
         {
           "license": {
+            "id": "LGPL-2.1-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
             "id": "GPL-3.0-only"
           }
         }
       ],
       "name": "liblzma5",
-      "purl": "pkg:deb/debian/liblzma5@5.4.1-1%2Bdeb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/liblzma5@5.8.1-1%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Sebastian Andrzej Siewior <sebastian@breakpoint.cc>"
       },
       "type": "library",
-      "version": "5.4.1-1+deb12u2"
+      "version": "5.8.1-1+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libmariadb3@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/libmariadb3@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -2460,11 +2982,6 @@
         },
         {
           "license": {
-            "id": "LGPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
             "name": "GPL-2.0-only WITH bison-exception+"
           }
         },
@@ -2480,6 +2997,11 @@
         },
         {
           "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
             "id": "zlib-acknowledgement"
           }
         },
@@ -2490,15 +3012,15 @@
         }
       ],
       "name": "libmariadb3",
-      "purl": "pkg:deb/debian/libmariadb3@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/libmariadb3@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "1:10.11.18-0+deb12u1"
+      "version": "1:11.8.6-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libmd0@1.0.4-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libmd0@1.1.0-2%2Bb1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2547,15 +3069,15 @@
         }
       ],
       "name": "libmd0",
-      "purl": "pkg:deb/debian/libmd0@1.0.4-2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libmd0@1.1.0-2%2Bb1?distro=debian-13.7",
       "supplier": {
         "name": "Guillem Jover <guillem@debian.org>"
       },
       "type": "library",
-      "version": "1.0.4-2"
+      "version": "1.1.0-2+b1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libmount1@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libmount1@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2570,6 +3092,11 @@
         {
           "license": {
             "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
@@ -2589,6 +3116,11 @@
         },
         {
           "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
             "id": "BSD-3-Clause"
           }
         },
@@ -2604,7 +3136,7 @@
         },
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "id": "BSD-2-Clause"
           }
         },
         {
@@ -2634,35 +3166,35 @@
         }
       ],
       "name": "libmount1",
-      "purl": "pkg:deb/debian/libmount1@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libmount1@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
-        "name": "util-linux packagers <util-linux@packages.debian.org>"
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
       },
       "type": "library",
-      "version": "2.38.1-5+deb12u3"
+      "version": "2.41.5-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libncurses6@6.4-4?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libncurses6@6.5%2B20250216-2?distro=debian-13.7",
       "name": "libncurses6",
-      "purl": "pkg:deb/debian/libncurses6@6.4-4?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libncurses6@6.5%2B20250216-2?distro=debian-13.7",
       "supplier": {
-        "name": "Craig Small <csmall@debian.org>"
+        "name": "Ncurses Maintainers <ncurses@packages.debian.org>"
       },
       "type": "library",
-      "version": "6.4-4"
+      "version": "6.5+20250216-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libncursesw6@6.4-4?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libncursesw6@6.5%2B20250216-2?distro=debian-13.7",
       "name": "libncursesw6",
-      "purl": "pkg:deb/debian/libncursesw6@6.4-4?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libncursesw6@6.5%2B20250216-2?distro=debian-13.7",
       "supplier": {
-        "name": "Craig Small <csmall@debian.org>"
+        "name": "Ncurses Maintainers <ncurses@packages.debian.org>"
       },
       "type": "library",
-      "version": "6.4-4"
+      "version": "6.5+20250216-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libnettle8@3.8.1-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libnettle8t64@3.10.1-1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2691,11 +3223,6 @@
         },
         {
           "license": {
-            "id": "GPL-3.0-or-later"
-          }
-        },
-        {
-          "license": {
             "name": "GPL-3.0-only WITH autoconf-exception+"
           }
         },
@@ -2715,62 +3242,17 @@
           }
         }
       ],
-      "name": "libnettle8",
-      "purl": "pkg:deb/debian/libnettle8@3.8.1-2?distro=debian-12.15",
+      "name": "libnettle8t64",
+      "purl": "pkg:deb/debian/libnettle8t64@3.10.1-1?distro=debian-13.7",
       "supplier": {
         "name": "Magnus Holmgren <holmgren@debian.org>"
       },
       "type": "library",
-      "version": "3.8.1-2"
+      "version": "3.10.1-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libnsl2@1.3.0-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libnghttp2-14@1.64.0-1.1%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
-        {
-          "license": {
-            "id": "LGPL-2.1-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-only"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "name": "permissive-fsf"
-          }
-        },
-        {
-          "license": {
-            "name": "permissive-makefile-in"
-          }
-        },
-        {
-          "license": {
-            "name": "permissive-autoconf-m4-no-warranty"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-3--autoconf-exception"
-          }
-        },
-        {
-          "license": {
-            "name": "permissive-configure"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2--autoconf-exception"
-          }
-        },
         {
           "license": {
             "id": "MIT"
@@ -2778,12 +3260,74 @@
         },
         {
           "license": {
-            "name": "GPL-2--libtool-exception"
+            "name": "all-permissive"
           }
         },
         {
           "license": {
-            "name": "permissive-autoconf-m4"
+            "name": "GPL-3.0-only WITH autoconf-exception+"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-only"
+          }
+        }
+      ],
+      "name": "libnghttp2-14",
+      "purl": "pkg:deb/debian/libnghttp2-14@1.64.0-1.1%2Bdeb13u1?distro=debian-13.7",
+      "supplier": {
+        "name": "Tomasz Buchert <tomasz@debian.org>"
+      },
+      "type": "library",
+      "version": "1.64.0-1.1+deb13u1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libnghttp3-9@1.8.0-1?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFULLR"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-3.0-or-later WITH Autoconf-generic-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFUL"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH Autoconf-generic-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFAP"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH Libtool-Exception"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
           }
         },
         {
@@ -2797,16 +3341,43 @@
           }
         }
       ],
-      "name": "libnsl2",
-      "purl": "pkg:deb/debian/libnsl2@1.3.0-2?distro=debian-12.15",
+      "name": "libnghttp3-9",
+      "purl": "pkg:deb/debian/libnghttp3-9@1.8.0-1?distro=debian-13.7",
       "supplier": {
-        "name": "GNU Libc Maintainers <debian-glibc@lists.debian.org>"
+        "name": "Debian Curl Maintainers <team+curl@tracker.debian.org>"
       },
       "type": "library",
-      "version": "1.3.0-2"
+      "version": "1.8.0-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libp11-kit0@0.24.1-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libonig5@6.9.9-1%2Bb1?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "name": "libonig5",
+      "purl": "pkg:deb/debian/libonig5@6.9.9-1%2Bb1?distro=debian-13.7",
+      "supplier": {
+        "name": "Jörg Frings-Fürst <debian@jff.email>"
+      },
+      "type": "library",
+      "version": "6.9.9-1+b1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libp11-kit0@0.25.5-3?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2815,7 +3386,22 @@
         },
         {
           "license": {
-            "name": "permissive-like-automake-output"
+            "id": "FSFULLR"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later WITH Autoconf-data-exception"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-3.0-or-later WITH Autoconf-data-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "X11"
           }
         },
         {
@@ -2825,7 +3411,7 @@
         },
         {
           "license": {
-            "name": "ISC-IBM"
+            "name": "customFSFULLRWD"
           }
         },
         {
@@ -2840,7 +3426,12 @@
         },
         {
           "license": {
-            "name": "same-as-rest-of-p11kit"
+            "name": "customFSFUL"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFAP"
           }
         },
         {
@@ -2850,15 +3441,15 @@
         }
       ],
       "name": "libp11-kit0",
-      "purl": "pkg:deb/debian/libp11-kit0@0.24.1-2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libp11-kit0@0.25.5-3?distro=debian-13.7",
       "supplier": {
         "name": "Debian GnuTLS Maintainers <pkg-gnutls-maint@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "0.24.1-2"
+      "version": "0.25.5-3"
     },
     {
-      "bom-ref": "pkg:deb/debian/libpam-modules-bin@1.5.2-6%2Bdeb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpam-modules-bin@1.7.0-5?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2868,6 +3459,11 @@
         {
           "license": {
             "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-1.0-only"
           }
         },
         {
@@ -2912,15 +3508,15 @@
         }
       ],
       "name": "libpam-modules-bin",
-      "purl": "pkg:deb/debian/libpam-modules-bin@1.5.2-6%2Bdeb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libpam-modules-bin@1.7.0-5?distro=debian-13.7",
       "supplier": {
         "name": "Sam Hartman <hartmans@debian.org>"
       },
       "type": "library",
-      "version": "1.5.2-6+deb12u2"
+      "version": "1.7.0-5"
     },
     {
-      "bom-ref": "pkg:deb/debian/libpam-modules@1.5.2-6%2Bdeb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpam-modules@1.7.0-5?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2930,6 +3526,11 @@
         {
           "license": {
             "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-1.0-only"
           }
         },
         {
@@ -2974,15 +3575,15 @@
         }
       ],
       "name": "libpam-modules",
-      "purl": "pkg:deb/debian/libpam-modules@1.5.2-6%2Bdeb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libpam-modules@1.7.0-5?distro=debian-13.7",
       "supplier": {
         "name": "Sam Hartman <hartmans@debian.org>"
       },
       "type": "library",
-      "version": "1.5.2-6+deb12u2"
+      "version": "1.7.0-5"
     },
     {
-      "bom-ref": "pkg:deb/debian/libpam-runtime@1.5.2-6%2Bdeb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpam-runtime@1.7.0-5?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2992,6 +3593,11 @@
         {
           "license": {
             "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-1.0-only"
           }
         },
         {
@@ -3036,15 +3642,15 @@
         }
       ],
       "name": "libpam-runtime",
-      "purl": "pkg:deb/debian/libpam-runtime@1.5.2-6%2Bdeb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libpam-runtime@1.7.0-5?distro=debian-13.7",
       "supplier": {
         "name": "Sam Hartman <hartmans@debian.org>"
       },
       "type": "library",
-      "version": "1.5.2-6+deb12u2"
+      "version": "1.7.0-5"
     },
     {
-      "bom-ref": "pkg:deb/debian/libpam0g@1.5.2-6%2Bdeb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpam0g@1.7.0-5?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3054,6 +3660,11 @@
         {
           "license": {
             "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-1.0-only"
           }
         },
         {
@@ -3098,15 +3709,15 @@
         }
       ],
       "name": "libpam0g",
-      "purl": "pkg:deb/debian/libpam0g@1.5.2-6%2Bdeb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libpam0g@1.7.0-5?distro=debian-13.7",
       "supplier": {
         "name": "Sam Hartman <hartmans@debian.org>"
       },
       "type": "library",
-      "version": "1.5.2-6+deb12u2"
+      "version": "1.7.0-5"
     },
     {
-      "bom-ref": "pkg:deb/debian/libpcre2-8-0@10.42-1%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpcre2-8-0@10.46-1~deb13u3?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3135,15 +3746,52 @@
         }
       ],
       "name": "libpcre2-8-0",
-      "purl": "pkg:deb/debian/libpcre2-8-0@10.42-1%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libpcre2-8-0@10.46-1~deb13u3?distro=debian-13.7",
       "supplier": {
         "name": "Matthew Vernon <matthew@debian.org>"
       },
       "type": "library",
-      "version": "10.42-1+deb12u1"
+      "version": "10.46-1~deb13u3"
     },
     {
-      "bom-ref": "pkg:deb/debian/libperl5.36@5.36.0-7%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpcre2-posix3@10.46-1~deb13u3?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-clause-Cambridge WITH BINARY-LIBRARY-LIKE-PACKAGES-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "X11"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        }
+      ],
+      "name": "libpcre2-posix3",
+      "purl": "pkg:deb/debian/libpcre2-posix3@10.46-1~deb13u3?distro=debian-13.7",
+      "supplier": {
+        "name": "Matthew Vernon <matthew@debian.org>"
+      },
+      "type": "library",
+      "version": "10.46-1~deb13u3"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libperl5.40@5.40.1-6%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3192,7 +3840,7 @@
         },
         {
           "license": {
-            "name": "RRA-KEEP-THIS-NOTICE"
+            "id": "FSFAP"
           }
         },
         {
@@ -3259,38 +3907,55 @@
           "license": {
             "name": "Artistic-2"
           }
-        },
-        {
-          "license": {
-            "name": "HSIEH-DERIVATIVE"
-          }
-        },
-        {
-          "license": {
-            "name": "HSIEH-BSD"
-          }
         }
       ],
-      "name": "libperl5.36",
-      "purl": "pkg:deb/debian/libperl5.36@5.36.0-7%2Bdeb12u3?distro=debian-12.15",
+      "name": "libperl5.40",
+      "purl": "pkg:deb/debian/libperl5.40@5.40.1-6%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Niko Tyni <ntyni@debian.org>"
       },
       "type": "library",
-      "version": "5.36.0-7+deb12u3"
+      "version": "5.40.1-6+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libpython3-stdlib@3.11.2-1%2Bb1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpsl5t64@0.21.2-1.1%2Bb1?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "name": "gnulib"
+          }
+        },
+        {
+          "license": {
+            "name": "Chromium"
+          }
+        }
+      ],
+      "name": "libpsl5t64",
+      "purl": "pkg:deb/debian/libpsl5t64@0.21.2-1.1%2Bb1?distro=debian-13.7",
+      "supplier": {
+        "name": "Tim Rühsen <tim.ruehsen@gmx.de>"
+      },
+      "type": "library",
+      "version": "0.21.2-1.1+b1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libpython3-stdlib@3.13.5-1?distro=debian-13.7",
       "name": "libpython3-stdlib",
-      "purl": "pkg:deb/debian/libpython3-stdlib@3.11.2-1%2Bb1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libpython3-stdlib@3.13.5-1?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "3.11.2-1+b1"
+      "version": "3.13.5-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libpython3.11-minimal@3.11.2-6%2Bdeb12u8?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpython3.13-minimal@3.13.5-2%2Bdeb13u5?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3348,26 +4013,26 @@
           }
         }
       ],
-      "name": "libpython3.11-minimal",
-      "purl": "pkg:deb/debian/libpython3.11-minimal@3.11.2-6%2Bdeb12u8?distro=debian-12.15",
+      "name": "libpython3.13-minimal",
+      "purl": "pkg:deb/debian/libpython3.13-minimal@3.13.5-2%2Bdeb13u5?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "3.11.2-6+deb12u8"
+      "version": "3.13.5-2+deb13u5"
     },
     {
-      "bom-ref": "pkg:deb/debian/libpython3.11-stdlib@3.11.2-6%2Bdeb12u8?distro=debian-12.15",
-      "name": "libpython3.11-stdlib",
-      "purl": "pkg:deb/debian/libpython3.11-stdlib@3.11.2-6%2Bdeb12u8?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libpython3.13-stdlib@3.13.5-2%2Bdeb13u5?distro=debian-13.7",
+      "name": "libpython3.13-stdlib",
+      "purl": "pkg:deb/debian/libpython3.13-stdlib@3.13.5-2%2Bdeb13u5?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "3.11.2-6+deb12u8"
+      "version": "3.13.5-2+deb13u5"
     },
     {
-      "bom-ref": "pkg:deb/debian/libreadline8@8.2-1.3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libreadline8t64@8.2-6?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3405,16 +4070,232 @@
           }
         }
       ],
-      "name": "libreadline8",
-      "purl": "pkg:deb/debian/libreadline8@8.2-1.3?distro=debian-12.15",
+      "name": "libreadline8t64",
+      "purl": "pkg:deb/debian/libreadline8t64@8.2-6?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "8.2-1.3"
+      "version": "8.2-6"
     },
     {
-      "bom-ref": "pkg:deb/debian/libseccomp2@2.5.4-1%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/librtmp1@2.4%2B20151223.gitfa8646d.1-2%2Bb5?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        }
+      ],
+      "name": "librtmp1",
+      "purl": "pkg:deb/debian/librtmp1@2.4%2B20151223.gitfa8646d.1-2%2Bb5?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>"
+      },
+      "type": "library",
+      "version": "2.4+20151223.gitfa8646d.1-2+b5"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libsasl2-2@2.1.28%2Bdfsg1-9?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause-Attribution"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-4-Clause-UC"
+          }
+        },
+        {
+          "license": {
+            "id": "RSA-MD"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-Clause-Attribution and IBM-as-is"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-JANET"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-PADL"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT-OpenVision"
+          }
+        },
+        {
+          "license": {
+            "name": "OpenLDAP"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFULLR"
+          }
+        },
+        {
+          "license": {
+            "id": "MIT-CMU"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT-Export"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-2.2-clause"
+          }
+        },
+        {
+          "license": {
+            "name": "IBM-as-is"
+          }
+        }
+      ],
+      "name": "libsasl2-2",
+      "purl": "pkg:deb/debian/libsasl2-2@2.1.28%2Bdfsg1-9?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian Cyrus Team <team+cyrus@tracker.debian.org>"
+      },
+      "type": "library",
+      "version": "2.1.28+dfsg1-9"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libsasl2-modules-db@2.1.28%2Bdfsg1-9?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause-Attribution"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-4-Clause-UC"
+          }
+        },
+        {
+          "license": {
+            "id": "RSA-MD"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-Clause-Attribution and IBM-as-is"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-JANET"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-clause-PADL"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT-OpenVision"
+          }
+        },
+        {
+          "license": {
+            "name": "OpenLDAP"
+          }
+        },
+        {
+          "license": {
+            "id": "FSFULLR"
+          }
+        },
+        {
+          "license": {
+            "id": "MIT-CMU"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT-Export"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-2.2-clause"
+          }
+        },
+        {
+          "license": {
+            "name": "IBM-as-is"
+          }
+        }
+      ],
+      "name": "libsasl2-modules-db",
+      "purl": "pkg:deb/debian/libsasl2-modules-db@2.1.28%2Bdfsg1-9?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian Cyrus Team <team+cyrus@tracker.debian.org>"
+      },
+      "type": "library",
+      "version": "2.1.28+dfsg1-9"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libseccomp2@2.6.0-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3423,16 +4304,43 @@
         }
       ],
       "name": "libseccomp2",
-      "purl": "pkg:deb/debian/libseccomp2@2.5.4-1%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libseccomp2@2.6.0-2?distro=debian-13.7",
       "supplier": {
         "name": "Kees Cook <kees@debian.org>"
       },
       "type": "library",
-      "version": "2.5.4-1+deb12u1"
+      "version": "2.6.0-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libselinux1@3.4-1%2Bb6?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libselinux1@3.8.1-1?distro=debian-13.7",
       "licenses": [
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "name": "libselinux1",
+      "purl": "pkg:deb/debian/libselinux1@3.8.1-1?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian SELinux maintainers <selinux-devel@lists.alioth.debian.org>"
+      },
+      "type": "library",
+      "version": "3.8.1-1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/libsemanage-common@3.8.1-1?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
         {
           "license": {
             "id": "LGPL-2.1-only"
@@ -3444,60 +4352,43 @@
           }
         }
       ],
-      "name": "libselinux1",
-      "purl": "pkg:deb/debian/libselinux1@3.4-1%2Bb6?distro=debian-12.15",
-      "supplier": {
-        "name": "Debian SELinux maintainers <selinux-devel@lists.alioth.debian.org>"
-      },
-      "type": "library",
-      "version": "3.4-1+b6"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/libsemanage-common@3.4-1?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "LGPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        }
-      ],
       "name": "libsemanage-common",
-      "purl": "pkg:deb/debian/libsemanage-common@3.4-1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libsemanage-common@3.8.1-1?distro=debian-13.7",
       "supplier": {
         "name": "Debian SELinux maintainers <selinux-devel@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "3.4-1"
+      "version": "3.8.1-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libsemanage2@3.4-1%2Bb5?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libsemanage2@3.8.1-1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.0-or-later"
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
           "license": {
-            "id": "GPL-2.0-or-later"
+            "id": "LGPL-2.1-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
           }
         }
       ],
       "name": "libsemanage2",
-      "purl": "pkg:deb/debian/libsemanage2@3.4-1%2Bb5?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libsemanage2@3.8.1-1?distro=debian-13.7",
       "supplier": {
         "name": "Debian SELinux maintainers <selinux-devel@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "3.4-1+b5"
+      "version": "3.8.1-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libsepol2@3.4-2.1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libsepol2@3.8.1-1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3526,15 +4417,15 @@
         }
       ],
       "name": "libsepol2",
-      "purl": "pkg:deb/debian/libsepol2@3.4-2.1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libsepol2@3.8.1-1?distro=debian-13.7",
       "supplier": {
         "name": "Debian SELinux maintainers <selinux-devel@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "3.4-2.1"
+      "version": "3.8.1-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libsmartcols1@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libsmartcols1@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3549,6 +4440,11 @@
         {
           "license": {
             "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
@@ -3568,6 +4464,11 @@
         },
         {
           "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
             "id": "BSD-3-Clause"
           }
         },
@@ -3583,7 +4484,7 @@
         },
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "id": "BSD-2-Clause"
           }
         },
         {
@@ -3613,15 +4514,15 @@
         }
       ],
       "name": "libsmartcols1",
-      "purl": "pkg:deb/debian/libsmartcols1@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libsmartcols1@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
-        "name": "util-linux packagers <util-linux@packages.debian.org>"
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
       },
       "type": "library",
-      "version": "2.38.1-5+deb12u3"
+      "version": "2.41.5-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libsqlite3-0@3.40.1-2%2Bdeb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libsqlite3-0@3.46.1-7%2Bdeb13u2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3640,26 +4541,16 @@
         }
       ],
       "name": "libsqlite3-0",
-      "purl": "pkg:deb/debian/libsqlite3-0@3.40.1-2%2Bdeb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libsqlite3-0@3.46.1-7%2Bdeb13u2?distro=debian-13.7",
       "supplier": {
         "name": "Laszlo Boszormenyi (GCS) <gcs@debian.org>"
       },
       "type": "library",
-      "version": "3.40.1-2+deb12u2"
+      "version": "3.46.1-7+deb13u2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libss2@1.47.0-2%2Bb2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libssh2-1t64@1.11.1-1%2Bdeb13u2?distro=debian-13.7",
       "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-only"
-          }
-        },
         {
           "license": {
             "id": "BSD-3-Clause"
@@ -3667,50 +4558,20 @@
         },
         {
           "license": {
-            "id": "Apache-2.0"
-          }
-        },
-        {
-          "license": {
             "id": "ISC"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "MIT-US-export"
-          }
-        },
-        {
-          "license": {
-            "id": "Kazlib"
-          }
-        },
-        {
-          "license": {
-            "id": "Latex2e"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2.0-or-later WITH Texinfo-exception"
           }
         }
       ],
-      "name": "libss2",
-      "purl": "pkg:deb/debian/libss2@1.47.0-2%2Bb2?distro=debian-12.15",
+      "name": "libssh2-1t64",
+      "purl": "pkg:deb/debian/libssh2-1t64@1.11.1-1%2Bdeb13u2?distro=debian-13.7",
       "supplier": {
-        "name": "Theodore Y. Ts'o <tytso@mit.edu>"
+        "name": "Nicolas Mora <babelouest@debian.org>"
       },
       "type": "library",
-      "version": "1.47.0-2+b2"
+      "version": "1.11.1-1+deb13u2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libssl3@3.0.22-1~deb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libssl3t64@3.5.7-1~deb13u3?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3733,26 +4594,26 @@
           }
         }
       ],
-      "name": "libssl3",
-      "purl": "pkg:deb/debian/libssl3@3.0.22-1~deb12u1?distro=debian-12.15",
+      "name": "libssl3t64",
+      "purl": "pkg:deb/debian/libssl3t64@3.5.7-1~deb13u3?distro=debian-13.7",
       "supplier": {
         "name": "Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>"
       },
       "type": "library",
-      "version": "3.0.22-1~deb12u1"
+      "version": "3.5.7-1~deb13u3"
     },
     {
-      "bom-ref": "pkg:deb/debian/libstdc%2B%2B6@12.2.0-14%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libstdc%2B%2B6@14.2.0-19?distro=debian-13.7",
       "name": "libstdc++6",
-      "purl": "pkg:deb/debian/libstdc%2B%2B6@12.2.0-14%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libstdc%2B%2B6@14.2.0-19?distro=debian-13.7",
       "supplier": {
         "name": "Debian GCC Maintainers <debian-gcc@lists.debian.org>"
       },
       "type": "library",
-      "version": "12.2.0-14+deb12u1"
+      "version": "14.2.0-19"
     },
     {
-      "bom-ref": "pkg:deb/debian/libsystemd0@252.39-1~deb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libsystemd0@257.13-1~deb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3796,15 +4657,15 @@
         }
       ],
       "name": "libsystemd0",
-      "purl": "pkg:deb/debian/libsystemd0@252.39-1~deb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libsystemd0@257.13-1~deb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Debian systemd Maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "252.39-1~deb12u2"
+      "version": "257.13-1~deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libtasn1-6@4.19.0-2%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libtasn1-6@4.20.0-2%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3828,15 +4689,15 @@
         }
       ],
       "name": "libtasn1-6",
-      "purl": "pkg:deb/debian/libtasn1-6@4.19.0-2%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libtasn1-6@4.20.0-2%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Debian GnuTLS Maintainers <pkg-gnutls-maint@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "4.19.0-2+deb12u1"
+      "version": "4.20.0-2+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libtinfo6@6.4-4?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libtinfo6@6.5%2B20250216-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -3855,119 +4716,15 @@
         }
       ],
       "name": "libtinfo6",
-      "purl": "pkg:deb/debian/libtinfo6@6.4-4?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libtinfo6@6.5%2B20250216-2?distro=debian-13.7",
       "supplier": {
-        "name": "Craig Small <csmall@debian.org>"
+        "name": "Ncurses Maintainers <ncurses@packages.debian.org>"
       },
       "type": "library",
-      "version": "6.4-4"
+      "version": "6.5+20250216-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libtirpc-common@1.3.3%2Bds-1?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "name": "--AUTO-PERMISSIVE--"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-2-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-4-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "PERMISSIVE"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-only"
-          }
-        }
-      ],
-      "name": "libtirpc-common",
-      "purl": "pkg:deb/debian/libtirpc-common@1.3.3%2Bds-1?distro=debian-12.15",
-      "supplier": {
-        "name": "Josue Ortega <josue@debian.org>"
-      },
-      "type": "library",
-      "version": "1.3.3+ds-1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/libtirpc3@1.3.3%2Bds-1?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "name": "--AUTO-PERMISSIVE--"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-2-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-4-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "PERMISSIVE"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-only"
-          }
-        }
-      ],
-      "name": "libtirpc3",
-      "purl": "pkg:deb/debian/libtirpc3@1.3.3%2Bds-1?distro=debian-12.15",
-      "supplier": {
-        "name": "Josue Ortega <josue@debian.org>"
-      },
-      "type": "library",
-      "version": "1.3.3+ds-1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/libudev1@252.39-1~deb12u2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libudev1@257.13-1~deb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -4011,16 +4768,21 @@
         }
       ],
       "name": "libudev1",
-      "purl": "pkg:deb/debian/libudev1@252.39-1~deb12u2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libudev1@257.13-1~deb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Debian systemd Maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "252.39-1~deb12u2"
+      "version": "257.13-1~deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libunistring2@1.0-2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libunistring5@1.3-2?distro=debian-13.7",
       "licenses": [
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        },
         {
           "license": {
             "id": "LGPL-3.0-or-later"
@@ -4028,7 +4790,47 @@
         },
         {
           "license": {
-            "id": "GPL-2.0-or-later"
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GFDL-1.3-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GFDL-1.2-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-3.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
+            "id": "Unicode-DFS-2016"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
           }
         },
         {
@@ -4038,12 +4840,7 @@
         },
         {
           "license": {
-            "id": "GPL-3.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GFDL-1.2-or-later"
+            "id": "GPL-2.0-or-later"
           }
         },
         {
@@ -4058,7 +4855,7 @@
         },
         {
           "license": {
-            "id": "LGPL-3.0-only"
+            "id": "X11"
           }
         },
         {
@@ -4073,20 +4870,25 @@
         },
         {
           "license": {
-            "id": "GFDL-1.2-only"
+            "id": "LGPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
           }
         }
       ],
-      "name": "libunistring2",
-      "purl": "pkg:deb/debian/libunistring2@1.0-2?distro=debian-12.15",
+      "name": "libunistring5",
+      "purl": "pkg:deb/debian/libunistring5@1.3-2?distro=debian-13.7",
       "supplier": {
         "name": "Jörg Frings-Fürst <debian@jff.email>"
       },
       "type": "library",
-      "version": "1.0-2"
+      "version": "1.3-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libuuid1@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libuuid1@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -4101,6 +4903,11 @@
         {
           "license": {
             "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
@@ -4120,6 +4927,11 @@
         },
         {
           "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
             "id": "BSD-3-Clause"
           }
         },
@@ -4135,7 +4947,7 @@
         },
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "id": "BSD-2-Clause"
           }
         },
         {
@@ -4165,19 +4977,24 @@
         }
       ],
       "name": "libuuid1",
-      "purl": "pkg:deb/debian/libuuid1@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libuuid1@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
-        "name": "util-linux packagers <util-linux@packages.debian.org>"
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
       },
       "type": "library",
-      "version": "2.38.1-5+deb12u3"
+      "version": "2.41.5-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libxxhash0@0.8.1-1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libxxhash0@0.8.3-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
             "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
           }
         },
         {
@@ -4187,15 +5004,15 @@
         }
       ],
       "name": "libxxhash0",
-      "purl": "pkg:deb/debian/libxxhash0@0.8.1-1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libxxhash0@0.8.3-2?distro=debian-13.7",
       "supplier": {
         "name": "Josue Ortega <josue@debian.org>"
       },
       "type": "library",
-      "version": "0.8.1-1"
+      "version": "0.8.3-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libzstd1@1.5.4%2Bdfsg2-5?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libzstd1@1.5.7%2Bdfsg-1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -4219,15 +5036,15 @@
         }
       ],
       "name": "libzstd1",
-      "purl": "pkg:deb/debian/libzstd1@1.5.4%2Bdfsg2-5?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libzstd1@1.5.7%2Bdfsg-1?distro=debian-13.7",
       "supplier": {
         "name": "RPM packaging team <team+pkg-rpm@tracker.debian.org>"
       },
       "type": "library",
-      "version": "1.5.4+dfsg2-5"
+      "version": "1.5.7+dfsg-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/login@4.13%2Bdfsg1-1%2Bdeb12u2?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/login.defs@4.17.4-2?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -4246,377 +5063,20 @@
         },
         {
           "license": {
-            "name": "public-domain"
-          }
-        },
-        {
-          "license": {
             "id": "GPL-2.0-only"
           }
         }
       ],
-      "name": "login",
-      "purl": "pkg:deb/debian/login@4.13%2Bdfsg1-1%2Bdeb12u2?distro=debian-12.15&epoch=1",
+      "name": "login.defs",
+      "purl": "pkg:deb/debian/login.defs@4.17.4-2?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Shadow package maintainers <pkg-shadow-devel@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "1:4.13+dfsg1-1+deb12u2"
+      "version": "1:4.17.4-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/logsave@1.47.0-2%2Bb2?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        },
-        {
-          "license": {
-            "id": "ISC"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "MIT-US-export"
-          }
-        },
-        {
-          "license": {
-            "id": "Kazlib"
-          }
-        },
-        {
-          "license": {
-            "id": "Latex2e"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2.0-or-later WITH Texinfo-exception"
-          }
-        }
-      ],
-      "name": "logsave",
-      "purl": "pkg:deb/debian/logsave@1.47.0-2%2Bb2?distro=debian-12.15",
-      "supplier": {
-        "name": "Theodore Y. Ts'o <tytso@mit.edu>"
-      },
-      "type": "library",
-      "version": "1.47.0-2+b2"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/mariadb-client-core@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "public-domain"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-2-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "name": "unlimited-free-doc"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2.0-only WITH bison-exception+"
-          }
-        },
-        {
-          "license": {
-            "name": "SWsoft"
-          }
-        },
-        {
-          "license": {
-            "id": "Artistic-2.0"
-          }
-        },
-        {
-          "license": {
-            "id": "zlib-acknowledgement"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-only"
-          }
-        }
-      ],
-      "name": "mariadb-client-core",
-      "purl": "pkg:deb/debian/mariadb-client-core@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
-      "supplier": {
-        "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
-      },
-      "type": "library",
-      "version": "1:10.11.18-0+deb12u1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/mariadb-client@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "public-domain"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-2-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "name": "unlimited-free-doc"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2.0-only WITH bison-exception+"
-          }
-        },
-        {
-          "license": {
-            "name": "SWsoft"
-          }
-        },
-        {
-          "license": {
-            "id": "Artistic-2.0"
-          }
-        },
-        {
-          "license": {
-            "id": "zlib-acknowledgement"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-only"
-          }
-        }
-      ],
-      "name": "mariadb-client",
-      "purl": "pkg:deb/debian/mariadb-client@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
-      "supplier": {
-        "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
-      },
-      "type": "library",
-      "version": "1:10.11.18-0+deb12u1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/mariadb-common@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "public-domain"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-2-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "name": "unlimited-free-doc"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "GPL-2.0-only WITH bison-exception+"
-          }
-        },
-        {
-          "license": {
-            "name": "SWsoft"
-          }
-        },
-        {
-          "license": {
-            "id": "Artistic-2.0"
-          }
-        },
-        {
-          "license": {
-            "id": "zlib-acknowledgement"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-only"
-          }
-        }
-      ],
-      "name": "mariadb-common",
-      "purl": "pkg:deb/debian/mariadb-common@10.11.18-0%2Bdeb12u1?distro=debian-12.15&epoch=1",
-      "supplier": {
-        "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
-      },
-      "type": "library",
-      "version": "1:10.11.18-0+deb12u1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/mawk@1.3.4.20200120-3.1?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "X11"
-          }
-        },
-        {
-          "license": {
-            "id": "CC-BY-3.0"
-          }
-        }
-      ],
-      "name": "mawk",
-      "purl": "pkg:deb/debian/mawk@1.3.4.20200120-3.1?distro=debian-12.15",
-      "supplier": {
-        "name": "Boyuan Yang <byang@debian.org>"
-      },
-      "type": "library",
-      "version": "1.3.4.20200120-3.1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/media-types@10.0.0?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "name": "ad-hoc"
-          }
-        }
-      ],
-      "name": "media-types",
-      "purl": "pkg:deb/debian/media-types@10.0.0?distro=debian-12.15",
-      "supplier": {
-        "name": "Mime-Support Packagers <team+debian-mimesupport-packagers@tracker.debian.org>"
-      },
-      "type": "library",
-      "version": "10.0.0"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/mount@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/login@4.16.0-2%2Breally2.41.5-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -4631,6 +5091,11 @@
         {
           "license": {
             "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
@@ -4650,6 +5115,11 @@
         },
         {
           "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
             "id": "BSD-3-Clause"
           }
         },
@@ -4665,7 +5135,476 @@
         },
         {
           "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-3.0-only"
+          }
+        }
+      ],
+      "name": "login",
+      "purl": "pkg:deb/debian/login@4.16.0-2%2Breally2.41.5-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "supplier": {
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
+      },
+      "type": "library",
+      "version": "1:4.16.0-2+really2.41.5-0+deb13u1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/mariadb-client-compat@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
             "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "name": "unlimited-free-doc"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-only WITH bison-exception+"
+          }
+        },
+        {
+          "license": {
+            "name": "SWsoft"
+          }
+        },
+        {
+          "license": {
+            "id": "Artistic-2.0"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "zlib-acknowledgement"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        }
+      ],
+      "name": "mariadb-client-compat",
+      "purl": "pkg:deb/debian/mariadb-client-compat@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "supplier": {
+        "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
+      },
+      "type": "library",
+      "version": "1:11.8.6-0+deb13u1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/mariadb-client-core@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "name": "unlimited-free-doc"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-only WITH bison-exception+"
+          }
+        },
+        {
+          "license": {
+            "name": "SWsoft"
+          }
+        },
+        {
+          "license": {
+            "id": "Artistic-2.0"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "zlib-acknowledgement"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        }
+      ],
+      "name": "mariadb-client-core",
+      "purl": "pkg:deb/debian/mariadb-client-core@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "supplier": {
+        "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
+      },
+      "type": "library",
+      "version": "1:11.8.6-0+deb13u1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/mariadb-client@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "name": "unlimited-free-doc"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-only WITH bison-exception+"
+          }
+        },
+        {
+          "license": {
+            "name": "SWsoft"
+          }
+        },
+        {
+          "license": {
+            "id": "Artistic-2.0"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "zlib-acknowledgement"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        }
+      ],
+      "name": "mariadb-client",
+      "purl": "pkg:deb/debian/mariadb-client@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "supplier": {
+        "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
+      },
+      "type": "library",
+      "version": "1:11.8.6-0+deb13u1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/mariadb-common@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "name": "unlimited-free-doc"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-only WITH bison-exception+"
+          }
+        },
+        {
+          "license": {
+            "name": "SWsoft"
+          }
+        },
+        {
+          "license": {
+            "id": "Artistic-2.0"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "zlib-acknowledgement"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        }
+      ],
+      "name": "mariadb-common",
+      "purl": "pkg:deb/debian/mariadb-common@11.8.6-0%2Bdeb13u1?distro=debian-13.7&epoch=1",
+      "supplier": {
+        "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
+      },
+      "type": "library",
+      "version": "1:11.8.6-0+deb13u1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/mawk@1.3.4.20250131-1?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "X11"
+          }
+        },
+        {
+          "license": {
+            "id": "CC-BY-3.0"
+          }
+        }
+      ],
+      "name": "mawk",
+      "purl": "pkg:deb/debian/mawk@1.3.4.20250131-1?distro=debian-13.7",
+      "supplier": {
+        "name": "Boyuan Yang <byang@debian.org>"
+      },
+      "type": "library",
+      "version": "1.3.4.20250131-1"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/media-types@13.0.0?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "name": "ad-hoc"
+          }
+        }
+      ],
+      "name": "media-types",
+      "purl": "pkg:deb/debian/media-types@13.0.0?distro=debian-13.7",
+      "supplier": {
+        "name": "Mime-Support Packagers <team+debian-mimesupport-packagers@tracker.debian.org>"
+      },
+      "type": "library",
+      "version": "13.0.0"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/mount@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "public-domain"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-4-Clause"
+          }
+        },
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "id": "ISC"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "name": "BSLA"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "BSD-2-Clause"
           }
         },
         {
@@ -4695,15 +5634,15 @@
         }
       ],
       "name": "mount",
-      "purl": "pkg:deb/debian/mount@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/mount@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
-        "name": "util-linux packagers <util-linux@packages.debian.org>"
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
       },
       "type": "library",
-      "version": "2.38.1-5+deb12u3"
+      "version": "2.41.5-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/mysql-common@5.8%2B1.1.0?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/mysql-common@5.8%2B1.1.1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -4717,15 +5656,15 @@
         }
       ],
       "name": "mysql-common",
-      "purl": "pkg:deb/debian/mysql-common@5.8%2B1.1.0?distro=debian-12.15",
+      "purl": "pkg:deb/debian/mysql-common@5.8%2B1.1.1?distro=debian-13.7",
       "supplier": {
         "name": "Debian MySQL Maintainers <pkg-mysql-maint@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "5.8+1.1.0"
+      "version": "5.8+1.1.1"
     },
     {
-      "bom-ref": "pkg:deb/debian/ncurses-base@6.4-4?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/ncurses-base@6.5%2B20250216-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -4744,15 +5683,15 @@
         }
       ],
       "name": "ncurses-base",
-      "purl": "pkg:deb/debian/ncurses-base@6.4-4?distro=debian-12.15",
+      "purl": "pkg:deb/debian/ncurses-base@6.5%2B20250216-2?distro=debian-13.7",
       "supplier": {
-        "name": "Craig Small <csmall@debian.org>"
+        "name": "Ncurses Maintainers <ncurses@packages.debian.org>"
       },
       "type": "library",
-      "version": "6.4-4"
+      "version": "6.5+20250216-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/ncurses-bin@6.4-4?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/ncurses-bin@6.5%2B20250216-2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -4771,15 +5710,64 @@
         }
       ],
       "name": "ncurses-bin",
-      "purl": "pkg:deb/debian/ncurses-bin@6.4-4?distro=debian-12.15",
+      "purl": "pkg:deb/debian/ncurses-bin@6.5%2B20250216-2?distro=debian-13.7",
       "supplier": {
-        "name": "Craig Small <csmall@debian.org>"
+        "name": "Ncurses Maintainers <ncurses@packages.debian.org>"
       },
       "type": "library",
-      "version": "6.4-4"
+      "version": "6.5+20250216-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/openssl@3.0.22-1~deb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/netbase@6.5?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "name": "netbase",
+      "purl": "pkg:deb/debian/netbase@6.5?distro=debian-13.7",
+      "supplier": {
+        "name": "Marco d'Itri <md@linux.it>"
+      },
+      "type": "library",
+      "version": "6.5"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/openssl-provider-legacy@3.5.7-1~deb13u3?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        },
+        {
+          "license": {
+            "id": "Artistic-2.0"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-1.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "GPL-1.0-only"
+          }
+        }
+      ],
+      "name": "openssl-provider-legacy",
+      "purl": "pkg:deb/debian/openssl-provider-legacy@3.5.7-1~deb13u3?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>"
+      },
+      "type": "library",
+      "version": "3.5.7-1~deb13u3"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/openssl@3.5.7-1~deb13u3?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -4803,15 +5791,15 @@
         }
       ],
       "name": "openssl",
-      "purl": "pkg:deb/debian/openssl@3.0.22-1~deb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/openssl@3.5.7-1~deb13u3?distro=debian-13.7",
       "supplier": {
         "name": "Debian OpenSSL Team <pkg-openssl-devel@alioth-lists.debian.net>"
       },
       "type": "library",
-      "version": "3.0.22-1~deb12u1"
+      "version": "3.5.7-1~deb13u3"
     },
     {
-      "bom-ref": "pkg:deb/debian/passwd@4.13%2Bdfsg1-1%2Bdeb12u2?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/passwd@4.17.4-2?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -4826,11 +5814,6 @@
         {
           "license": {
             "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "public-domain"
           }
         },
         {
@@ -4840,15 +5823,15 @@
         }
       ],
       "name": "passwd",
-      "purl": "pkg:deb/debian/passwd@4.13%2Bdfsg1-1%2Bdeb12u2?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/passwd@4.17.4-2?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Shadow package maintainers <pkg-shadow-devel@lists.alioth.debian.org>"
       },
       "type": "library",
-      "version": "1:4.13+dfsg1-1+deb12u2"
+      "version": "1:4.17.4-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/perl-base@5.36.0-7%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/perl-base@5.40.1-6%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -4897,7 +5880,7 @@
         },
         {
           "license": {
-            "name": "RRA-KEEP-THIS-NOTICE"
+            "id": "FSFAP"
           }
         },
         {
@@ -4963,29 +5946,19 @@
         {
           "license": {
             "name": "Artistic-2"
-          }
-        },
-        {
-          "license": {
-            "name": "HSIEH-DERIVATIVE"
-          }
-        },
-        {
-          "license": {
-            "name": "HSIEH-BSD"
           }
         }
       ],
       "name": "perl-base",
-      "purl": "pkg:deb/debian/perl-base@5.36.0-7%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/perl-base@5.40.1-6%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Niko Tyni <ntyni@debian.org>"
       },
       "type": "library",
-      "version": "5.36.0-7+deb12u3"
+      "version": "5.40.1-6+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/perl-modules-5.36@5.36.0-7%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/perl-modules-5.40@5.40.1-6%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5034,7 +6007,7 @@
         },
         {
           "license": {
-            "name": "RRA-KEEP-THIS-NOTICE"
+            "id": "FSFAP"
           }
         },
         {
@@ -5100,29 +6073,19 @@
         {
           "license": {
             "name": "Artistic-2"
-          }
-        },
-        {
-          "license": {
-            "name": "HSIEH-DERIVATIVE"
-          }
-        },
-        {
-          "license": {
-            "name": "HSIEH-BSD"
           }
         }
       ],
-      "name": "perl-modules-5.36",
-      "purl": "pkg:deb/debian/perl-modules-5.36@5.36.0-7%2Bdeb12u3?distro=debian-12.15",
+      "name": "perl-modules-5.40",
+      "purl": "pkg:deb/debian/perl-modules-5.40@5.40.1-6%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Niko Tyni <ntyni@debian.org>"
       },
       "type": "library",
-      "version": "5.36.0-7+deb12u3"
+      "version": "5.40.1-6+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/perl@5.36.0-7%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/perl@5.40.1-6%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5171,7 +6134,7 @@
         },
         {
           "license": {
-            "name": "RRA-KEEP-THIS-NOTICE"
+            "id": "FSFAP"
           }
         },
         {
@@ -5237,39 +6200,29 @@
         {
           "license": {
             "name": "Artistic-2"
-          }
-        },
-        {
-          "license": {
-            "name": "HSIEH-DERIVATIVE"
-          }
-        },
-        {
-          "license": {
-            "name": "HSIEH-BSD"
           }
         }
       ],
       "name": "perl",
-      "purl": "pkg:deb/debian/perl@5.36.0-7%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/perl@5.40.1-6%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Niko Tyni <ntyni@debian.org>"
       },
       "type": "library",
-      "version": "5.36.0-7+deb12u3"
+      "version": "5.40.1-6+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/python3-minimal@3.11.2-1%2Bb1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/python3-minimal@3.13.5-1?distro=debian-13.7",
       "name": "python3-minimal",
-      "purl": "pkg:deb/debian/python3-minimal@3.11.2-1%2Bb1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/python3-minimal@3.13.5-1?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "3.11.2-1+b1"
+      "version": "3.13.5-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/python3.11-minimal@3.11.2-6%2Bdeb12u8?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/python3.13-minimal@3.13.5-2%2Bdeb13u5?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5327,16 +6280,16 @@
           }
         }
       ],
-      "name": "python3.11-minimal",
-      "purl": "pkg:deb/debian/python3.11-minimal@3.11.2-6%2Bdeb12u8?distro=debian-12.15",
+      "name": "python3.13-minimal",
+      "purl": "pkg:deb/debian/python3.13-minimal@3.13.5-2%2Bdeb13u5?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "3.11.2-6+deb12u8"
+      "version": "3.13.5-2+deb13u5"
     },
     {
-      "bom-ref": "pkg:deb/debian/python3.11@3.11.2-6%2Bdeb12u8?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/python3.13@3.13.5-2%2Bdeb13u5?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5394,26 +6347,26 @@
           }
         }
       ],
-      "name": "python3.11",
-      "purl": "pkg:deb/debian/python3.11@3.11.2-6%2Bdeb12u8?distro=debian-12.15",
+      "name": "python3.13",
+      "purl": "pkg:deb/debian/python3.13@3.13.5-2%2Bdeb13u5?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "3.11.2-6+deb12u8"
+      "version": "3.13.5-2+deb13u5"
     },
     {
-      "bom-ref": "pkg:deb/debian/python3@3.11.2-1%2Bb1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/python3@3.13.5-1?distro=debian-13.7",
       "name": "python3",
-      "purl": "pkg:deb/debian/python3@3.11.2-1%2Bb1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/python3@3.13.5-1?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "3.11.2-1+b1"
+      "version": "3.13.5-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/readline-common@8.2-1.3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/readline-common@8.2-6?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5452,15 +6405,15 @@
         }
       ],
       "name": "readline-common",
-      "purl": "pkg:deb/debian/readline-common@8.2-1.3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/readline-common@8.2-6?distro=debian-13.7",
       "supplier": {
         "name": "Matthias Klose <doko@debian.org>"
       },
       "type": "library",
-      "version": "8.2-1.3"
+      "version": "8.2-6"
     },
     {
-      "bom-ref": "pkg:deb/debian/sed@4.9-1%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/sed@4.9-2%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5509,19 +6462,46 @@
         }
       ],
       "name": "sed",
-      "purl": "pkg:deb/debian/sed@4.9-1%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/sed@4.9-2%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Clint Adams <clint@debian.org>"
       },
       "type": "library",
-      "version": "4.9-1+deb12u1"
+      "version": "4.9-2+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/sysvinit-utils@3.06-4?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/sqv@1.3.0-3%2Bb2?distro=debian-13.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.0-only"
+          }
+        }
+      ],
+      "name": "sqv",
+      "purl": "pkg:deb/debian/sqv@1.3.0-3%2Bb2?distro=debian-13.7",
+      "supplier": {
+        "name": "Debian Rust Maintainers <pkg-rust-maintainers@alioth-lists.debian.net>"
+      },
+      "type": "library",
+      "version": "1.3.0-3+b2"
+    },
+    {
+      "bom-ref": "pkg:deb/debian/sysvinit-utils@3.14-4?distro=debian-13.7",
       "licenses": [
         {
           "license": {
             "id": "GPL-2.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
@@ -5533,18 +6513,23 @@
           "license": {
             "id": "GPL-2.0-only"
           }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
         }
       ],
       "name": "sysvinit-utils",
-      "purl": "pkg:deb/debian/sysvinit-utils@3.06-4?distro=debian-12.15",
+      "purl": "pkg:deb/debian/sysvinit-utils@3.14-4?distro=debian-13.7",
       "supplier": {
         "name": "Debian sysvinit maintainers <debian-init-diversity@chiark.greenend.org.uk>"
       },
       "type": "library",
-      "version": "3.06-4"
+      "version": "3.14-4"
     },
     {
-      "bom-ref": "pkg:deb/debian/tar@1.34%2Bdfsg-1.2%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/tar@1.35%2Bdfsg-3.1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5559,6 +6544,16 @@
         {
           "license": {
             "name": "GPL-3.0-or-later WITH Bison-exception"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
           }
         },
         {
@@ -5583,15 +6578,15 @@
         }
       ],
       "name": "tar",
-      "purl": "pkg:deb/debian/tar@1.34%2Bdfsg-1.2%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/tar@1.35%2Bdfsg-3.1?distro=debian-13.7",
       "supplier": {
         "name": "Janos Lenart <ocsi@debian.org>"
       },
       "type": "library",
-      "version": "1.34+dfsg-1.2+deb12u1"
+      "version": "1.35+dfsg-3.1"
     },
     {
-      "bom-ref": "pkg:deb/debian/time@1.9-0.2?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/time@1.9-0.2?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5615,7 +6610,7 @@
         }
       ],
       "name": "time",
-      "purl": "pkg:deb/debian/time@1.9-0.2?distro=debian-12.15",
+      "purl": "pkg:deb/debian/time@1.9-0.2?distro=debian-13.7",
       "supplier": {
         "name": "Bob Proulx <bob@proulx.com>"
       },
@@ -5623,7 +6618,7 @@
       "version": "1.9-0.2"
     },
     {
-      "bom-ref": "pkg:deb/debian/tzdata@2026c-0%2Bdeb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/tzdata@2026c-0%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5632,37 +6627,15 @@
         }
       ],
       "name": "tzdata",
-      "purl": "pkg:deb/debian/tzdata@2026c-0%2Bdeb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/tzdata@2026c-0%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "GNU Libc Maintainers <debian-glibc@lists.debian.org>"
       },
       "type": "library",
-      "version": "2026c-0+deb12u1"
+      "version": "2026c-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/usr-is-merged@37~deb12u1?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        }
-      ],
-      "name": "usr-is-merged",
-      "purl": "pkg:deb/debian/usr-is-merged@37~deb12u1?distro=debian-12.15",
-      "supplier": {
-        "name": "Marco d'Itri <md@linux.it>"
-      },
-      "type": "library",
-      "version": "37~deb12u1"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/util-linux-extra@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/util-linux@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -5677,6 +6650,11 @@
         {
           "license": {
             "id": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
           }
         },
         {
@@ -5696,89 +6674,7 @@
         },
         {
           "license": {
-            "id": "BSD-3-Clause"
-          }
-        },
-        {
-          "license": {
-            "name": "BSLA"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-3.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-3.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-2.1-only"
-          }
-        },
-        {
-          "license": {
-            "id": "LGPL-3.0-only"
-          }
-        }
-      ],
-      "name": "util-linux-extra",
-      "purl": "pkg:deb/debian/util-linux-extra@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
-      "supplier": {
-        "name": "util-linux packagers <util-linux@packages.debian.org>"
-      },
-      "type": "library",
-      "version": "2.38.1-5+deb12u3"
-    },
-    {
-      "bom-ref": "pkg:deb/debian/util-linux@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
-      "licenses": [
-        {
-          "license": {
-            "id": "GPL-2.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-2.0-only"
-          }
-        },
-        {
-          "license": {
-            "id": "GPL-3.0-or-later"
-          }
-        },
-        {
-          "license": {
-            "name": "public-domain"
-          }
-        },
-        {
-          "license": {
-            "id": "BSD-4-Clause"
-          }
-        },
-        {
-          "license": {
-            "id": "MIT"
+            "id": "ISC"
           }
         },
         {
@@ -5798,7 +6694,7 @@
         },
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "id": "BSD-2-Clause"
           }
         },
         {
@@ -5828,15 +6724,15 @@
         }
       ],
       "name": "util-linux",
-      "purl": "pkg:deb/debian/util-linux@2.38.1-5%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/util-linux@2.41.5-0%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
-        "name": "util-linux packagers <util-linux@packages.debian.org>"
+        "name": "Chris Hofstaedtler <zeha@debian.org>"
       },
       "type": "library",
-      "version": "2.38.1-5+deb12u3"
+      "version": "2.41.5-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/zlib1g@1.2.13.dfsg-1?distro=debian-12.15&epoch=1",
+      "bom-ref": "pkg:deb/debian/zlib1g@1.3.dfsg%2Breally1.3.1-1%2Bb1?distro=debian-13.7&epoch=1",
       "licenses": [
         {
           "license": {
@@ -5845,12 +6741,12 @@
         }
       ],
       "name": "zlib1g",
-      "purl": "pkg:deb/debian/zlib1g@1.2.13.dfsg-1?distro=debian-12.15&epoch=1",
+      "purl": "pkg:deb/debian/zlib1g@1.3.dfsg%2Breally1.3.1-1%2Bb1?distro=debian-13.7&epoch=1",
       "supplier": {
         "name": "Mark Brown <broonie@debian.org>"
       },
       "type": "library",
-      "version": "1:1.2.13.dfsg-1"
+      "version": "1:1.3.dfsg+really1.3.1-1+b1"
     }
   ],
   "metadata": {

@@ -3615,7 +3615,7 @@
       "version": "0.17029-2"
     },
     {
-      "bom-ref": "pkg:deb/debian/libexpat1@2.5.0-1%2Bdeb12u3?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/libexpat1@2.5.0-1%2Bdeb12u4?distro=debian-12.15",
       "licenses": [
         {
           "license": {
@@ -3624,12 +3624,12 @@
         }
       ],
       "name": "libexpat1",
-      "purl": "pkg:deb/debian/libexpat1@2.5.0-1%2Bdeb12u3?distro=debian-12.15",
+      "purl": "pkg:deb/debian/libexpat1@2.5.0-1%2Bdeb12u4?distro=debian-12.15",
       "supplier": {
         "name": "Laszlo Boszormenyi (GCS) <gcs@debian.org>"
       },
       "type": "library",
-      "version": "2.5.0-1+deb12u3"
+      "version": "2.5.0-1+deb12u4"
     },
     {
       "bom-ref": "pkg:deb/debian/libext2fs2@1.47.0-2%2Bb2?distro=debian-12.15",
