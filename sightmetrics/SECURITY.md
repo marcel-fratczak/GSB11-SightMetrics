@@ -1,11 +1,14 @@
+> 🇩🇪 [Deutsche Fassung](SECURITY.de.md)
+
 # Security Policy
 
 ## Supported versions
 
 | Version | Supported |
 |---|---|
-| 1.3.x | ✅ |
-| < 1.3 | ❌ (please upgrade) |
+| 2.1.x | ✅ |
+| 2.0.x | ✅ (security fixes only) |
+| < 2.0 | ❌ (please upgrade; the cube schema changed with 2.0) |
 
 Supported platform range: TYPO3 13.4 LTS / 14, PHP 8.2–8.4 (see
 `extension/sight_metrics/composer.json`).
@@ -14,7 +17,7 @@ Supported platform range: TYPO3 13.4 LTS / 14, PHP 8.2–8.4 (see
 
 Please **do not** open a public GitHub issue for security problems.
 
-- Preferred: [GitHub private vulnerability reporting](https://github.com/TheMIghtyNighty/SightMetrics/security/advisories/new)
+- Preferred: [GitHub private vulnerability reporting](https://github.com/TheMightyNighty/SightMetrics/security/advisories/new)
 - Alternatively by e-mail: robert.schleiermacher@gmail.com (subject prefix `[SECURITY]`)
 
 Please include: affected component (TYPO3 extension `sight_metrics` or the

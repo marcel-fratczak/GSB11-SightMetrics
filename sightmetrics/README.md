@@ -1,3 +1,5 @@
+> 🇩🇪 [Deutsche Fassung](README.de.md)
+
 # SightMetrics – privacy-friendly web access analytics
 
 SightMetrics analyzes **web server logs** (Apache/nginx) and presents the
@@ -52,7 +54,7 @@ for public-sector and government use (GDPR/BSI).
 | `ingestion/` | **Package A – ingestion/analytics (DuckDB)**, the operational part. Log parser, aggregation SQL, import scripts, GeoIP data, the DuckDB binary. Sole writer of the cube DB. → [`ingestion/README.md`](ingestion/README.md) |
 | `extension/` | **Package B – TYPO3 reporting extension** `sight_metrics`. Read-only backend module, no DuckDB. → [`extension/README.md`](extension/README.md) |
 | `demo/` | **Disposable stack** to try things out: TYPO3 v13 + MariaDB (cube DB) via Docker Compose. Not for production. |
-| `docs/` | Detailed documentation: [extension handbook](docs/extension-handbuch.md) (developer/admin) · [ingestion runbook](docs/ingestion-runbook.md) (ops) · [Matomo import](docs/matomo-import.md). |
+| `docs/` | Detailed documentation: [ingestion runbook](docs/ingestion-runbook.md) (ops) · [Matomo import](docs/matomo-import.md). |
 | `logs/` | Sample/test logs. |
 
 ---
@@ -134,6 +136,11 @@ Details, mapping, and limitations: [`docs/matomo-import.md`](docs/matomo-import.
   (English/German)
 - **Bot/crawler filter** — only human visitors are counted; status codes
   also show 4xx/5xx for error diagnosis
+- **Anonymized at import** — IPv4 addresses lose their last octet, IPv6 is
+  truncated to `/48`, and query strings are dropped from the requested URL
+  *and* from the referrer before anything is aggregated. Not a toggle: no
+  query parameter ever reaches the cube (see
+  [runbook §16](docs/ingestion-runbook.md#16-privacy--bsi-notes))
 
 Data quality and robustness of the ingestion (each switchable/optional):
 
@@ -179,13 +186,28 @@ running container immediately, no copy/sync step needed.
 
 ## Technology stack
 
-TYPO3 v13.4 LTS / v14 · PHP 8.2–8.4 · DuckDB 1.5.4 (static binary in
+TYPO3 v13.4 LTS / v14 · PHP 8.2–8.4 · DuckDB 1.5.6 (static binary in
 `ingestion/bin/`) · MariaDB · [Chart.js](https://www.chartjs.org/)
 (trend/hourly chart) · [Leaflet](https://leafletjs.com/) (visitor map). The
 backend module frontend consists of native ES modules (no build step),
 loaded via TYPO3's `JavaScriptModules.php`.
 
 ---
+
+## Releasing
+
+1. Bump `extension/sight_metrics/ext_emconf.php`, the `<project>` release in
+   `Documentation/guides.xml` and the `CHANGELOG.md` heading to the new
+   version, then run `./run-tests.sh`.
+2. Tag it: `git tag -a v2.1.1 -m "SightMetrics 2.1.1" && git push --tags`.
+
+The tag triggers two workflows: `image.yml` builds and pushes the ingestion
+image to GHCR, `ter.yml` publishes the extension to the TER. The TER job
+checks the tag against `ext_emconf.php` and the CHANGELOG first and skips
+itself (without failing) while the repository secret `TYPO3_API_TOKEN` is
+missing. It needs the extension key `sight_metrics` registered on
+extensions.typo3.org and a typo3.org access token with the scope
+`extension:write`.
 
 ## Versioning & upgrades
 
@@ -199,3 +221,14 @@ The extension follows SemVer; the cube DB carries its own schema version
 > re-import. Extension 2.x refuses older data with a clear message.
 > Details: [`docs/SCHEMA.md`](docs/SCHEMA.md) and
 > [`CHANGELOG`](extension/sight_metrics/CHANGELOG.md).
+
+## License
+
+SightMetrics is licensed under the
+[GNU General Public License v2.0 or later](LICENSE) (`GPL-2.0-or-later`),
+© 2026 Robert Schleiermacher. Third-party files bundled with the extension
+(Chart.js, Leaflet, map data) keep their own licenses, see
+[`NOTICE.md`](extension/sight_metrics/Resources/Public/Vendor/NOTICE.md) and
+`extension/sight_metrics/REUSE.toml`. Bot and browser/OS patterns from
+matomo/device-detector (LGPL-3.0-or-later) and geo databases are not part of
+the repository or the image; they are fetched or mounted at runtime.

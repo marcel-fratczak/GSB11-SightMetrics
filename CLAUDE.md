@@ -65,7 +65,12 @@ die Zugriffsauswertung SightMetrics. Hervorgegangen aus T3UD-GSB11
 - **Lokale Abweichung vom Upstream:** `sightmetrics/ingestion/Dockerfile` hat
   zusätzlich `apt-get upgrade -y`. Ohne das fällt das Image durch das
   Trivy-Gate (am 2026-09-13: 4 behebbare `pcre2`-CVEs aus `debian:bookworm-slim`).
-  Beim Subtree-Pull erhalten, bis es upstream übernommen ist.
+  Beim Subtree-Pull erhalten, bis es upstream übernommen ist – beim Pull auf
+  2.1.1 (2026-09-30, Basis `debian:trixie-slim`) gab es genau dort einen
+  Merge-Konflikt.
+- **Ab SightMetrics 2.1 anonymisiert die Ingestion selbst** (`anonymize.sql`:
+  IPv4 /24, IPv6 /48, Query-Strings weg). `SM_URL_KEEP_PARAMS` wird hier nicht
+  gebraucht – der GSB11 nutzt Slug-URLs.
 - **Extension:** `sightmetrics/extension/sight_metrics` ist in `web` und `php`
   unter `/packages/sight_metrics` eingehängt (gleicher Pfad in beiden, weil
   die `_assets`-Symlinks über `vendor/` dorthin zeigen). `setup.sh` bindet sie
@@ -156,6 +161,12 @@ Das Repository ist öffentlich und bezieht sich auf eine reale Veranstaltung:
 - **Variable im `access_log`-Pfad:** nginx prüft dann das `root`-Verzeichnis
   und schreibt ohne existierendes `root` still nichts. Der Worker (`nginx`)
   legt die Dateien an – das Verzeichnis muss ihm gehören.
+- **container.gov.de ist kein Drop-in-Ersatz** (geprüft 2026-09-30, Details
+  in `docs/container-images.md`): alle Images nur amd64, kein PHP-Image,
+  MariaDB nicht gelistet, das gelistete Debian ist ein Scratch-Seed ohne Shell.
+  Das gelistete nginx (Bundesdruckerei) läuft unprivilegiert auf Port 8080.
+  Der Katalog steckt in `https://container.gov.de/data.json` und
+  `baseimages.json` – die Startseite rendert ihn per JavaScript.
 - **TYPO3 wertet `X-Forwarded-For` nur mit `reverseProxyHeaderMultiValue`
   aus** (Standard `none`). Ohne `last` sieht auch die IP-basierte
   Login-Sperre alle Besucher unter der Proxy-Adresse.

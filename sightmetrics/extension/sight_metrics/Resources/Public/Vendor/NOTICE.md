@@ -6,6 +6,8 @@ siehe `REUSE.toml` (Extension-Root).
 ## Chart.js (chart.umd.min.js)
 - Version: 4.5.1
 - Lizenz: MIT. Copyright (c) 2014-2025 Chart.js Contributors.
+- Enthält gebündelt **@kurkle/color** v0.3.2 (MIT, Copyright (c) 2018-2024 Jukka Kurkela,
+  https://github.com/kurkle/color); der Lizenzhinweis steht als Kommentar im Bundle.
 - Quelle: https://www.chartjs.org / https://github.com/chartjs/Chart.js
 - Bezogen ueber npm (`devDependencies` in `package.json`, versionsgepinnt via
   `package-lock.json`); Datei kopiert aus `node_modules/chart.js/dist/chart.umd.min.js`
@@ -58,9 +60,7 @@ siehe `REUSE.toml` (Extension-Root).
   Interpolation des Kreuzungspunkts). Die Antarktis (komplexere Pol-Wickel-Geometrie mit
   Loch-Ring, fuer Web-Analytics-Besucherdaten ohnehin irrelevant) wurde entfernt statt
   gesplittet. Ergebnis: 240 statt 241 Features, ~1,33 MB statt ~1,4 MB.
-- Ersetzt die urspruengliche `world.js` (ECharts-Weltkarten-Datensatz seit dem allerersten
-  Commit im Repo, Herkunft nicht mehr rekonstruierbar, Lizenzangabe war eine unverifizierte
-  Annahme statt einer belegten Quelle — siehe ROADMAP.md Finding 5).
+- Ersetzt die urspruengliche `world.js`, deren Herkunft und Lizenz nicht belegt waren.
 
 ## Aktualisieren (Chart.js/Leaflet)
 `npm install` (respektiert `package-lock.json`) gefolgt von `npm run vendor:update`

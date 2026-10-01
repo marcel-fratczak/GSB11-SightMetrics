@@ -16,7 +16,7 @@ jobs:
         php: ['8.2', '8.3', '8.4']
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: PHP ${{ matrix.php }} einrichten
         uses: shivammathur/setup-php@v2
@@ -25,15 +25,18 @@ jobs:
           tools: composer:v2
           coverage: none
 
-      - name: Composer-Cache-Key
-        id: cache-key
-        run: echo "key=${{ hashFiles('extension/sight_metrics/composer.json') }}" >> "$GITHUB_OUTPUT"
+      # Nur den Download-Cache, nicht vendor/: ohne composer.lock wird bei jedem
+      # Lauf neu aufgeloest, und ein veraltetes vendor/ (samt Composer-Plugins)
+      # bricht beim Update auf neue Major-Versionen.
+      - name: Composer-Cache-Verzeichnis
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
 
       - name: Composer-Cache laden
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
-          path: extension/sight_metrics/vendor
-          key: composer-${{ matrix.php }}-${{ steps.cache-key.outputs.key }}
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ matrix.php }}-${{ hashFiles('extension/sight_metrics/composer.json') }}
           restore-keys: composer-${{ matrix.php }}-
 
       - name: composer install
@@ -68,13 +71,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - name: DuckDB v1.5.4 herunterladen
+      - name: DuckDB v1.5.6 herunterladen
         run: |
           mkdir -p ingestion/bin
           curl -fsSL -o /tmp/duckdb.zip \
-            https://github.com/duckdb/duckdb/releases/download/v1.5.4/duckdb_cli-linux-amd64.zip
+            https://github.com/duckdb/duckdb/releases/download/v1.5.6/duckdb_cli-linux-amd64.zip
           unzip -o /tmp/duckdb.zip duckdb -d ingestion/bin/
           chmod +x ingestion/bin/duckdb
 
@@ -99,10 +102,10 @@ jobs:
           - typo3: '^13.4'
             tf: '^8.0'
           - typo3: '^14.0'
-            tf: '^9.0'
+            tf: '^9.7'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: PHP ${{ matrix.php }} einrichten
         uses: shivammathur/setup-php@v2
@@ -132,19 +135,28 @@ jobs:
 
   # ---- Job 4: E2E (Demo-Stack + Puppeteer, echtes TYPO3-Backend) -------------
   e2e:
-    name: "E2E (TYPO3-Backend, Puppeteer)"
+    name: "E2E (TYPO3 v${{ matrix.typo3 }}-Backend, Puppeteer)"
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        # v13: Demo-App wie committet (composer.lock); v14: frisch aufgeloest.
+        typo3: ['13', '14']
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+
+      - name: Demo-App auf TYPO3 v14 umstellen
+        if: matrix.typo3 == '14'
+        run: bash demo/use-typo3-v14.sh
 
       - name: DuckDB CLI laden (ingestion/bin/duckdb)
         working-directory: ingestion
         run: |
           mkdir -p bin
           curl -fsSL -o /tmp/duckdb.zip \
-            https://github.com/duckdb/duckdb/releases/download/v1.5.4/duckdb_cli-linux-amd64.zip
+            https://github.com/duckdb/duckdb/releases/download/v1.5.6/duckdb_cli-linux-amd64.zip
           unzip -o /tmp/duckdb.zip duckdb -d bin/
           chmod +x bin/duckdb
 
@@ -177,6 +189,9 @@ jobs:
             sleep 2
           done
           echo "TYPO3-Backend nicht erreichbar"; docker logs sightmetrics-web | tail -50; exit 1
+
+      - name: TYPO3-Version
+        run: docker exec sightmetrics-web php vendor/bin/typo3 --version
 
       - name: Smoke (TYPO3 CLI, read-only Cube)
         run: docker exec sightmetrics-web php vendor/bin/typo3 sightmetrics:smoke

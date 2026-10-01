@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the TYPO3 CMS extension "sight_metrics".
+ *
+ * SPDX-FileCopyrightText: 2026 Robert Schleiermacher
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 declare(strict_types=1);
 
 namespace SightMetrics\Domain\Repository;
@@ -50,7 +57,7 @@ final class CubeRepository
     {
         try {
             $conf = $this->extensionConfiguration->get('sight_metrics');
-            if (\is_array($conf) && isset($conf['cacheLifetime']) && $conf['cacheLifetime'] !== '') {
+            if (is_array($conf) && isset($conf['cacheLifetime']) && $conf['cacheLifetime'] !== '') {
                 return max(0, Params::toInt($conf['cacheLifetime']));
             }
         } catch (\Throwable) {
@@ -218,11 +225,11 @@ final class CubeRepository
     /**
      * Top-N rows of a dimension, sorted descending by $metric ('pv' or 'v').
      * For server-side Top-N + lazy-loading on high-cardinality dimensions (see
-     * TopNDims/ROADMAP.md). $parentKey: if set, only child rows of this parent category
+     * TopNDims). $parentKey: if set, only child rows of this parent category
      * (drill-down, 'parent' column) -- see applyParentFilter().
      *
      * $windowLabel: optional preset label the client claims [$from,$bis] corresponds
-     * to (docs/topn-precompute-spec.md). Only used to serve from the precomputed
+     * to (docs/SCHEMA.md, table topn). Only used to serve from the precomputed
      * `topn` table when it verifiably matches (TopNWindows::boundsFor()) AND the
      * requested page lies within the precomputed top-100 ($offset+$limit<=100);
      * any mismatch or precomputed-table miss falls back to the live query below
@@ -294,7 +301,7 @@ final class CubeRepository
     }
 
     /**
-     * Serves topN() from the precomputed `topn` table (docs/topn-precompute-spec.md)
+     * Serves topN() from the precomputed `topn` table (docs/SCHEMA.md)
      * when $windowLabel verifiably corresponds to [$from,$bis] (TopNWindows::boundsFor()).
      * Returns null (defer to the live query in topN()) on any mismatch, or if the
      * table simply hasn't been populated yet for this (site, window, dim, parent) --
@@ -362,9 +369,9 @@ final class CubeRepository
             $this->applyParentFilter($qb, $parentKey);
             $row = $qb->executeQuery()->fetchAssociative();
             return [
-                'pv' => Params::toInt(\is_array($row) ? ($row['pv'] ?? null) : null),
-                'v' => Params::toInt(\is_array($row) ? ($row['v'] ?? null) : null),
-                'count' => Params::toInt(\is_array($row) ? ($row['cnt'] ?? null) : null),
+                'pv' => Params::toInt(is_array($row) ? ($row['pv'] ?? null) : null),
+                'v' => Params::toInt(is_array($row) ? ($row['v'] ?? null) : null),
+                'count' => Params::toInt(is_array($row) ? ($row['cnt'] ?? null) : null),
             ];
         });
         return $summary;

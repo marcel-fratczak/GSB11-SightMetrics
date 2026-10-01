@@ -126,7 +126,10 @@ von den Adressen in `REVERSE_PROXY_IP` (siehe
 [`docs/reverse-proxy.md`](docs/reverse-proxy.md)).
 
 **Datenschutz:** Die Tagesdateien enthalten vollständige IP-Adressen, die
-Cube-DB nicht. Nach jedem erfolgreichen Import löscht das Skript Tagesdateien,
+Cube-DB nicht. Die Ingestion kürzt IP-Adressen direkt nach dem Einlesen
+(IPv4 auf `a.b.c.0`, IPv6 auf das `/48`-Präfix) und verwirft Query-Strings in
+URL und Referrer, bevor Länderzuordnung, Besuchererkennung und Aggregation
+laufen. Nach jedem erfolgreichen Import löscht das Skript Tagesdateien,
 die älter als `SM_LOG_RETENTION_DAYS` (Standard 7) sind. Die passende Frist
 gehört mit der oder dem Datenschutzbeauftragten abgestimmt.
 
@@ -163,8 +166,9 @@ git subtree pull --prefix=sightmetrics git@github.com:TheMightyNighty/SightMetri
 Die Extension ist live eingehängt; nach einem Update genügen
 `docker compose exec -u www-data php vendor/bin/typo3 extension:setup` und ein
 `docker compose build sightmetrics` für die Ingestion. Ausführliche
-Dokumentation liegt im Subtree: [Extension-Handbuch](sightmetrics/docs/extension-handbuch.md),
-[Ingestion-Runbook](sightmetrics/docs/ingestion-runbook.md).
+Dokumentation liegt im Subtree: [SightMetrics-Überblick](sightmetrics/README.de.md),
+[Ingestion-Runbook](sightmetrics/docs/ingestion-runbook.de.md),
+[Änderungsprotokoll](sightmetrics/extension/sight_metrics/CHANGELOG.md).
 
 ---
 
@@ -175,7 +179,11 @@ Dokumentation liegt im Subtree: [Extension-Handbuch](sightmetrics/docs/extension
 | `web` | eigenes Image (`nginx:stable-alpine` + `apk upgrade`) | Auslieferung des Docroot `.build/public`, FastCGI-Proxy |
 | `php` | eigenes Image (`php:8.3-fpm` + GSB-Erweiterungen und Werkzeuge) | PHP-Ausführung |
 | `db` | `mariadb:10.11` | Datenbanken `gsb11` und `analytics` (Cube-DB) |
-| `sightmetrics` | eigenes Image (`debian:bookworm-slim` + DuckDB, UID 10001) | Einmal-Container für den Log-Import, Profil `sightmetrics` |
+| `sightmetrics` | eigenes Image (`debian:trixie-slim` + DuckDB, UID 10001) | Einmal-Container für den Log-Import, Profil `sightmetrics` |
+
+Gehärtete Images aus dem Verzeichnis [container.gov.de](https://container.gov.de/)
+wurden geprüft; derzeit ersetzt keines davon ein Image des Stacks ohne Umbau.
+Befunde und Umstellungsaufwand: [`docs/container-images.md`](docs/container-images.md).
 
 Der GSB11 liegt per Bind-Mount in `./app` – wie beim offiziellen DDEV-Workflow,
 nur ohne DDEV. Die Datenbank liegt im Volume `db-data`, das Access-Log für
@@ -285,7 +293,7 @@ MEDIUM/HIGH/CRITICAL):
 |------|----------|
 | `docker/php` (Debian 12, PHP 8.3) | 0 behebbare Funde |
 | `docker/nginx` (Alpine 3.24.1) | 0 behebbare Funde |
-| `sightmetrics/ingestion` (Debian 12, DuckDB 1.5.4) | 0 behebbare Funde (geprüft am 13.09.2026, siehe unten) |
+| `sightmetrics/ingestion` (Debian 13, DuckDB 1.5.6) | 0 behebbare Funde (geprüft am 30.09.2026, siehe unten) |
 | `mariadb:10.11` | 4 MEDIUM (Ubuntu-Pakete) + 37 in `usr/local/bin/gosu` |
 | Konfiguration (Dockerfiles, Compose) | 0 nach dokumentierten Ausnahmen |
 | Secret-Scan über das Repository | 0 |
@@ -375,10 +383,10 @@ Die Container-Konfiguration und der Democontent dieses Repositorys ebenfalls
 GPL-3.0-or-later, siehe [`LICENSE`](LICENSE).
 
 SightMetrics unter [`sightmetrics/`](sightmetrics/) stammt von Robert
-Schleiermacher. Die TYPO3-Extension steht unter
-[GPL-2.0-or-later](sightmetrics/extension/sight_metrics/LICENSE); das
-SightMetrics-Repository selbst enthält keine übergreifende Lizenzdatei für die
-übrigen Teile (Ingestion, Dokumentation).
+Schleiermacher und steht unter
+[GPL-2.0-or-later](sightmetrics/LICENSE); mitgelieferte Fremddateien der
+Extension behalten ihre eigenen Lizenzen (siehe
+[`sightmetrics/README.de.md`](sightmetrics/README.de.md#lizenz)).
 
 Dieses Repository ist ein privates Demonstrationsprojekt. Es ist weder ein
 offizielles Angebot des ITZBund noch der TYPO3 University Days.
@@ -414,8 +422,14 @@ The stack also ships **SightMetrics** (included as a `git subtree` under
 nginx writes a second access log, a one-shot DuckDB ingestion container
 aggregates it into the cube database `analytics`, and the TYPO3 extension
 `sight_metrics` shows the dashboard under **Web > SightMetrics**, reading with a
-SELECT-only user. Run `./scripts/sightmetrics-import.sh --heute` to include
+SELECT-only user. IP addresses are truncated and query strings dropped at
+import. Run `./scripts/sightmetrics-import.sh --heute` to include
 today's page views, or without options from cron for completed days.
+
+Hardened images from [container.gov.de](https://container.gov.de/) were
+evaluated; none currently replaces a stack image without rework (all amd64
+only, no PHP image, MariaDB not listed) — see
+[`docs/container-images.md`](docs/container-images.md).
 
 Weekly Trivy scans (images, configuration, secrets), weekly Dependabot updates
 and a normalised CycloneDX SBOM per image run in GitHub Actions. Prompts and

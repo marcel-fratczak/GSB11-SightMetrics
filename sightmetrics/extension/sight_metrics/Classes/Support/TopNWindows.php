@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * This file is part of the TYPO3 CMS extension "sight_metrics".
+ *
+ * SPDX-FileCopyrightText: 2026 Robert Schleiermacher
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 declare(strict_types=1);
 
 namespace SightMetrics\Support;
 
 /**
  * Boundaries of the preset windows the ingestion precomputes into `topn`
- * (docs/topn-precompute-spec.md). Mirrors presets.js applyPreset() exactly --
+ * (docs/SCHEMA.md, table topn). Mirrors presets.js applyPreset() exactly --
  * anchor = min(today in the site's timezone, meta.bis), never later than the
  * newest imported day, clamped into [meta.von, meta.bis]. Used by
  * CubeRepository::topN() to verify that a client-supplied `window` label
@@ -15,10 +22,9 @@ namespace SightMetrics\Support;
  */
 final class TopNWindows
 {
-    private function __construct() {}
-
     /** Window labels the ingestion precomputes (sink_mysql.sql). */
     public const SUPPORTED = ['last30', 'last90', 'last365', 'thisyear', 'lastyear', 'all'];
+    private function __construct() {}
 
     /**
      * @return array{0: string, 1: string}|null [from, to] (ISO), or null if $window
