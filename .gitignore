@@ -10,9 +10,5 @@
 /docker/sightmetrics/geo/*.csv
 !/docker/sightmetrics/geo/country-ipv4-num.csv
 
-# Werkzeug-Konfiguration des Entwicklungsrechners
-# Local tooling configuration
-/.claude/
-
 # macOS
 .DS_Store
