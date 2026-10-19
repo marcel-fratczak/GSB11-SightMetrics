@@ -327,7 +327,7 @@
       "version": "9.7-3"
     },
     {
-      "bom-ref": "pkg:deb/debian/curl@8.14.1-2%2Bdeb13u5?distro=debian-13.7",
+      "bom-ref": "pkg:deb/debian/curl@8.14.1-2%2Bdeb13u7?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -386,12 +386,12 @@
         }
       ],
       "name": "curl",
-      "purl": "pkg:deb/debian/curl@8.14.1-2%2Bdeb13u5?distro=debian-13.7",
+      "purl": "pkg:deb/debian/curl@8.14.1-2%2Bdeb13u7?distro=debian-13.7",
       "supplier": {
         "name": "Debian Curl Maintainers <team+curl@tracker.debian.org>"
       },
       "type": "library",
-      "version": "8.14.1-2+deb13u5"
+      "version": "8.14.1-2+deb13u7"
     },
     {
       "bom-ref": "pkg:deb/debian/dash@0.5.12-12?distro=debian-13.7",
@@ -1904,7 +1904,7 @@
       "version": "1:4.4.38-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libcurl4t64@8.14.1-2%2Bdeb13u5?distro=debian-13.7",
+      "bom-ref": "pkg:deb/debian/libcurl4t64@8.14.1-2%2Bdeb13u7?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -1963,12 +1963,12 @@
         }
       ],
       "name": "libcurl4t64",
-      "purl": "pkg:deb/debian/libcurl4t64@8.14.1-2%2Bdeb13u5?distro=debian-13.7",
+      "purl": "pkg:deb/debian/libcurl4t64@8.14.1-2%2Bdeb13u7?distro=debian-13.7",
       "supplier": {
         "name": "Debian Curl Maintainers <team+curl@tracker.debian.org>"
       },
       "type": "library",
-      "version": "8.14.1-2+deb13u5"
+      "version": "8.14.1-2+deb13u7"
     },
     {
       "bom-ref": "pkg:deb/debian/libdb5.3t64@5.3.28%2Bdfsg2-9?distro=debian-13.7",
@@ -2082,7 +2082,7 @@
       "version": "3.1-20250104-1"
     },
     {
-      "bom-ref": "pkg:deb/debian/libexpat1@2.8.3-1~deb13u1?distro=debian-13.7",
+      "bom-ref": "pkg:deb/debian/libexpat1@2.9.0-1~deb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -2091,12 +2091,12 @@
         }
       ],
       "name": "libexpat1",
-      "purl": "pkg:deb/debian/libexpat1@2.8.3-1~deb13u1?distro=debian-13.7",
+      "purl": "pkg:deb/debian/libexpat1@2.9.0-1~deb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Laszlo Boszormenyi (GCS) <gcs@debian.org>"
       },
       "type": "library",
-      "version": "2.8.3-1~deb13u1"
+      "version": "2.9.0-1~deb13u1"
     },
     {
       "bom-ref": "pkg:deb/debian/libffi8@3.4.8-2?distro=debian-13.7",
