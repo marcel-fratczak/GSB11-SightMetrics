@@ -433,7 +433,7 @@
       "version": "1.0.8-5+b1"
     },
     {
-      "bom-ref": "pkg:deb/debian/ca-certificates@20250419~deb12u1?distro=debian-12.15",
+      "bom-ref": "pkg:deb/debian/ca-certificates@20250419~deb12u2?distro=debian-12.15",
       "licenses": [
         {
           "license": {
@@ -452,12 +452,12 @@
         }
       ],
       "name": "ca-certificates",
-      "purl": "pkg:deb/debian/ca-certificates@20250419~deb12u1?distro=debian-12.15",
+      "purl": "pkg:deb/debian/ca-certificates@20250419~deb12u2?distro=debian-12.15",
       "supplier": {
         "name": "Julien Cristau <jcristau@debian.org>"
       },
       "type": "library",
-      "version": "20250419~deb12u1"
+      "version": "20250419~deb12u2"
     },
     {
       "bom-ref": "pkg:deb/debian/coreutils@9.1-1?distro=debian-12.15",

@@ -253,7 +253,7 @@
       "version": "1:2.41.5-0+deb13u1"
     },
     {
-      "bom-ref": "pkg:deb/debian/ca-certificates@20250419?distro=debian-13.7",
+      "bom-ref": "pkg:deb/debian/ca-certificates@20250419%2Bdeb13u1?distro=debian-13.7",
       "licenses": [
         {
           "license": {
@@ -272,12 +272,12 @@
         }
       ],
       "name": "ca-certificates",
-      "purl": "pkg:deb/debian/ca-certificates@20250419?distro=debian-13.7",
+      "purl": "pkg:deb/debian/ca-certificates@20250419%2Bdeb13u1?distro=debian-13.7",
       "supplier": {
         "name": "Julien Cristau <jcristau@debian.org>"
       },
       "type": "library",
-      "version": "20250419"
+      "version": "20250419+deb13u1"
     },
     {
       "bom-ref": "pkg:deb/debian/coreutils@9.7-3?distro=debian-13.7",
