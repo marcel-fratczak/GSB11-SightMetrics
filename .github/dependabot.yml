@@ -54,18 +54,21 @@ updates:
     # Ein automatischer Sprung auf eine neuere Minor-Version erzeugt einen
     # PR, der nicht einmal baut – nachgewiesen am 2026-09-02, als Dependabot
     # 8.3 → 8.5 vorschlug und 'docker-php-ext-install' fehlschlug.
-    # Sicherheitspatches kommen ohnehin nicht über Dependabot: Das Tag
-    # '8.3-fpm-bookworm' ist rollend, und 'pull: true' in compose.yaml zieht
-    # bei jedem Rebuild das aktuell gepatchte Image.
+    # Patch-Releases (Sicherheitsfixes) sind dagegen erwünscht: Seit
+    # CVE-2026-109618/-109619 (2026-10-21) ist die Patch-Version im Dockerfile
+    # gepinnt, damit der Fix im Repository nachvollziehbar ist und kein Build
+    # auf einem veralteten Base-Image landet. Dependabot schlägt jedes neue
+    # 8.3.x als PR vor.
     # Ein Wechsel der PHP-Version gehört bewusst gemacht – zusammen mit einem
     # TYPO3-Upgrade und einem grünen Smoke-Test.
     #
     # The PHP version is not a freely updatable dependency: it follows the
     # TYPO3 LTS support range (13.4: PHP 8.2-8.4) and what the GSB11
     # kickstarter itself uses. An automatic minor bump produces a PR that does
-    # not even build (observed 2026-09-02, 8.3 -> 8.5). Security patches do not
-    # arrive via Dependabot anyway - the tag is a rolling one and 'pull: true'
-    # fetches the patched image on every rebuild.
+    # not even build (observed 2026-09-02, 8.3 -> 8.5). Patch releases
+    # (security fixes) are wanted: since CVE-2026-109618/-109619 (2026-10-21)
+    # the patch version is pinned in the Dockerfile so the fix is traceable and
+    # no build lands on a stale base image. Dependabot proposes every new 8.3.x.
     ignore:
       - dependency-name: php
         update-types:

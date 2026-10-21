@@ -19,7 +19,7 @@ in `registry.opencode.de`:
 | Service | Image heute | Gelistetes Gegenstück | Bewertung |
 |---------|-------------|-----------------------|-----------|
 | `web` | `nginx:stable-alpine` | `bundesdruckerei-gmbh/plain-images/nginx:1.31-alpine` | Grundsätzlich möglich, aber kein Drop-in (siehe unten) |
-| `php` | `php:8.3-fpm-bookworm` | – | Kein PHP-Image im Verzeichnis |
+| `php` | `php:8.3.36-fpm-bookworm` | – | Kein PHP-Image im Verzeichnis |
 | `db` | `mariadb:10.11` | – | Nur `oci-community/images/zendis/mariadb` (10.11.14, 11.8.6) in der Registry, **nicht gelistet** |
 | `sightmetrics` | `debian:trixie-slim` | `oci-community/images/auswaertiges-amt/debian:13.7` | Kein Drop-in: Deb2Scratch-Seed ohne Shell und Paketverwaltung |
 
