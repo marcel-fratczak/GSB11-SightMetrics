@@ -10,7 +10,11 @@
 # PHP 8.3). Packages and PHP extensions mirror the kickstarter's official DDEV
 # web image; the redis PHP extension is mandatory for EXT:gsb_core.
 
-FROM php:8.3-fpm-bookworm
+# Patch-Version fest gepinnt: 8.3.36 schließt CVE-2026-109618/-109619
+# ("PHP2Shell", RCE, CVSS 9.2). Neue Patch-Releases schlägt Dependabot vor.
+# Patch version pinned: 8.3.36 fixes CVE-2026-109618/-109619 ("PHP2Shell",
+# RCE, CVSS 9.2). Dependabot proposes subsequent patch releases.
+FROM php:8.3.36-fpm-bookworm
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
         default-mysql-client \
